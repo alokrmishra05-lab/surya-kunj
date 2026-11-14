@@ -17,18 +17,14 @@
    खाली ('') रहने पर उस जगह [ ] वाला खाका दिखेगा।
    ===================================================================== */
 window.INFO = {
-  phone: '',          // मोबाइल नंबर, जैसे '9876543210'
-  whatsapp: '',       // WhatsApp नंबर (देश कोड सहित, बिना +), जैसे '919876543210'
-  firm: '',           // डेवलपर / फ़र्म का नाम
-  office: '',         // कार्यालय का पता
   rera: '',           // UP RERA पंजीकरण संख्या
-  mapUrl: '',         // साइट का Google Maps लिंक
-  price: { s: '', m: '', l: '' }  // ≈1000, ≈1125–1340, 1500 वर्ग फ़ुट प्लॉट का मूल्य, जैसे '₹ 2,500 / वर्ग फ़ुट'
+  mapUrl: ''          // साइट का Google Maps लिंक
 };
 </script>
 <style>
   :root{--paper:#FBF7F1;--stone:#E2B79C;--stone2:#F3E4D3;--maroon:#7A2E2A;--maroon2:#5E211E;--saffron:#E8781E;--gold:#C9A045;--ink:#2A1A14;--mut:#5E4B40;--line:#E6D7C6}
   *{box-sizing:border-box}
+  [hidden]{display:none !important}
   html{scroll-behavior:smooth}
   body{margin:0;overflow-x:clip;background:var(--paper);color:var(--ink);font:400 17px/1.6 Mukta,system-ui,sans-serif}
   h1,h2,h3{font-family:Rajdhani,Mukta,sans-serif;line-height:1.1;margin:0;text-wrap:balance}
@@ -69,7 +65,7 @@ window.INFO = {
   .stat:last-child{border-right:0}
   .stat b{display:block;font:700 30px Rajdhani,sans-serif;color:#F2C55C}
   .stat span{font-size:15px;color:#F6E3D3}
-  section{padding:72px 0}
+  section{padding:72px 0;scroll-margin-top:64px}
   .eyebrow{font:700 15px Mukta,sans-serif;color:var(--saffron);letter-spacing:.5px}
   .sec-h{display:flex;flex-direction:column;gap:6px;margin-bottom:28px}
   .sec-h h2{font-size:clamp(32px,4.4vw,46px);color:var(--maroon)}
@@ -117,6 +113,22 @@ window.INFO = {
   .loc svg{width:34px;height:34px;color:var(--saffron);margin-bottom:6px}
   .loc b{font:700 30px Rajdhani,Mukta,sans-serif;color:var(--maroon);line-height:1.1}
   .loc span{font-size:16px;color:var(--mut);font-weight:600}
+  /* ticker */
+  .ticker{background:var(--maroon2);color:#F2C55C;overflow:hidden;white-space:nowrap;border-bottom:3px solid var(--gold);cursor:default}
+  .ticker .track{display:flex;width:max-content;animation:tick 40s linear infinite}
+  .ticker .half{display:flex;align-items:center;padding:12px 0}
+  .ticker .ti{font:700 clamp(17px,2.2vw,22px) Mukta,sans-serif;padding:0 22px}
+  .ticker .tsep{color:var(--saffron);font-size:14px}
+  .ticker:hover .track,.ticker:focus .track,.ticker.paused .track{animation-play-state:paused}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){.ticker .track{animation-duration:120s}}
+  /* partners */
+  .people{display:grid;gap:14px;margin-top:14px}
+  .person{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:14px 0;border-top:1px solid var(--line)}
+  .person b{display:block;font-size:19px}
+  .person .num{font:700 22px Rajdhani,sans-serif;color:var(--maroon)}
+  .person .acts{display:flex;gap:8px}
+  .person .btn{min-height:44px;padding:8px 16px;font-size:15px}
   /* contact */
   .contact{background:linear-gradient(0deg,var(--stone2),var(--paper))}
   .cbox{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -151,10 +163,12 @@ window.INFO = {
 </header>
 
 <main>
+<div class="ticker" role="region" aria-label="ADA स्वीकृति व परमिट नंबर" tabindex="0">
+  <div class="track"><div class="half"><span class="ti">अयोध्या विकास प्राधिकरण (ADA) से ले-आउट स्वीकृत</span><span class="tsep">◆</span><span class="ti">परमिट नं.: Layout Plan (Residential)/21505/AFDA/LD/MS/202627/0261/31102026</span><span class="tsep">◆</span><span class="ti">स्वीकृति तिथि: 31.10.2026</span><span class="tsep">◆</span><span class="ti">अयोध्या विकास प्राधिकरण (ADA) से ले-आउट स्वीकृत</span><span class="tsep">◆</span><span class="ti">परमिट नं.: Layout Plan (Residential)/21505/AFDA/LD/MS/202627/0261/31102026</span><span class="tsep">◆</span><span class="ti">स्वीकृति तिथि: 31.10.2026</span><span class="tsep">◆</span></div><div class="half" aria-hidden="true"><span class="ti">अयोध्या विकास प्राधिकरण (ADA) से ले-आउट स्वीकृत</span><span class="tsep">◆</span><span class="ti">परमिट नं.: Layout Plan (Residential)/21505/AFDA/LD/MS/202627/0261/31102026</span><span class="tsep">◆</span><span class="ti">स्वीकृति तिथि: 31.10.2026</span><span class="tsep">◆</span><span class="ti">अयोध्या विकास प्राधिकरण (ADA) से ले-आउट स्वीकृत</span><span class="tsep">◆</span><span class="ti">परमिट नं.: Layout Plan (Residential)/21505/AFDA/LD/MS/202627/0261/31102026</span><span class="tsep">◆</span><span class="ti">स्वीकृति तिथि: 31.10.2026</span><span class="tsep">◆</span></div></div>
+</div>
 <div class="hero">
   <img src="hero-gate.jpg" alt="सूर्य कुंज आवासीय योजना का प्रस्तावित मुख्य द्वार — 3D चित्र">
   <div class="wrap">
-    <span class="badge">अयोध्या विकास प्राधिकरण से ले-आउट स्वीकृत</span>
     <h1>सूर्य कुंज आवासीय योजना</h1>
     <p>अयोध्या में अपना प्लॉट, अपने सपनों का घर — ग्राम सरेठी, तहसील सदर</p>
     <div class="ctas">
@@ -245,9 +259,9 @@ window.INFO = {
   <div class="wrap">
     <div class="sec-h"><span class="eyebrow">प्लॉट विकल्प</span><h2>अपनी ज़रूरत के हिसाब से चुनें</h2></div>
     <div class="plots">
-      <div class="pc"><h3>≈1000 वर्ग फ़ुट</h3><div class="n">85–95 वर्ग मी. · 13 प्लॉट</div><div class="pr">मूल्य: <span data-info="price.s" data-ph="[₹ ____]"></span></div></div>
-      <div class="pc"><h3>1125–1340 वर्ग फ़ुट</h3><div class="n">104–125 वर्ग मी. · 20 प्लॉट</div><div class="pr">मूल्य: <span data-info="price.m" data-ph="[₹ ____]"></span></div></div>
-      <div class="pc"><h3>1500 वर्ग फ़ुट</h3><div class="n">139.29 वर्ग मी. · 9 प्लॉट</div><div class="pr">मूल्य: <span data-info="price.l" data-ph="[₹ ____]"></span></div></div>
+      <div class="pc"><h3>≈1000 वर्ग फ़ुट</h3><div class="n">85–95 वर्ग मी. · 13 प्लॉट</div><div class="pr">मूल्य: <a href="#contact">संपर्क करें</a></div></div>
+      <div class="pc"><h3>1125–1340 वर्ग फ़ुट</h3><div class="n">104–125 वर्ग मी. · 20 प्लॉट</div><div class="pr">मूल्य: <a href="#contact">संपर्क करें</a></div></div>
+      <div class="pc"><h3>1500 वर्ग फ़ुट</h3><div class="n">139.29 वर्ग मी. · 9 प्लॉट</div><div class="pr">मूल्य: <a href="#contact">संपर्क करें</a></div></div>
     </div>
     <details>
       <summary>सभी 42 प्लॉट का क्षेत्रफल देखें</summary>
@@ -277,19 +291,18 @@ window.INFO = {
     <div class="sec-h"><span class="eyebrow">संपर्क</span><h2>साइट विज़िट व बुकिंग</h2></div>
     <div class="cbox">
       <div class="cc">
-        <div style="color:var(--mut);font-weight:600">कॉल करें</div>
-        <div class="ph"><span data-info="phone" data-ph="[मोबाइल नंबर]"></span></div>
-        <div style="margin-top:6px;font-weight:700"><span data-info="firm" data-ph="[डेवलपर / फ़र्म का नाम]"></span></div>
-        <div style="color:var(--mut)"><span data-info="office" data-ph="[कार्यालय का पता]"></span></div>
-        <div class="acts">
-          <a class="btn dark" id="callBtn" href="#contact">कॉल करें</a>
-          <a class="btn wa" id="waBtn" href="#contact">WhatsApp पर संदेश</a>
+        <div style="color:var(--mut);font-weight:600">डेवलपर</div>
+        <div style="font:700 22px Rajdhani,Mukta,sans-serif;color:var(--ink);line-height:1.25;margin-top:2px">SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED</div>
+        <div class="people">
+          <div class="person"><div><b>अमरनाथ पाण्डेय</b><span class="num">+91 94517 30677</span></div><div class="acts"><a class="btn dark" href="tel:+919451730677">कॉल करें</a><a class="btn wa" href="https://wa.me/919451730677?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%B8%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%AF%20%E0%A4%95%E0%A5%81%E0%A4%82%E0%A4%9C%20%E0%A4%86%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%80%E0%A4%AF%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A4%BE%20%E0%A4%95%E0%A5%87%20%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%89%E0%A4%9F%20%E0%A4%95%E0%A5%80%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4">WhatsApp</a></div></div>
+          <div class="person"><div><b>गगन आचारी</b><span class="num">+91 63065 69135</span></div><div class="acts"><a class="btn dark" href="tel:+916306569135">कॉल करें</a><a class="btn wa" href="https://wa.me/916306569135?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%B8%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%AF%20%E0%A4%95%E0%A5%81%E0%A4%82%E0%A4%9C%20%E0%A4%86%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%80%E0%A4%AF%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A4%BE%20%E0%A4%95%E0%A5%87%20%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%89%E0%A4%9F%20%E0%A4%95%E0%A5%80%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4">WhatsApp</a></div></div>
+          <div class="person"><div><b>आलोक रंजन मिश्र</b><span class="num">+91 83170 78730</span></div><div class="acts"><a class="btn dark" href="tel:+918317078730">कॉल करें</a><a class="btn wa" href="https://wa.me/918317078730?text=%E0%A4%A8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A5%87%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%B8%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%AF%20%E0%A4%95%E0%A5%81%E0%A4%82%E0%A4%9C%20%E0%A4%86%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%80%E0%A4%AF%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A4%BE%20%E0%A4%95%E0%A5%87%20%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%89%E0%A4%9F%20%E0%A4%95%E0%A5%80%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F%E0%A5%A4">WhatsApp</a></div></div>
         </div>
       </div>
       <div class="cc">
-        <div style="color:var(--mut);font-weight:600">साइट का पता</div>
+        <div style="color:var(--mut);font-weight:600">साइट कार्यालय का पता</div>
         <div style="font-size:20px;font-weight:700;line-height:1.5;margin-top:4px">गाटा सं. 851, ग्राम सरेठी<br>आचारी का सगरा के पास<br>तहसील सदर, ज़िला अयोध्या</div>
-        <div class="acts"><a class="btn primary" id="mapBtn" href="#contact">नक्शे में देखें</a></div>
+        <div class="acts" id="mapWrap" hidden><a class="btn primary" id="mapBtn" href="#contact">नक्शे में देखें</a></div>
       </div>
     </div>
   </div>
@@ -299,6 +312,7 @@ window.INFO = {
 <footer>
   <div class="wrap">
     <p><b style="color:#F2C55C">सूर्य कुंज आवासीय योजना</b> · ग्राम सरेठी, तहसील सदर, अयोध्या</p>
+    <p>डेवलपर: SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED · संपर्क: +91 94517 30677 · +91 63065 69135 · +91 83170 78730</p>
     <p>UP RERA पंजीकरण सं.: <span data-info="rera" data-ph="[ ]"></span></p>
     <p>ADA परमिट: Layout Plan (Residential)/21505/AFDA/LD/MS/202627/0261/31102026 · स्वीकृति 31.10.2026, वैध 30.10.2031 तक</p>
     <p style="opacity:.8">3D चित्र, वीडियो व घरों के डिज़ाइन केवल प्रस्तुति हेतु हैं। प्लॉट संख्या व क्षेत्रफल ADA स्वीकृत ले-आउट के अनुसार; अंतिम विवरण अनुबंध के अनुसार मान्य।</p>
@@ -313,10 +327,9 @@ window.INFO = {
     var v = get(el.getAttribute('data-info'));
     if (v) { el.textContent = v; } else { el.textContent = el.getAttribute('data-ph'); el.classList.add('fill'); }
   });
-  var call = document.getElementById('callBtn'), wa = document.getElementById('waBtn'), map = document.getElementById('mapBtn');
-  if (I.phone) call.href = 'tel:' + I.phone.replace(/\s/g, '');
-  if (I.whatsapp) wa.href = 'https://wa.me/' + I.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent('नमस्ते, मुझे सूर्य कुंज आवासीय योजना के प्लॉट के बारे में जानकारी चाहिए।');
-  if (I.mapUrl) map.href = I.mapUrl;
+  if (I.mapUrl) { document.getElementById('mapBtn').href = I.mapUrl; document.getElementById('mapWrap').hidden = false; }
+  var tk = document.querySelector('.ticker');
+  if (tk) tk.addEventListener('click', function () { tk.classList.toggle('paused'); });
   // plot table
   var A = [92.96,139.29,139.29,139.29,139.29,139.29,139.29,139.29,116.13,116.13,116.13,116.13,116.13,116.13,116.13,116.13,116.13,124.51,92.96,92.96,92.96,92.96,139.29,92.96,95.10,139.29,92.96,95.10,104.55,104.55,85.61,104.72,104.72,116.13,116.13,95.10,116.13,116.13,95.10,116.13,116.13,95.10];
   var host = document.getElementById('plotTables');
