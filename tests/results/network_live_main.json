@@ -1,0 +1,12 @@
+{
+ "note": "असली नेटवर्क माप — लाइव GitHub Pages साइट (main ब्रांच, PR से पहले का संस्करण), Claude डेस्कटॉप ऐप के built-in browser (Chrome 156, Windows) से, fetch(cache:'no-store') + Resource Timing API। PR ब्रांच अभी deploy नहीं है, इसलिए उसका असली नेटवर्क माप संभव नहीं।",
+ "date": "2026-11-17",
+ "protocol": "h2",
+ "files": {
+  "index.html": {"content_encoding": "gzip", "transfer_bytes": 16933, "encoded_bytes": 16633, "decoded_bytes": 66127},
+  "3d.html": {"content_encoding": "gzip", "transfer_bytes": 165896, "encoded_bytes": 165596, "decoded_bytes": 614235},
+  "hero-gate.jpg": {"content_encoding": null, "transfer_bytes": 85416, "decoded_bytes": 85116},
+  "plan.png": {"content_encoding": null, "transfer_bytes": 209696, "decoded_bytes": 209396}
+ },
+ "google_fonts_3d_page_decoded_bytes": 189966
+}

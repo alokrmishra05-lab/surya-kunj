@@ -1,0 +1,863 @@
+{
+ "environment": {
+  "chrome": "153.0.8010.12",
+  "playwright": "1.63.0",
+  "python": "3.13.18",
+  "os": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
+  "webgl": "SwiftShader (software)",
+  "date": "2026-11-17 15:16:14 +0000"
+ },
+ "results": {
+  "R01 सभी viewport (320–1440, हिंदी/English) पर क्षैतिज overflow नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "320-hi": [
+     320,
+     0,
+     320,
+     []
+    ],
+    "320-en": [
+     320,
+     0,
+     320,
+     []
+    ],
+    "375-hi": [
+     375,
+     0,
+     375,
+     []
+    ],
+    "375-en": [
+     375,
+     0,
+     375,
+     []
+    ],
+    "390-hi": [
+     390,
+     0,
+     390,
+     []
+    ],
+    "390-en": [
+     390,
+     0,
+     390,
+     []
+    ],
+    "768-hi": [
+     768,
+     0,
+     768,
+     []
+    ],
+    "768-en": [
+     768,
+     0,
+     768,
+     []
+    ],
+    "1024-hi": [
+     1024,
+     0,
+     1024,
+     []
+    ],
+    "1024-en": [
+     1024,
+     0,
+     1024,
+     []
+    ],
+    "1440-hi": [
+     1440,
+     0,
+     1440,
+     []
+    ],
+    "1440-en": [
+     1440,
+     0,
+     1440,
+     []
+    ]
+   }
+  },
+  "R02 मुख्य आँकड़े: 42 प्लॉट, 8278.63 वर्ग मी., 921–1500 वर्ग फ़ुट": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": [
+    "42 आवासीय प्लॉट",
+    "921–1500 वर्ग फ़ुट के प्लॉट",
+    "8278.63 वर्ग मी. कुल भूमि",
+    "31.10.2026 ADA ले-आउट स्वीकृति"
+   ]
+  },
+  "R03 मोबाइल मेनू: 9 लिंक, सही जगह पहुँचता, क्लिक पर बंद": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "links": [
+     "#main",
+     "#location",
+     "#video",
+     "#tour",
+     "#plan",
+     "#plots",
+     "#drainage",
+     "#amenities",
+     "#contact"
+    ],
+    "missing": [],
+    "closed": true,
+    "plotsTop": 64
+   }
+  },
+  "R04 हिंदी ⇄ English (कोई दिखने वाला हिंदी पाठ English मोड में शेष नहीं)": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "en": {
+     "lang": "en",
+     "left": [],
+     "plan": "plan-en.png",
+     "pre": "Notice: UP RERA registration for this project has not yet been obtained. No plot will be booked, sold or transacted, and no advance payment will be taken, before registration. Full details will be published on this website after registration. This page is for project information only."
+    },
+    "hi": {
+     "lang": "hi",
+     "plan": "plan.png",
+     "pre": "सूचना: इस परियोजना का UP RERA पंजीकरण अभी प्राप्त नहीं हुआ है। पंजीकरण से पहले किसी भी प्लॉट की बुकिंग, बिक्री या खरीद-फ़रोख़्त नहीं की जाएगी और कोई अग्रिम राशि नहीं ली जाएगी। पंजीकरण के बाद पूरी जानकारी इसी वेबसाइट पर दी जाएगी। यह पेज केवल परियोजना की जानकारी हेतु है।"
+    }
+   }
+  },
+  "R05 थीम लाइट/डार्क/ऑटो": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": [
+    [
+     "dark",
+     "dark",
+     "rgb(23, 17, 14)"
+    ],
+    [
+     "light",
+     "light",
+     "rgb(251, 247, 241)"
+    ],
+    [
+     "light",
+     "auto",
+     "rgb(251, 247, 241)"
+    ]
+   ]
+  },
+  "R06 प्लॉट तालिका: 42 पंक्तियाँ, कुल 4750.44 वर्ग मी., प्लॉट 31 = 921.16, 32/33 = 1126.87/1126.79": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "rows": 42,
+    "total_sqm": 4750.44,
+    "31": "921.16",
+    "32": "1126.87",
+    "33": "1126.79"
+   }
+  },
+  "R07 वीडियो (preload=none) दबाने पर चलता है": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "preload": "none",
+    "t": 1.500803,
+    "w": 1280
+   }
+  },
+  "R08 वेबसाइट पर JS त्रुटि नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": []
+  },
+  "R09 RERA न होने पर (डिफ़ॉल्ट): मूल्य/बुकिंग/बिक्री वाक्य छिपे, पूर्व-पंजीकरण सूचना दिखे": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "preRera": true,
+    "priceShown": 0,
+    "bookingShown": [
+     "परियोजना संबंधी जानकारी हेतु संपर्क"
+    ],
+    "preNote": 1,
+    "reraBox": 0,
+    "footer": true,
+    "text": [
+     "ुआ है। पंजीकरण से पहले किसी भी प्लॉट की बुकिंग, बिक्री या खरीद-फ़रोख़्त नहीं की जाएगी "
+    ],
+    "errs": []
+   }
+  },
+  "R10 पंजीकरण विवरण पूरे, पर मालिक की स्वीकृति false → विवरण ऊपर-दाएँ दिखें, बिक्री हिस्से बंद रहें": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": {
+     "state": "REGISTERED_MARKETING_OFF",
+     "regComplete": true,
+     "saleMode": false
+    },
+    "preRera": true,
+    "priceShown": 0,
+    "boxShown": true,
+    "boxTopRight": true,
+    "boxInFirstScreen": true,
+    "fields": "UP RERA पंजीकृत परियोजना पंजीकरण सं.: TEST-ONLY-0000 प्राधिकरण वेबसाइट: example.invalid/test-only लॉन्च तिथि: TEST-01.01.2000 Collection Account: TEST-000000 · IFSC TEST0000000 बैंक: TEST BANK, TEST BRANCH, TEST ADDRESS",
+    "qr": true,
+    "fieldsVisible": true,
+    "boxFont": 16,
+    "h1Font": 96,
+    "sw": 1366,
+    "W": 1366,
+    "errs": []
+   }
+  },
+  "R11 केवल पंजीकरण संख्या + स्वीकृति true → अधूरे विवरण पर भी बिक्री हिस्से बंद": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": {
+     "state": "REGISTERED_MARKETING_OFF",
+     "regComplete": false,
+     "saleMode": false
+    },
+    "preRera": true,
+    "priceShown": 0,
+    "boxShown": false,
+    "boxTopRight": false,
+    "boxInFirstScreen": false,
+    "fields": null,
+    "qr": false,
+    "fieldsVisible": false,
+    "boxFont": 16,
+    "h1Font": 96,
+    "sw": 1366,
+    "W": 1366,
+    "errs": []
+   }
+  },
+  "R12 पूरा पंजीकरण + स्वीकृति → बिक्री हिस्से दिखें, RERA बॉक्स (QR, संख्या, वेबलिंक, लॉन्च तिथि, Collection Account) ऊपर-दाएँ @1366": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": {
+     "state": "REGISTERED_MARKETING_ON",
+     "regComplete": true,
+     "saleMode": true
+    },
+    "preRera": false,
+    "priceShown": 0,
+    "boxShown": true,
+    "boxTopRight": true,
+    "boxInFirstScreen": true,
+    "fields": "UP RERA पंजीकृत परियोजना पंजीकरण सं.: TEST-ONLY-0000 प्राधिकरण वेबसाइट: example.invalid/test-only लॉन्च तिथि: TEST-01.01.2000 Collection Account: TEST-000000 · IFSC TEST0000000 बैंक: TEST BANK, TEST BRANCH, TEST ADDRESS",
+    "qr": true,
+    "fieldsVisible": true,
+    "boxFont": 16,
+    "h1Font": 96,
+    "sw": 1366,
+    "W": 1366,
+    "errs": []
+   }
+  },
+  "R12 पूरा पंजीकरण + स्वीकृति → बिक्री हिस्से दिखें, RERA बॉक्स (QR, संख्या, वेबलिंक, लॉन्च तिथि, Collection Account) मोबाइल पर हीरो में @390": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": {
+     "state": "REGISTERED_MARKETING_ON",
+     "regComplete": true,
+     "saleMode": true
+    },
+    "preRera": false,
+    "priceShown": 0,
+    "boxShown": true,
+    "boxTopRight": true,
+    "boxInFirstScreen": true,
+    "fields": "UP RERA पंजीकृत परियोजना पंजीकरण सं.: TEST-ONLY-0000 प्राधिकरण वेबसाइट: example.invalid/test-only लॉन्च तिथि: TEST-01.01.2000 Collection Account: TEST-000000 · IFSC TEST0000000 बैंक: TEST BANK, TEST BRANCH, TEST ADDRESS",
+    "qr": true,
+    "fieldsVisible": true,
+    "boxFont": 16,
+    "h1Font": 46,
+    "sw": 390,
+    "W": 390,
+    "errs": []
+   }
+  },
+  "R25 UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R25 UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R26 सूचना पेज के नीचे (संपर्क के बाद, फ़ुटर से ठीक पहले), ऊपर नहीं; मूल्य हिस्सा नहीं [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R26 सूचना पेज के नीचे (संपर्क के बाद, फ़ुटर से ठीक पहले), ऊपर नहीं; मूल्य हिस्सा नहीं [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R27 REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "सूचना: यह परियोजना UP RERA में पंजीकृत है — पंजीकरण सं. TEST-ONLY-0000। इस पेज पर अभी केवल परियोजना की जानकारी दी गई है; बिक्री या बुकिंग संबंधी विवरण प्रकाशित नहीं किए गए हैं।",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R27 REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "Notice: This project is registered with UP RERA — Registration No. TEST-ONLY-0000. This page currently provides project information only; sale or booking details have not been published.",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R28 REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "सूचना: यह परियोजना UP RERA में पंजीकृत है — पंजीकरण सं. TEST-ONLY-0000। इस पेज पर अभी केवल परियोजना की जानकारी दी गई है; बिक्री या बुकिंग संबंधी विवरण प्रकाशित नहीं किए गए हैं।",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R28 REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "Notice: This project is registered with UP RERA — Registration No. TEST-ONLY-0000. This page currently provides project information only; sale or booking details have not been published.",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": true,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R29 REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_ON",
+    "attr": "REGISTERED_MARKETING_ON",
+    "preNote": false,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 3,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": false,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R29 REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_ON",
+    "attr": "REGISTERED_MARKETING_ON",
+    "preNote": false,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 3,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "priceEls": 0,
+    "saysPrice": false,
+    "noteAtBottom": false,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R13 3D शुरू होता है, fallback छिपा": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "w": 2732,
+    "fbHidden": true,
+    "dead": false
+   }
+  },
+  "R14 सभी नियंत्रण + long-press: दबाए रखने पर चलता, छोड़ने/cancel/blur पर रुकता": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "zoom-in": 13.874,
+    "zoom-out": 12.768,
+    "rot-l": 9.01,
+    "rot-r": 9.01,
+    "tilt-up": 5.165,
+    "tilt-down": 5.165,
+    "pan-f": 4.31,
+    "pan-b": 4.31,
+    "pan-l": 4.305,
+    "pan-r": 4.305,
+    "after_release": 0.0,
+    "after_cancel": 0.0,
+    "after_blur": 0.0
+   }
+  },
+  "R15 पाँचों दृश्य अलग-अलग, दिन/रात स्विच": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "views": {
+     "top": [
+      0,
+      210,
+      0.01
+     ],
+     "street": [
+      -100.96,
+      1.7,
+      4.12
+     ],
+     "gate": [
+      -133.58,
+      12.44,
+      18.9
+     ],
+     "park": [
+      4,
+      24,
+      22
+     ],
+     "aerial": [
+      -125,
+      85,
+      -85
+     ]
+    },
+    "night": "true",
+    "day": "true"
+   }
+  },
+  "R16 हल्का ग्राफ़िक्स: canvas रेज़ोल्यूशन घटता/लौटता (DPR 2 पर)": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "high_w": 2732,
+    "low": [
+     1366,
+     "true",
+     "low"
+    ],
+    "back": [
+     2732,
+     "false",
+     "high"
+    ]
+   }
+  },
+  "R17 ड्रेनेज: चालू, सिस्टम on/off, छोटा/बड़ा": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "on": "true",
+    "panel": true,
+    "sewerOff": "false",
+    "sewerOn": "true",
+    "min": true,
+    "restore": true
+   }
+  },
+  "R18 Home: ड्रेनेज से बाहर निकलकर Aerial दृश्य": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "drain": "false",
+    "panel": true,
+    "view": "true",
+    "cam": [
+     -125,
+     85,
+     -85
+    ],
+    "aerial": [
+     -125,
+     85,
+     -85
+    ]
+   }
+  },
+  "R19 3D (डेस्कटॉप) पर JS त्रुटि नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": []
+  },
+  "R20 3D मोबाइल (emulated) 390x844: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "full": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 18,
+     "navWH": [
+      297,
+      200
+     ],
+     "sw": 390,
+     "W": 390
+    },
+    "mini": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 1.8,
+     "navWH": [
+      56,
+      106
+     ],
+     "sw": 390,
+     "W": 390,
+     "state": [
+      true,
+      "false",
+      "mini"
+     ]
+    },
+    "restored": true,
+    "drainMin": {
+     "overlapNav": false,
+     "navShown": true
+    },
+    "errs": []
+   }
+  },
+  "R20 3D मोबाइल (emulated) 844x390: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "full": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 18,
+     "navWH": [
+      297,
+      200
+     ],
+     "sw": 844,
+     "W": 844
+    },
+    "mini": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 1.8,
+     "navWH": [
+      56,
+      106
+     ],
+     "sw": 844,
+     "W": 844,
+     "state": [
+      true,
+      "false",
+      "mini"
+     ]
+    },
+    "restored": true,
+    "drainMin": {
+     "overlapNav": false,
+     "navShown": true
+    },
+    "errs": []
+   }
+  },
+  "R20 3D मोबाइल (emulated) 320x640: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "full": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 29,
+     "navWH": [
+      297,
+      200
+     ],
+     "sw": 320,
+     "W": 320
+    },
+    "mini": {
+     "navInView": true,
+     "navOverHud": false,
+     "minNavBtn": 44,
+     "minBarBtn": 44,
+     "coverPct": 2.9,
+     "navWH": [
+      56,
+      106
+     ],
+     "sw": 320,
+     "W": 320,
+     "state": [
+      true,
+      "false",
+      "mini"
+     ]
+    },
+    "restored": true,
+    "drainMin": {
+     "overlapNav": false,
+     "navShown": true
+    },
+    "errs": []
+   }
+  },
+  "R21 WebGL renderer बनना विफल → fallback (वीडियो + दोबारा खोलें), कोई unhandled error नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "shown": true,
+    "reason": "init",
+    "dead": true,
+    "msg": "3D शुरू करते समय ग्राफ़िक्स में त्रुटि आई। नीचे वॉक-थ्रू वीडियो देखें।",
+    "reload": true,
+    "hud": "none",
+    "pageerrors": [],
+    "console": [
+     "console:THREE.WebGLRenderer: Error creating WebGL context."
+    ]
+   }
+  },
+  "R22 WebGL context lost → render loop रुकता, fallback दिखता, कोई unhandled error नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "extension": true,
+    "shown": true,
+    "reason": "lost",
+    "dead": true,
+    "lostMsg": true,
+    "pageerrors": [],
+    "console": []
+   }
+  },
+  "R23 WebGL बंद → bundle चलता ही नहीं, fallback वीडियो, कोई error नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "noGL": true,
+    "shown": true,
+    "reason": "nogl",
+    "video": true,
+    "ready": false,
+    "errs": []
+   }
+  },
+  "R24 फ़ाइल आकार (स्थानीय माप; असली नेटवर्क ट्रांसफ़र नहीं)": {
+   "status": "PASS",
+   "kind": "LOCAL",
+   "evidence": {
+    "index.html": {
+     "raw_kb": 83.6,
+     "gzip_kb_approx": 20.2
+    },
+    "3d.html": {
+     "raw_kb": 610.8,
+     "gzip_kb_approx": 163.6
+    },
+    "hero-gate.jpg": {
+     "raw_kb": 83.1,
+     "gzip_kb_approx": 74.3
+    },
+    "plan.png": {
+     "raw_kb": 204.5,
+     "gzip_kb_approx": 196.4
+    },
+    "walkthrough.mp4": {
+     "raw_kb": 13509.3,
+     "gzip_kb_approx": 13498.8
+    }
+   }
+  }
+ },
+ "summary": {
+  "pass": 37,
+  "fail": 0
+ }
+}
