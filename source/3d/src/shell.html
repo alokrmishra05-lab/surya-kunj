@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>सूर्य कुंज आवासीय योजना — 3D कॉन्सेप्ट</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Mukta:wght@400;600;700&display=swap">
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#BFD9EE;font-family:Mukta,system-ui,sans-serif}
+  #c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  .hud{position:fixed;left:16px;top:16px;right:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between;pointer-events:none}
+  .title{pointer-events:auto;background:rgba(15,27,45,.86);color:#fff;border-radius:14px;padding:12px 18px;max-width:440px}
+  .title h1{margin:0;font-family:Rajdhani,Mukta,sans-serif;font-size:30px;line-height:1;color:#F5A524}
+  .title p{margin:4px 0 0;font-size:14px;color:#D6E0EE}
+  .bar{pointer-events:auto;display:flex;flex-wrap:wrap;gap:8px;background:rgba(15,27,45,.86);border-radius:14px;padding:8px}
+  .grp{display:flex;gap:4px;padding-right:8px;border-right:1px solid rgba(255,255,255,.15)}
+  .grp:last-child{border-right:0;padding-right:0}
+  button{font:600 14px Mukta,system-ui,sans-serif;color:#E8F0FA;background:transparent;border:1px solid rgba(255,255,255,.18);border-radius:9px;min-height:40px;padding:6px 12px;cursor:pointer}
+  button:hover{background:rgba(255,255,255,.08)}
+  button[aria-pressed="true"]{background:#F5A524;color:#0F1B2D;border-color:#F5A524}
+  button:focus-visible{outline:2px solid #38E1FF;outline-offset:2px}
+  #panel{position:fixed;left:16px;bottom:16px;max-width:380px;background:rgba(255,255,255,.94);color:#0F1B2D;border-radius:14px;padding:14px 18px;font-size:14px;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+  #drainPanel{position:fixed;right:16px;bottom:16px;max-width:400px;background:rgba(255,255,255,.96);color:#0F1B2D;border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.45;box-shadow:0 6px 24px rgba(0,0,0,.18);z-index:5}
+  #drainPanel h2{margin:0 0 4px;font-family:Rajdhani,Mukta,sans-serif;font-size:21px}
+  #drainPanel .dsub{margin:0 0 8px;color:#4B5B70;font-size:13px}
+  #drainPanel .dnote{margin:8px 0 0;color:#4B5B70;font-size:12px}
+  .sys{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#F4F6F9;color:#0F1B2D;border:1.5px solid #DDE3EA;border-radius:10px;padding:8px 10px;margin-top:6px;min-height:44px}
+  .sys:hover{background:#EAF0F7}
+  .sys i{flex:0 0 22px;height:10px;border-radius:5px;margin-top:6px}
+  .sys b{display:block;font-size:14.5px}
+  .sys small{display:block;font-size:12.5px;color:#334155;font-weight:400}
+  .sys[aria-pressed="false"]{opacity:.45}
+  .sys[aria-pressed="true"]{background:#fff;border-color:#94A3B8}
+  body:has(#drainPanel:not([hidden])) #panel,body:has(#drainPanel:not([hidden])) .hint{display:none}
+  #panel h2{margin:0 0 6px;font-family:Rajdhani,Mukta,sans-serif;font-size:20px}
+  #panel ul{margin:0;padding-left:18px}
+  #panel .note{margin-top:8px;font-size:12.5px;color:#4B5B70}
+  .hint{position:fixed;right:16px;bottom:16px;background:rgba(15,27,45,.75);color:#D6E0EE;font-size:12.5px;border-radius:10px;padding:6px 10px}
+  #fb{position:fixed;inset:0;z-index:30;background:#0F1B2D;color:#fff;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+  #fb[hidden]{display:none}
+  .fbc{max-width:760px;width:100%;text-align:center}
+  .fbc h2{font-family:Rajdhani,Mukta,sans-serif;color:#F5A524;font-size:26px;margin:0 0 6px}
+  .fbc video{width:100%;border-radius:12px;margin:12px 0;background:#000}
+  .fbc a{color:#F2C55C;font-weight:700}
+  .fbc button{min-height:44px;padding:8px 18px;border-radius:10px;border:0;background:#F5A524;color:#0F1B2D;font:700 16px Mukta,system-ui,sans-serif;cursor:pointer}
+  body.nogl .hud,body.nogl .nav,body.nogl .hint,body.nogl #panel,body.nogl #drainPanel{display:none !important}
+  #cap{display:none}
+  body.video .hud,body.video #panel,body.video .hint{display:none}
+  body.video #cap{display:block;position:fixed;left:56px;bottom:56px;opacity:0;padding:16px 26px;border-left:6px solid #F5A524;background:rgba(15,27,45,.78);border-radius:6px}
+  #capT{font:700 46px Rajdhani,Mukta,sans-serif;color:#F5A524;line-height:1.05}
+  #capS{font:500 22px Mukta,sans-serif;color:#FFFFFF;margin-top:6px}
+  #capS:empty{display:none}
+  #end{display:none}
+  body.video #end{display:block;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;opacity:0;padding:30px 40px 26px;background:rgba(20,12,10,.84);border:2px solid #C9A045;border-radius:18px;text-align:center}
+  #end .et{font:700 54px Rajdhani,Mukta,sans-serif;color:#F5A524;line-height:1}
+  #end .eg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0 18px}
+  #end .eg div{background:rgba(255,255,255,.06);border:1px solid rgba(201,160,69,.5);border-radius:12px;padding:14px 10px;display:flex;flex-direction:column;justify-content:center;min-height:104px}
+  #end .eg b{font:700 40px Rajdhani,Mukta,sans-serif;color:#FFFFFF;line-height:1.05}
+  #end .eg span{font:600 21px Mukta,sans-serif;color:#F2C55C;margin-top:4px}
+  #end .en{font:500 20px Mukta,sans-serif;color:#E9D9C8}
+  @media (max-width:640px){#drainPanel{font-size:13px}#panel{font-size:13px}.hint{display:none}}
+  .x{min-height:36px;min-width:36px;padding:0;font-size:22px;line-height:1;color:#334155;background:#EEF2F6;border:1px solid #D5DDE6;border-radius:8px}
+  .x:hover{background:#E2E8F0}
+  #panel .x{position:absolute;top:8px;right:8px}
+  #panel{padding-right:52px}
+  .dh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  #drainPanel.min #drainBody{display:none}
+  .nav{position:fixed;left:16px;bottom:16px;display:flex;align-items:flex-end;gap:8px;z-index:4;background:rgba(15,27,45,.82);padding:8px;border-radius:14px}
+  .pad{display:grid;grid-template-areas:". u ." "l c r" ". d .";grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:4px}
+  .col{display:flex;flex-direction:column;gap:4px}
+  .nb{width:44px;height:44px;min-height:44px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,.06);touch-action:none;user-select:none;-webkit-user-select:none}
+  .nb svg{width:22px;height:22px;fill:currentColor}
+  .nb[fill]{fill:none}
+  .nb.home{background:#F5A524;color:#0F1B2D;border-color:#F5A524}
+  .nb:active{background:#F5A524;color:#0F1B2D}
+  body:has(#panel:not([hidden])) .nav{display:none}
+  #panel{z-index:6}
+  .hint{max-width:300px}
+  body.video .nav{display:none}
+  .nav .tog{align-self:flex-end}
+  .nav .tog svg{transform:rotate(180deg);transition:transform .2s}
+  .nav.mini .tog svg{transform:none}
+  .nav.mini .col,.nav.mini .pad .nb:not(.home){display:none}
+  .nav.mini .pad{display:flex}
+  @media (max-width:820px), (max-height:500px){
+    .hud{left:8px;right:8px;top:8px;gap:6px}
+    .title{padding:8px 12px;max-width:none}
+    .title h1{font-size:20px}
+    .title p{display:none}
+    .title p:has(a){display:block;margin-top:2px}
+    .bar{flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none;padding:6px}
+    .bar.more{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+    .bar::-webkit-scrollbar{display:none}
+    .grp{flex-shrink:0}
+    button{white-space:nowrap;min-height:44px}
+    .nav{left:8px;bottom:8px;padding:6px;gap:5px}
+    .pad{grid-template-columns:repeat(3,40px);grid-template-rows:repeat(3,40px)}
+    .nb{width:40px;height:40px;min-height:40px}
+    #drainPanel,#panel{left:8px;right:8px;bottom:8px;max-width:none;max-height:42vh;overflow:auto}
+    body:has(#drainPanel:not([hidden]):not(.min)) .nav{display:none}
+    #drainPanel.min{left:auto;right:8px;width:auto;bottom:auto;top:126px;padding:8px 10px}
+    #drainPanel.min h2{font-size:16px}
+    .pad{grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:3px}
+    .nb{width:44px;height:44px;min-height:44px;border-radius:10px}
+    .nb svg{width:20px;height:20px}
+    .col{gap:3px}
+    .nav .tog{position:absolute;left:0;top:-50px;background:rgba(15,27,45,.82)}
+  }
+
+</style>
+</head>
+<body>
+<div id="fb" hidden>
+  <div class="fbc">
+    <h2 id="fbH">3D मॉडल इस डिवाइस पर नहीं खुल सका</h2>
+    <p id="fbNogl">आपके ब्राउज़र में 3D (WebGL) उपलब्ध नहीं है। नीचे वॉक-थ्रू वीडियो देखें।</p>
+    <p id="fbInit" hidden>3D शुरू करते समय ग्राफ़िक्स में त्रुटि आई। नीचे वॉक-थ्रू वीडियो देखें।</p>
+    <p id="fbLost" hidden>डिवाइस की ग्राफ़िक्स मेमोरी कम होने से 3D दृश्य रुक गया। पेज दोबारा खोलें या नीचे वीडियो देखें।</p>
+    <p id="fbReload" hidden><button type="button" onclick="location.reload()">पेज दोबारा खोलें</button></p>
+    <video src="walkthrough.mp4" poster="aerial.jpg" controls playsinline preload="none"></video>
+    <p><a href="index.html">← वेबसाइट पर लौटें</a></p>
+  </div>
+</div>
+<script>
+(function () {
+  window.__fallback = function (why) {
+    why = why === 'lost' || why === 'init' ? why : 'nogl';
+    window.__glDead = true; window.__fbReason = why;
+    var show = function () {
+      var f = document.getElementById('fb'); if (!f) return;
+      document.getElementById('fbNogl').hidden = why !== 'nogl';
+      document.getElementById('fbInit').hidden = why !== 'init';
+      document.getElementById('fbLost').hidden = why !== 'lost';
+      document.getElementById('fbReload').hidden = why === 'nogl';
+      f.hidden = false; document.body.classList.add('nogl');
+      var c = document.getElementById('c'); if (c) c.style.visibility = 'hidden';
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', show); else show();
+  };
+  try { var c = document.createElement('canvas'); window.__noWebGL = !(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl'))); }
+  catch (e) { window.__noWebGL = true; }
+  if (window.__noWebGL) window.__fallback('nogl');
+})();
+</script>
+<canvas id="c" aria-label="सूर्य कुंज आवासीय योजना का 3D मॉडल"></canvas>
+<div class="hud">
+  <div class="title"><h1>सूर्य कुंज आवासीय योजना</h1><p>बसने के बाद कैसा दिखेगा — 3D कॉन्सेप्ट · ग्राम सरेठी, अयोध्या</p></div>
+  <div class="bar" role="toolbar" aria-label="दृश्य नियंत्रण">
+    <div class="grp">
+      <button data-view="aerial" data-group="view" aria-pressed="true">ऊपर से तिरछा</button>
+      <button data-view="top" data-group="view" aria-pressed="false">नक्शा दृश्य</button>
+      <button data-view="street" data-group="view" aria-pressed="false">सड़क से</button>
+      <button data-view="gate" data-group="view" aria-pressed="false">मुख्य द्वार</button>
+      <button data-view="park" data-group="view" aria-pressed="false">पार्क</button>
+    </div>
+    <div class="grp">
+      <button id="day" data-group="time" aria-pressed="true">दिन</button>
+      <button id="night" data-group="time" aria-pressed="false">रात</button>
+    </div>
+    <div class="grp">
+      <button id="rot" aria-pressed="false">घुमाएँ</button>
+      <button id="nums" aria-pressed="false">प्लॉट नंबर</button>
+      <button id="gfx" aria-pressed="false" title="धीमे फ़ोन के लिए">हल्का ग्राफ़िक्स</button>
+      <button id="drainBtn" aria-pressed="false" aria-controls="drainPanel">ड्रेनेज व्यवस्था</button>
+      <button id="info" aria-expanded="false" aria-controls="panel">विवरण</button>
+    </div>
+  </div>
+</div>
+<div id="drainPanel" hidden>
+  <div class="dh"><h2>ड्रेनेज व सीवरेज</h2><button class="x" id="drainMin" aria-expanded="true" aria-label="छोटा करें">–</button></div>
+  <div id="drainBody">
+  <p class="dsub">ज़मीन पारदर्शी दिखाई गई है ताकि भूमिगत लाइनें दिखें। तीर बहाव की दिशा दिखाते हैं।</p>
+  <button class="sys" data-sys="sewer" aria-pressed="true"><i style="background:#8A4B1F"></i><span><b>सीवर लाइन (भूमिगत)</b><small>शौचालय का पानी → घर का कनेक्शन → भूमिगत सीवर पाइप व मैनहोल → STP (सीवेज शोधन संयंत्र)</small></span></button>
+  <button class="sys" data-sys="drain" aria-pressed="true"><i style="background:#2563EB"></i><span><b>नाली (ढकी हुई)</b><small>रसोई-स्नान व सड़क का पानी → सड़क किनारे ढकी नाली → मुख्य द्वार से बाहर, मुख्य सड़क के बड़े नाले में</small></span></button>
+  <button class="sys" data-sys="rain" aria-pressed="true"><i style="background:#06B6D4"></i><span><b>वर्षा जल संचयन</b><small>बारिश का पानी → पार्क के रिचार्ज पिट → ज़मीन के अंदर, भूजल रिचार्ज</small></span></button>
+  <p class="dnote">योजनाबद्ध चित्र: पाइप का मार्ग, आकार व गहराई प्रतीकात्मक हैं; वास्तविक डिज़ाइन स्वीकृत इंजीनियरिंग ड्रॉइंग के अनुसार।</p>
+  </div>
+</div>
+<div id="panel" hidden>
+  <button class="x" id="panelX" aria-label="बंद करें">×</button>
+  <h2>इस मॉडल में</h2>
+  <ul>
+    <li>घर केवल कॉन्सेप्ट हैं — हम प्लॉट देते हैं; पसंद आए तो ऐसा घर बनवा सकते हैं</li>
+    <li>गेटेड कॉलोनी — मुख्य द्वार, पैदल द्वार व गार्ड रूम</li>
+    <li>कंगूरेदार बाउंड्री वॉल, लालटेन शैली की स्ट्रीट लाइट (रात दृश्य में जलती हैं)</li>
+    <li>डामर सड़कें, ढकी नालियाँ व कर्ब; सेंट्रल पार्क में छतरी मंडप, फव्वारा, वॉकिंग ट्रैक</li>
+    <li>पानी की टंकी (OHT), STP व फ़ायर हाइड्रेंट</li>
+    <li>एयरपोर्ट 2 किमी · श्री राम जन्मभूमि 5 किमी · मेडिकल कॉलेज 1 किमी · रेलवे स्टेशन 1 किमी · साफ़ पानी, साफ़ हवा</li>
+  </ul>
+  <div class="note">कॉन्सेप्ट चित्र: घरों का डिज़ाइन सुझाव मात्र है। प्लॉट संख्या ADA स्वीकृत ले-आउट के अनुसार; नाप व स्थिति लगभग।</div>
+</div>
+<div class="nav" id="nav" role="group" aria-label="नेविगेशन">
+  <button class="nb tog" id="navTog" type="button" aria-expanded="true" aria-controls="nav" aria-label="नेविगेशन बटन छोटे/बड़े करें"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2.4"><path d="M7 14l5-5 5 5"/></svg></button>
+  <div class="pad">
+    <button class="nb" data-act="pan-f" aria-label="आगे खिसकाएँ" style="grid-area:u"><svg viewBox="0 0 24 24"><path d="M12 5l-6 7h12z"/></svg></button>
+    <button class="nb" data-act="pan-l" aria-label="बाएँ खिसकाएँ" style="grid-area:l"><svg viewBox="0 0 24 24"><path d="M5 12l7-6v12z"/></svg></button>
+    <button class="nb home" data-act="home" aria-label="पूरा दृश्य (रीसेट)" style="grid-area:c"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7M6 9.5V20h12V9.5"/></svg></button>
+    <button class="nb" data-act="pan-r" aria-label="दाएँ खिसकाएँ" style="grid-area:r"><svg viewBox="0 0 24 24"><path d="M19 12l-7-6v12z"/></svg></button>
+    <button class="nb" data-act="pan-b" aria-label="पीछे खिसकाएँ" style="grid-area:d"><svg viewBox="0 0 24 24"><path d="M12 19l-6-7h12z"/></svg></button>
+  </div>
+  <div class="col">
+    <button class="nb" data-act="zoom-in" aria-label="ज़ूम इन"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="nb" data-act="zoom-out" aria-label="ज़ूम आउट"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/></svg></button>
+  </div>
+  <div class="col">
+    <button class="nb" data-act="rot-l" aria-label="बाएँ घुमाएँ"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v5h5"/></svg></button>
+    <button class="nb" data-act="rot-r" aria-label="दाएँ घुमाएँ"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg></button>
+  </div>
+  <div class="col">
+    <button class="nb" data-act="tilt-up" aria-label="ऊपर से देखें"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></button>
+    <button class="nb" data-act="tilt-down" aria-label="नीचे से देखें"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+  </div>
+</div>
+<div class="hint">एक उँगली/बायाँ क्लिक: घुमाएँ · दो उँगली/दायाँ क्लिक: खिसकाएँ · पिंच/स्क्रॉल: ज़ूम</div>
+<div id="cap" aria-hidden="true"><div id="capT"></div><div id="capS"></div></div>
+<div id="end" aria-hidden="true"><div class="et">स्थान के लाभ</div><div class="eg">
+<div><b>2 किमी</b><span>एयरपोर्ट</span></div><div><b>5 किमी</b><span>श्री राम जन्मभूमि</span></div><div><b>1 किमी</b><span>मेडिकल कॉलेज</span></div>
+<div><b>1 किमी</b><span>रेलवे स्टेशन</span></div><div><b>साफ़ पानी</b></div><div><b>साफ़ हवा</b></div></div>
+<div class="en">सूर्य कुंज आवासीय योजना · ग्राम सरेठी, अयोध्या</div></div>
+<script>
+(function () {
+  var nav = document.getElementById('nav'), t = document.getElementById('navTog');
+  function set(mini) { nav.classList.toggle('mini', mini); t.setAttribute('aria-expanded', String(!mini)); try { localStorage.setItem('sk-nav', mini ? 'mini' : 'full'); } catch (e) {} }
+  var saved = null; try { saved = localStorage.getItem('sk-nav'); } catch (e) {}
+  if (saved === 'mini') set(true);
+  t.addEventListener('click', function () { set(!nav.classList.contains('mini')); });
+})();
+</script>
+<script>/*BUNDLE*/</script>
+</body>
+</html>
