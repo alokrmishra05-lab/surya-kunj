@@ -79,7 +79,10 @@ STATE_JS = """() => { const vis = e => !!e && e.offsetParent !== null && getComp
     saleHero: [...document.querySelectorAll('[data-sale]')].filter(vis).length,
     saysNotObtained: /अभी प्राप्त नहीं|not yet been obtained|not yet obtained/i.test(t),
     saysRegistered: /UP RERA में पंजीकृत है|UP RERA पंजीकृत परियोजना|registered with UP RERA|UP RERA Registered Project/i.test(t),
-    saysNoBooking: /अग्रिम राशि स्वीकार नहीं|advance payment is accepted/i.test(t),
+    saysNoBooking: /अग्रिम राशि नहीं ली जाएगी|no advance payment will be taken/i.test(t),
+    priceEls: document.querySelectorAll('.pc .pr').length, saysPrice: /मूल्य|Price:/.test(t),
+    noteAtBottom: (() => { const n = document.querySelector('[data-rera-msg="' + window.__reraState.state + '"]'), f = document.querySelector('footer'), c = document.getElementById('contact');
+      return !!n && n.nextElementSibling !== null && (n.nextElementSibling === f || n.nextElementSibling.matches('[data-rera-msg]')) && (c.compareDocumentPosition(n) & Node.DOCUMENT_POSITION_FOLLOWING) > 0; })(),
     saysNotPublished: /प्रकाशित नहीं किए गए|have not been published/i.test(t)}; }"""
 
 
@@ -177,7 +180,7 @@ async def main():
                     res('R11 केवल पंजीकरण संख्या + स्वीकृति true → अधूरे विवरण पर भी बिक्री हिस्से बंद', ok and not errs, {**st, 'errs': errs})
                 else:
                     f = st['fields'] or ''
-                    ok = (st['state']['saleMode'] and st['fieldsVisible'] and not st['preRera'] and st['priceShown'] == 3 and st['qr'] and all(x in f for x in ['TEST-ONLY-0000', 'example.invalid', 'TEST-01.01.2000', 'TEST-000000', 'TEST0000000', 'TEST BANK'])
+                    ok = (st['state']['saleMode'] and st['fieldsVisible'] and not st['preRera'] and st['priceShown'] == 0 and st['qr'] and all(x in f for x in ['TEST-ONLY-0000', 'example.invalid', 'TEST-01.01.2000', 'TEST-000000', 'TEST0000000', 'TEST BANK'])
                           and st['sw'] <= st['W'] + 1 and st['boxFont'] >= 16)
                     if vp['width'] > 800: ok = ok and st['boxTopRight'] and st['boxInFirstScreen']
                     res(f"R12 पूरा पंजीकरण + स्वीकृति → बिक्री हिस्से दिखें, RERA बॉक्स (QR, संख्या, वेबलिंक, लॉन्च तिथि, Collection Account) {'ऊपर-दाएँ' if vp['width'] > 800 else 'मोबाइल पर हीरो में'} @{vp['width']}", ok and not errs, {**st, 'errs': errs})
@@ -187,10 +190,10 @@ async def main():
         # ---------------- 3b. RERA की तीन अवस्थाएँ (V2.2) ----------------
         cases = [
             ('R25', 'UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग)', None),
-            ('R26', 'UNREGISTERED + मालिक-पुष्टि true → "अग्रिम राशि स्वीकार नहीं" वाक्य दिखे', "window.INFO = { rera: {}, ownerApprovedMarketing: false, ownerConfirmedNoBookingStatement: true, mapUrl: '' };"),
+            ('R26', 'सूचना पेज के नीचे (संपर्क के बाद, फ़ुटर से ठीक पहले), ऊपर नहीं; मूल्य हिस्सा नहीं', None),
             ('R27', 'REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false)', FULL),
-            ('R28', 'REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true)', "window.INFO = { rera: { number: 'TEST-ONLY-0000' }, ownerApprovedMarketing: true, ownerConfirmedNoBookingStatement: true, mapUrl: '' };"),
-            ('R29', 'REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति)', TEST_RERA.replace('APPROVED', 'true').replace('mapUrl', 'ownerConfirmedNoBookingStatement: true, mapUrl')),
+            ('R28', 'REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true)', "window.INFO = { rera: { number: 'TEST-ONLY-0000' }, ownerApprovedMarketing: true, mapUrl: '' };"),
+            ('R29', 'REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति)', TEST_RERA.replace('APPROVED', 'true')),
         ]
         for key, name, cfg in cases:
             for lang in ['hi-IN', 'en-US']:
@@ -204,16 +207,16 @@ async def main():
                 common = st['state'] == st['attr'] and not errs
                 if key == 'R25':
                     ok = (st['state'] == 'UNREGISTERED' and st['preNote'] and not st['regNote'] and st['footerNone'] and not st['footerNo'] and st['saysNotObtained']
-                          and not st['saysRegistered'] and not st['noBooking'] and not st['saysNoBooking'] and not st['box'] and st['price'] == 0 and st['saleHero'] == 0)
+                          and not st['saysRegistered'] and st['saysNoBooking'] and not st['box'] and st['price'] == 0 and st['saleHero'] == 0)
                 elif key == 'R26':
-                    ok = st['state'] == 'UNREGISTERED' and st['preNote'] and st['noBooking'] and st['saysNoBooking'] and st['price'] == 0
+                    ok = st['state'] == 'UNREGISTERED' and st['noteAtBottom'] and st['priceEls'] == 0 and not st['saysPrice']
                 elif key in ('R27', 'R28'):
                     ok = (st['state'] == 'REGISTERED_MARKETING_OFF' and not st['preNote'] and st['regNote'] and 'TEST-ONLY-0000' in st['regNoteText']
                           and not st['saysNotObtained'] and not st['saysNoBooking'] and not st['footerNone'] and st['footerNo'] == 'TEST-ONLY-0000'
-                          and st['saysRegistered'] and st['saysNotPublished'] and st['price'] == 0 and st['saleHero'] == 0 and st['box'] == (key == 'R27'))
+                          and st['saysRegistered'] and st['saysNotPublished'] and st['price'] == 0 and st['saleHero'] == 0 and st['box'] == (key == 'R27') and st['noteAtBottom'])
                 else:
                     ok = (st['state'] == 'REGISTERED_MARKETING_ON' and not st['preNote'] and not st['regNote'] and not st['saysNotObtained'] and not st['saysNoBooking']
-                          and not st['saysNotPublished'] and st['footerNo'] == 'TEST-ONLY-0000' and st['box'] and st['price'] == 3 and st['saleHero'] > 0)
+                          and not st['saysNotPublished'] and st['footerNo'] == 'TEST-ONLY-0000' and st['box'] and st['priceEls'] == 0 and not st['saysPrice'] and st['saleHero'] > 0)
                 res(f'{key} {name} [{lang[:2]}]: संदेश आपस में मेल खाते', ok and common, {**st, 'errs': errs})
 
         # ---------------- 4. 3D desktop ----------------

@@ -27,7 +27,6 @@ window.INFO = {
     agents: []
   },
   ownerApprovedMarketing: false,
-  ownerConfirmedNoBookingStatement: false,
   mapUrl: ''
 };
 ```
@@ -36,7 +35,8 @@ window.INFO = {
 - `number, qr, authorityUrl, launchDate, collection.account, collection.ifsc, collection.bank` — ये सभी भरने पर RERA विवरण-बॉक्स (QR सहित) पहले स्क्रीन पर ऊपर-दाएँ दिखता है (Regulation 52)।
 - बिक्री-संबंधी हिस्से तभी खुलते हैं जब ऊपर के सभी विवरण भरे हों **और** `ownerApprovedMarketing: true` हो (मालिक की लिखित स्वीकृति के बाद)।
 - तीन अवस्थाएँ (`<body data-rera-state>`): `UNREGISTERED` (संख्या खाली) · `REGISTERED_MARKETING_OFF` (संख्या है, पर विवरण अधूरे या स्वीकृति नहीं) · `REGISTERED_MARKETING_ON`। हर अवस्था का अपना संदेश; विरोधी संदेश एक साथ नहीं दिखते।
-- `ownerConfirmedNoBookingStatement` — **OWNER CONFIRMATION REQUIRED:** "पंजीकरण से पहले कोई बुकिंग/अग्रिम राशि स्वीकार नहीं की जाती" वाक्य केवल मालिक की पुष्टि के बाद `true` करने पर (और केवल UNREGISTERED में) दिखता है।
+- पंजीकरण से पहले (UNREGISTERED) पेज के **नीचे** (फ़ुटर से ठीक पहले) सूचना: पंजीकरण से पहले कोई बुकिंग/बिक्री/खरीद-फ़रोख़्त या अग्रिम राशि नहीं; पंजीकरण के बाद पूरी जानकारी इसी वेबसाइट पर। (मालिक का निर्णय, 17.11.2026)
+- प्लॉट कार्डों से मूल्य वाला हिस्सा हटाया गया (मालिक का निर्णय)।
 - `mapUrl` भरते ही संपर्क में "नक्शे में देखें" बटन दिखने लगता है।
 
 > **कानूनी नोट:** UP RERA (General) Regulations 2019, Regulation 52 (समेकित, 12वें संशोधन तक): पंजीकरण संख्या, प्राधिकरण वेबलिंक, Collection Account संख्या, लॉन्च तिथि व QR "main page" के ऊपर-दाएँ।
