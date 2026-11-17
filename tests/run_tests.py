@@ -59,6 +59,30 @@ async def patched(ctx, approved, number_only=False):
     await ctx.route('**/index.html', lambda r: r.fulfill(status=200, content_type='text/html; charset=utf-8', body=body))
 
 
+async def patched_cfg(ctx, cfg):
+    """index.html की प्रति में दिया गया INFO कॉन्फ़िग (केवल TEST-ONLY मान) डालें।"""
+    src = (ROOT / 'index.html').read_text(encoding='utf-8')
+    a = src.index('window.INFO = {'); b = src.index('};', a) + 2
+    body = src[:a] + cfg + src[b:]
+    await ctx.route('**/index.html', lambda r: r.fulfill(status=200, content_type='text/html; charset=utf-8', body=body))
+
+
+FULL = TEST_RERA.replace('APPROVED', 'false')
+STATE_JS = """() => { const vis = e => !!e && e.offsetParent !== null && getComputedStyle(e).display !== 'none';
+  const t = document.body.innerText;
+  return {state: window.__reraState.state, attr: document.body.getAttribute('data-rera-state'),
+    preNote: vis(document.getElementById('preNote')), regNote: vis(document.getElementById('regNote')),
+    regNoteText: vis(document.getElementById('regNote')) ? document.getElementById('regNote').innerText.replace(/\\s+/g,' ') : '',
+    noBooking: vis(document.getElementById('noBookingStmt')), footerNone: vis(document.getElementById('reraNone')),
+    footerNo: vis(document.getElementById('reraHas')) ? document.getElementById('reraNo').textContent : '',
+    box: vis(document.getElementById('reraBox')), price: [...document.querySelectorAll('.pc .pr')].filter(vis).length,
+    saleHero: [...document.querySelectorAll('[data-sale]')].filter(vis).length,
+    saysNotObtained: /अभी प्राप्त नहीं|not yet been obtained|not yet obtained/i.test(t),
+    saysRegistered: /UP RERA में पंजीकृत है|UP RERA पंजीकृत परियोजना|registered with UP RERA|UP RERA Registered Project/i.test(t),
+    saysNoBooking: /अग्रिम राशि स्वीकार नहीं|advance payment is accepted/i.test(t),
+    saysNotPublished: /प्रकाशित नहीं किए गए|have not been published/i.test(t)}; }"""
+
+
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch(executable_path=A.chrome, args=GL)
@@ -158,6 +182,39 @@ async def main():
                     if vp['width'] > 800: ok = ok and st['boxTopRight'] and st['boxInFirstScreen']
                     res(f"R12 पूरा पंजीकरण + स्वीकृति → बिक्री हिस्से दिखें, RERA बॉक्स (QR, संख्या, वेबलिंक, लॉन्च तिथि, Collection Account) {'ऊपर-दाएँ' if vp['width'] > 800 else 'मोबाइल पर हीरो में'} @{vp['width']}", ok and not errs, {**st, 'errs': errs})
                 await ctx.close()
+
+
+        # ---------------- 3b. RERA की तीन अवस्थाएँ (V2.2) ----------------
+        cases = [
+            ('R25', 'UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग)', None),
+            ('R26', 'UNREGISTERED + मालिक-पुष्टि true → "अग्रिम राशि स्वीकार नहीं" वाक्य दिखे', "window.INFO = { rera: {}, ownerApprovedMarketing: false, ownerConfirmedNoBookingStatement: true, mapUrl: '' };"),
+            ('R27', 'REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false)', FULL),
+            ('R28', 'REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true)', "window.INFO = { rera: { number: 'TEST-ONLY-0000' }, ownerApprovedMarketing: true, ownerConfirmedNoBookingStatement: true, mapUrl: '' };"),
+            ('R29', 'REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति)', TEST_RERA.replace('APPROVED', 'true').replace('mapUrl', 'ownerConfirmedNoBookingStatement: true, mapUrl')),
+        ]
+        for key, name, cfg in cases:
+            for lang in ['hi-IN', 'en-US']:
+                ctx = await b.new_context(viewport={'width': 1366, 'height': 768}, locale=lang)
+                if cfg: await patched_cfg(ctx, cfg)
+                pg = await ctx.new_page(); errs = watch(pg)
+                await pg.goto(BASE + 'index.html'); await pg.wait_for_timeout(700)
+                st = await pg.evaluate(STATE_JS)
+                if lang == 'hi-IN': await pg.screenshot(path=str(OUT / 'screens' / f'state_{key}.png'))
+                await ctx.close()
+                common = st['state'] == st['attr'] and not errs
+                if key == 'R25':
+                    ok = (st['state'] == 'UNREGISTERED' and st['preNote'] and not st['regNote'] and st['footerNone'] and not st['footerNo'] and st['saysNotObtained']
+                          and not st['saysRegistered'] and not st['noBooking'] and not st['saysNoBooking'] and not st['box'] and st['price'] == 0 and st['saleHero'] == 0)
+                elif key == 'R26':
+                    ok = st['state'] == 'UNREGISTERED' and st['preNote'] and st['noBooking'] and st['saysNoBooking'] and st['price'] == 0
+                elif key in ('R27', 'R28'):
+                    ok = (st['state'] == 'REGISTERED_MARKETING_OFF' and not st['preNote'] and st['regNote'] and 'TEST-ONLY-0000' in st['regNoteText']
+                          and not st['saysNotObtained'] and not st['saysNoBooking'] and not st['footerNone'] and st['footerNo'] == 'TEST-ONLY-0000'
+                          and st['saysRegistered'] and st['saysNotPublished'] and st['price'] == 0 and st['saleHero'] == 0 and st['box'] == (key == 'R27'))
+                else:
+                    ok = (st['state'] == 'REGISTERED_MARKETING_ON' and not st['preNote'] and not st['regNote'] and not st['saysNotObtained'] and not st['saysNoBooking']
+                          and not st['saysNotPublished'] and st['footerNo'] == 'TEST-ONLY-0000' and st['box'] and st['price'] == 3 and st['saleHero'] > 0)
+                res(f'{key} {name} [{lang[:2]}]: संदेश आपस में मेल खाते', ok and common, {**st, 'errs': errs})
 
         # ---------------- 4. 3D desktop ----------------
         async def open3d(vp, mob, dpr=1, init=None, browser=None):

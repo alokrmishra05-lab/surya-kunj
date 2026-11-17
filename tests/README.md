@@ -26,6 +26,10 @@ cd source/3d && npm ci && cd ../.. && python3 source/build_3d_page.py --check
 ## RERA टेस्ट के बारे में
 R10–R12 में `index.html` की **प्रति** में (route interception से, फ़ाइल बदले बिना) `TEST-ONLY-0000`, `example.invalid` जैसे स्पष्ट नकली मान डाले जाते हैं, ताकि "पंजीकरण मिलने के बाद" वाला व्यवहार जाँचा जा सके। ये मान repo की किसी फ़ाइल में नहीं हैं; स्क्रीनशॉट में दिखने वाले `TEST-…` मान असली नहीं हैं।
 
+## RERA की तीन अवस्थाएँ (R25–R29, हिंदी व English दोनों)
+- R25 `UNREGISTERED` · R26 `UNREGISTERED` + मालिक-पुष्टि · R27 `REGISTERED_MARKETING_OFF` (पूरे विवरण, स्वीकृति false) · R28 `REGISTERED_MARKETING_OFF` (केवल संख्या) · R29 `REGISTERED_MARKETING_ON`
+- हर अवस्था में पूरे पेज के दिखने वाले पाठ में विरोधी वाक्य (जैसे पंजीकृत होने पर "अभी प्राप्त नहीं") न होने की जाँच।
+
 ## WebGL विफलता टेस्ट
 - R21: मुख्य canvas पर WebGL context न मिलने का अनुकरण (init script से `getContext` → `null`) — renderer बनना विफल।
 - R22: चालू 3D में `WEBGL_lose_context.loseContext()` — context lost।

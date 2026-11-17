@@ -5,7 +5,7 @@
   "python": "3.13.18",
   "os": "Linux-6.18.44-fc-v553-x86_64-with-glibc2.39",
   "webgl": "SwiftShader (software)",
-  "date": "2026-11-17 11:40:51 +0000"
+  "date": "2026-11-17 14:54:17 +0000"
  },
  "results": {
   "R01 सभी viewport (320–1440, हिंदी/English) पर क्षैतिज overflow नहीं": {
@@ -124,12 +124,12 @@
      "lang": "en",
      "left": [],
      "plan": "plan-en.png",
-     "pre": "Notice: UP RERA registration for this project has not yet been obtained. No plot booking, sale or advance payment is accepted before registration. This page is for project information only."
+     "pre": "Notice: UP RERA registration for this project has not yet been obtained. This page is for project information only."
     },
     "hi": {
      "lang": "hi",
      "plan": "plan.png",
-     "pre": "सूचना: इस परियोजना का UP RERA पंजीकरण अभी प्राप्त नहीं हुआ है। पंजीकरण से पहले किसी प्लॉट की बुकिंग, बिक्री या अग्रिम राशि स्वीकार नहीं की जाती। यह पेज केवल परियोजना की जानकारी हेतु है।"
+     "pre": "सूचना: इस परियोजना का UP RERA पंजीकरण अभी प्राप्त नहीं हुआ है। यह पेज केवल परियोजना की जानकारी हेतु है।"
     }
    }
   },
@@ -170,7 +170,7 @@
    "kind": "SIM",
    "evidence": {
     "preload": "none",
-    "t": 1.500744,
+    "t": 1.501714,
     "w": 1280
    }
   },
@@ -191,9 +191,7 @@
     "preNote": 1,
     "reraBox": 0,
     "footer": true,
-    "text": [
-     "ं हुआ है। पंजीकरण से पहले किसी प्लॉट की बुकिंग, बिक्री या अग्रिम राशि स्वीकार नहीं की "
-    ],
+    "text": [],
     "errs": []
    }
   },
@@ -202,8 +200,10 @@
    "kind": "SIM",
    "evidence": {
     "state": {
+     "state": "REGISTERED_MARKETING_OFF",
      "regComplete": true,
-     "saleMode": false
+     "saleMode": false,
+     "noBookingStatement": false
     },
     "preRera": true,
     "priceShown": 0,
@@ -225,8 +225,10 @@
    "kind": "SIM",
    "evidence": {
     "state": {
+     "state": "REGISTERED_MARKETING_OFF",
      "regComplete": false,
-     "saleMode": false
+     "saleMode": false,
+     "noBookingStatement": false
     },
     "preRera": true,
     "priceShown": 0,
@@ -248,8 +250,10 @@
    "kind": "SIM",
    "evidence": {
     "state": {
+     "state": "REGISTERED_MARKETING_ON",
      "regComplete": true,
-     "saleMode": true
+     "saleMode": true,
+     "noBookingStatement": false
     },
     "preRera": false,
     "priceShown": 3,
@@ -271,8 +275,10 @@
    "kind": "SIM",
    "evidence": {
     "state": {
+     "state": "REGISTERED_MARKETING_ON",
      "regComplete": true,
-     "saleMode": true
+     "saleMode": true,
+     "noBookingStatement": false
     },
     "preRera": false,
     "priceShown": 3,
@@ -286,6 +292,226 @@
     "h1Font": 46,
     "sw": 390,
     "W": 390,
+    "errs": []
+   }
+  },
+  "R25 UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": false,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R25 UNREGISTERED (डिफ़ॉल्ट कॉन्फ़िग) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": false,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R26 UNREGISTERED + मालिक-पुष्टि true → \"अग्रिम राशि स्वीकार नहीं\" वाक्य दिखे [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": true,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R26 UNREGISTERED + मालिक-पुष्टि true → \"अग्रिम राशि स्वीकार नहीं\" वाक्य दिखे [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "UNREGISTERED",
+    "attr": "UNREGISTERED",
+    "preNote": true,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": true,
+    "footerNone": true,
+    "footerNo": "",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": true,
+    "saysRegistered": false,
+    "saysNoBooking": true,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R27 REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "सूचना: यह परियोजना UP RERA में पंजीकृत है — पंजीकरण सं. TEST-ONLY-0000। इस पेज पर अभी केवल परियोजना की जानकारी दी गई है; बिक्री या बुकिंग संबंधी विवरण प्रकाशित नहीं किए गए हैं।",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R27 REGISTERED_MARKETING_OFF (सभी विवरण, स्वीकृति false) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "Notice: This project is registered with UP RERA — Registration No. TEST-ONLY-0000. This page currently provides project information only; sale or booking details have not been published.",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R28 REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "सूचना: यह परियोजना UP RERA में पंजीकृत है — पंजीकरण सं. TEST-ONLY-0000। इस पेज पर अभी केवल परियोजना की जानकारी दी गई है; बिक्री या बुकिंग संबंधी विवरण प्रकाशित नहीं किए गए हैं।",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R28 REGISTERED_MARKETING_OFF (केवल संख्या, स्वीकृति true) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_OFF",
+    "attr": "REGISTERED_MARKETING_OFF",
+    "preNote": false,
+    "regNote": true,
+    "regNoteText": "Notice: This project is registered with UP RERA — Registration No. TEST-ONLY-0000. This page currently provides project information only; sale or booking details have not been published.",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": false,
+    "price": 0,
+    "saleHero": 0,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": true,
+    "errs": []
+   }
+  },
+  "R29 REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति) [hi]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_ON",
+    "attr": "REGISTERED_MARKETING_ON",
+    "preNote": false,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 3,
+    "saleHero": 6,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": false,
+    "errs": []
+   }
+  },
+  "R29 REGISTERED_MARKETING_ON (सभी विवरण + स्वीकृति) [en]: संदेश आपस में मेल खाते": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "state": "REGISTERED_MARKETING_ON",
+    "attr": "REGISTERED_MARKETING_ON",
+    "preNote": false,
+    "regNote": false,
+    "regNoteText": "",
+    "noBooking": false,
+    "footerNone": false,
+    "footerNo": "TEST-ONLY-0000",
+    "box": true,
+    "price": 3,
+    "saleHero": 6,
+    "saysNotObtained": false,
+    "saysRegistered": true,
+    "saysNoBooking": false,
+    "saysNotPublished": false,
     "errs": []
    }
   },
@@ -580,12 +806,12 @@
    "kind": "LOCAL",
    "evidence": {
     "index.html": {
-     "raw_kb": 81.0,
-     "gzip_kb_approx": 19.5
+     "raw_kb": 84.2,
+     "gzip_kb_approx": 20.3
     },
     "3d.html": {
-     "raw_kb": 609.9,
-     "gzip_kb_approx": 163.3
+     "raw_kb": 610.5,
+     "gzip_kb_approx": 163.5
     },
     "hero-gate.jpg": {
      "raw_kb": 83.1,
@@ -603,7 +829,7 @@
   }
  },
  "summary": {
-  "pass": 27,
+  "pass": 37,
   "fail": 0
  }
 }
