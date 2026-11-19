@@ -418,13 +418,29 @@ function house(p, idx) {
   box(hb, 0.18, 0.7, bd, -bw / 2 + 0.09, top + 0.15, z0 + bd / 2, wallM);
   box(hb, 0.18, 0.7, bd, bw / 2 - 0.09, top + 0.15, z0 + bd / 2, wallM);
   kangura(hb, -bw / 2 + 0.2, bw / 2 - 0.2, top + 0.85, zf - 0.09);
-  // stair room (mumty) with small dome
+  // second floor (G+2): rear part only, front part stays an open terrace (as in the Vastu concept plans)
+  const d2 = Math.min(bd - 2.6, Math.max(4.2, bd * 0.6)), zf2 = z0 + d2, top3 = top + 0.15 + fl;
+  box(hb, bw, fl, d2, 0, top + 0.15, z0 + d2 / 2, wallM);
+  box(hb, bw + 0.24, 0.3, d2 + 0.24, 0, top3 - 0.15, z0 + d2 / 2, STONE.band); // cornice
+  box(hb, bw - 0.2, 0.06, d2 - 0.2, 0, top3 + 0.15, z0 + d2 / 2, mat('#D9CBB6'), false);
+  box(hb, bw + 0.1, 0.12, d2 + 0.1, 0, top + 0.9, z0 + d2 / 2, STONE.band, false); // sill band
+  box(hb, bw, 0.7, 0.18, 0, top3 + 0.15, zf2 - 0.09, wallM);
+  box(hb, 0.18, 0.7, d2, -bw / 2 + 0.09, top3 + 0.15, z0 + d2 / 2, wallM);
+  box(hb, 0.18, 0.7, d2, bw / 2 - 0.09, top3 + 0.15, z0 + d2 / 2, wallM);
+  kangura(hb, -bw / 2 + 0.2, bw / 2 - 0.2, top3 + 0.85, zf2 - 0.09);
+  const nw3 = bw > 7.5 ? 2 : 1;
+  for (let i = 0; i < nw3; i++) {
+    const x = nw3 === 1 ? 0.4 : (i ? bw / 4 : -bw / 4);
+    windowMeshes.push(archedOpening(hb, 1.0, 1.8, x, top + 0.95, zf2 + 0.02, M.glass));
+    box(hb, 1.3, 0.1, 0.25, x, top + 0.9, zf2 + 0.1, STONE.band, false);
+  }
+  // stair room (mumty) with small dome — on the second-floor roof
   const mw = Math.min(3.2, bw * 0.45), mx = -bw / 2 + mw / 2 + 0.2;
-  box(hb, mw, 2.7, 3.4, mx, top + 0.15, z0 + 1.9, wallM);
-  box(hb, mw + 0.2, 0.18, 3.6, mx, top + 2.85, z0 + 1.9, STONE.band);
-  const md = new THREE.Mesh(domeGeo, STONE.cream); md.scale.set(mw * 0.36, mw * 0.4, mw * 0.36); md.position.set(mx, top + 3.03, z0 + 1.9); md.castShadow = true; hb.add(md);
-  kalash(hb, mx, top + 3.03 + mw * 0.4, z0 + 1.9, 0.9);
-  if (idx % 4 === 0) flag(hb, mx + mw / 2 - 0.3, top + 3.03, z0 + 0.6, 0.9);
+  box(hb, mw, 2.7, 3.4, mx, top3 + 0.15, z0 + 1.9, wallM);
+  box(hb, mw + 0.2, 0.18, 3.6, mx, top3 + 2.85, z0 + 1.9, STONE.band);
+  const md = new THREE.Mesh(domeGeo, STONE.cream); md.scale.set(mw * 0.36, mw * 0.4, mw * 0.36); md.position.set(mx, top3 + 3.03, z0 + 1.9); md.castShadow = true; hb.add(md);
+  kalash(hb, mx, top3 + 3.03 + mw * 0.4, z0 + 1.9, 0.9);
+  if (idx % 4 === 0) flag(hb, mx + mw / 2 - 0.3, top3 + 3.03, z0 + 0.6, 0.9);
   // roof-corner chhatri on bigger houses / alternate houses
   if (big || idx % 3 === 2) chhatri(hb, bw / 2 - 1.2, top + 0.15, zf - 1.3, 0.85);
 
@@ -496,7 +512,7 @@ function house(p, idx) {
   scene.add(g); STYLE.ayodhya.push(g);
   harvestMarkers(g);
   p.center = new THREE.Vector3(cx, 0, cz);
-  p.top = top + 3.5;
+  p.top = top3 + 3.5;
 }
 INST_LAYER = 'A:';
 plots.forEach((p, i) => house(p, i));
@@ -1053,22 +1069,32 @@ function modernHouse(p, idx) {
   // tall jaali panel standing proud of the facade
   const jx = mir * (bw / 2 - 0.85);
   faceBox(hb, 1.5, fl + sl + 2.6, 0.35, jx, y1 + sl * 0.5, zf + 0.35, MOD.white, MOD.jaali);
-  // tall wood-clad strip with dark glazing on the other side, held by a white frame
+  // second floor (G+2): rear part, front part is an open terrace with a glass railing
+  const d2 = Math.min(bd - 2.6, Math.max(4.2, bd * 0.6)), zf2 = z0 + d2, top3 = top + fl;
+  box(hb, bw, fl, d2, 0, top, z0 + d2 / 2, MOD.white2);
+  windowMeshes.push(box(hb, bw * 0.42, 2.3, 0.08, mir * bw * 0.1, top + 0.3, zf2 + 0.05, M.glass, false));
+  box(hb, bw * 0.42 + 0.12, 0.1, 0.1, mir * bw * 0.1, top + 2.6, zf2 + 0.06, MOD.char, false);
+  // cantilevered white frame over the second floor with a wood soffit + down-lights
+  const rw = bw * 0.66, rx = -mir * (bw / 2 - rw / 2);
+  box(hb, rw + 0.4, 0.45, d2 + 1.4, rx, top3, z0 + d2 / 2 + 0.7, MOD.white);
+  box(hb, rw, 0.04, 1.3, rx, top3 - 0.04, zf2 + 0.65, wood, false);
+  for (let k = 0; k < 3; k++) instMarker(hb, 'dl', M.lamp, 0.18, 0.03, 0.18, rx - rw / 3 + k * rw / 3, top3 - 0.07, zf2 + 0.65);
+  box(hb, bw, 0.45, d2, 0, top3, z0 + d2 / 2, MOD.white);
+  // terrace railing on the first-floor roof
+  box(hb, bw - 0.3, 1.0, 0.04, 0, top, zf + 0.05, M.rail, false);
+  box(hb, bw - 0.3, 0.05, 0.08, 0, top + 1.0, zf + 0.05, MOD.char, false);
+  box(hb, bw - 0.3, 0.05, bd - d2 - 0.2, 0, top + 0.02, (zf2 + zf) / 2, MOD.grey, false);
+  // stair room (mumty) + roof parapet
+  const mw = Math.min(3.0, bw * 0.4), mx = mir * (bw / 2 - mw / 2 - 0.15);
+  box(hb, mw, 2.6, 3.0, mx, top3 + 0.45, z0 + 1.7, MOD.white2);
+  box(hb, mw + 0.3, 0.25, 3.3, mx, top3 + 3.05, z0 + 1.7, MOD.char, false);
+  box(hb, bw, 0.8, 0.16, 0, top3 + 0.45, zf2 - 0.08, MOD.white);
+  box(hb, bw + 0.02, 0.06, 0.22, 0, top3 + 1.25, zf2 - 0.08, MOD.char, false);
+  // tall wood-clad strip with dark glazing on the other side, held by a white frame (full height)
   const sx = -mir * (bw / 2 - 0.55);
-  box(hb, 1.1, top - pl, 0.3, sx, pl, zf + 0.05, wood);
+  box(hb, 1.1, top3 - pl, 0.3, sx, pl, zf + 0.05, wood);
   windowMeshes.push(box(hb, 0.5, top - pl - 1.0, 0.06, sx, pl + 0.5, zf + 0.22, MOD.darkGlass, false));
-  box(hb, 0.25, top + 0.9, 0.5, -mir * (bw / 2 - 0.02), 0, zf + 0.1, MOD.white);
-  // roof: partial second floor (stair + room) with a cantilevered frame + parapet
-  const rw = bw * 0.6, rx = -mir * (bw / 2 - rw / 2), rd = Math.min(bd * 0.55, 7);
-  box(hb, rw, 3.0, rd, rx, top, z0 + rd / 2, MOD.white2);
-  windowMeshes.push(box(hb, rw * 0.5, 1.8, 0.06, rx, top + 0.6, z0 + rd + 0.03, M.glass, false));
-  box(hb, rw + 0.5, 0.45, rd + 1.4, rx, top + 3.0, z0 + rd / 2 + 0.6, MOD.white);
-  box(hb, rw + 0.1, 0.04, 1.3, rx, top + 2.96, z0 + rd + 0.6, wood, false);
-  for (let k = 0; k < 3; k++) instMarker(hb, 'dl', M.lamp, 0.18, 0.03, 0.18, rx - rw / 3 + k * rw / 3, top + 2.93, z0 + rd + 0.6);
-  box(hb, bw, 0.9, 0.18, 0, top, zf - 0.09, MOD.white);
-  box(hb, 0.18, 0.9, bd, mir * (bw / 2 - 0.09), top, z0 + bd / 2, MOD.white);
-  box(hb, bw + 0.02, 0.06, 0.24, 0, top + 0.9, zf - 0.09, MOD.char, false);
-  box(hb, bw - 0.3, 0.05, bd - 0.3, 0, top + 0.02, z0 + bd / 2, MOD.grey, false);
+  box(hb, 0.25, top3 + 0.45, 0.5, -mir * (bw / 2 - 0.02), 0, zf + 0.1, MOD.white);
 
   // garden + car
   if (W - bw > 4) tree(g, hx + bw / 2 + (W - bw) / 2, z0 + bd / 2, 0.9, idx + 1);
@@ -1079,7 +1105,7 @@ function modernHouse(p, idx) {
   g.rotation.y = p.face === 'S' ? 0 : p.face === 'N' ? Math.PI : p.face === 'E' ? Math.PI / 2 : -Math.PI / 2;
   scene.add(g); STYLE.modern.push(g);
   harvestMarkers(g);
-  p.top = Math.max(p.top || 0, top + 3.5);
+  p.top = Math.max(p.top || 0, top3 + 3.6);
 }
 
 function modernGate() {
@@ -1215,6 +1241,7 @@ function setStyle(name) {
   lastActive = performance.now();
 }
 window.__setStyle = setStyle;
+
 window.__look = (px, py, pz, tx, ty, tz) => { camera.position.set(px, py, pz); controls.target.set(tx, ty, tz); controls.update(); lastActive = performance.now(); };
 window.__plots = plots;
 
@@ -1340,6 +1367,48 @@ gfxBtn.addEventListener('click', () => setGfx(!LOW));
   if (location.hash === '#video') want = 'ayodhya';
   if (sw) sw.addEventListener('click', () => setStyle(STYLE_NOW === 'modern' ? 'ayodhya' : 'modern'));
   if (want === 'modern') setStyle('modern');
+}
+// ---------------- plot info card: tap a plot → size + link to its concept house plan ----------------
+{
+  const SQFT = [1000,1500,1500,1500,1500,1500,1500,1500,1250,1250,1250,1250,1250,1250,1250,1250,1250,1339.73,1000,1000,1000,1000,1500,1000,1023.25,1500,1000,1023.25,1124.96,1124.96,921.16,1126.87,1126.79,1250,1250,1023.25,1250,1250,1023.25,1250,1250,1023.25];
+  // [length, width] in feet as written on the layout drawing (plots 1, 7, 8 from the sanctioned table)
+  const DIM = ["50′ × 20′"].concat(Array(7).fill("50′ × 30′"), Array(9).fill("50′ × 25′"), ["50′ × 26′10″"], Array(4).fill("50′ × 20′"),
+    ["50′ × 30′", "50′ × 20′", "50′ × 20′6″", "50′ × 30′", "50′ × 20′", "50′ × 20′6″", "45′ × 25′", "45′ × 25′", "45′ × 20′6″", "35′3″ × 32′", "35′3″ × 32′",
+     "50′ × 25′", "50′ × 25′", "50′ × 20′6″", "50′ × 25′", "50′ × 25′", "50′ × 20′6″", "50′ × 25′", "50′ × 25′", "50′ × 20′6″"]);
+  const hits = plots.map((p) => {
+    const m = new THREE.Mesh(boxGeo, new THREE.MeshBasicMaterial());
+    m.scale.set(p.w * S, 16, p.h * S); m.position.set(X(p.x + p.w / 2), 8, Z(p.y + p.h / 2)); m.updateMatrixWorld(true);
+    m.userData.n = p.n; return m;
+  });
+  const outline = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)), new THREE.LineBasicMaterial({ color: '#F5A524', depthTest: false }));
+  outline.renderOrder = 11; outline.visible = false; outline.userData.util = true; scene.add(outline);
+  const card = $('plotCard'), body = $('plotCardBody');
+  function closeCard() { card.hidden = true; outline.visible = false; lastActive = performance.now(); }
+  function openCard(n) {
+    const p = plots[n - 1], en = document.documentElement.lang === 'en';
+    body.innerHTML = en
+      ? `<h2>Plot ${n}</h2><p>Size: <b>${DIM[n - 1]}</b> (length × width)</p><p>${AREA[n - 1].toFixed(2)} sq m · ${SQFT[n - 1]} sq ft</p><a href="naksha.html#plot-${n}">Concept house plan (Vastu) →</a>`
+      : `<h2>प्लॉट ${n}</h2><p>नाप: <b>${DIM[n - 1]}</b> (लंबाई × चौड़ाई)</p><p>${AREA[n - 1].toFixed(2)} वर्ग मी. · ${SQFT[n - 1]} वर्ग फ़ुट</p><a href="naksha.html#plot-${n}">घर का कॉन्सेप्ट नक्शा (वास्तु अनुसार) →</a>`;
+    card.hidden = false;
+    outline.scale.set(p.w * S, 0.6, p.h * S); outline.position.set(X(p.x + p.w / 2), 0.4, Z(p.y + p.h / 2)); outline.visible = true;
+    lastActive = performance.now();
+  }
+  window.__openPlot = openCard;
+  $('plotCardX').addEventListener('click', closeCard);
+  const ray = new THREE.Raycaster(), v2 = new THREE.Vector2();
+  let down = null;
+  canvas.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+  canvas.addEventListener('pointerup', (e) => {
+    if (!down || glDead() || location.hash === '#video') return;
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t; down = null;
+    if (moved > 6 || dt > 600) return;
+    const r = canvas.getBoundingClientRect();
+    v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(v2, camera);
+    const h = ray.intersectObjects(hits, false)[0];
+    if (h) openCard(h.object.userData.n); else closeCard();
+  });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !card.hidden) closeCard(); });
 }
 renderer.domElement.addEventListener('webglcontextlost', () => { stopHold(); if (window.__fallback) window.__fallback('lost'); });
 // toolbar: show a fade when more buttons are hidden to the right
