@@ -4,23 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>सूर्य कुंज — वास्तु अनुसार G+2, 4BHK घर के कॉन्सेप्ट नक्शे</title>
-<meta name="description" content="सूर्य कुंज आवासीय योजना, अयोध्या — हर प्लॉट के लिए वास्तु अनुसार G+2, 4BHK घर के कॉन्सेप्ट फ़्लोर प्लान व एलिवेशन।">
+<meta name="description" content="सूर्य कुंज आवासीय योजना, अयोध्या — हर प्लॉट के लिए वास्तु अनुसार G+2, 4BHK घर के कॉन्सेप्ट फ़्लोर प्लान व एलिवेशन (पारंपरिक व आधुनिक)।">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Rozha+One&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#2B201A;--maroon:#7A2E2A;--saffron:#E8781E;--sand:#FBF5EC;--line:#E6D9C7;--muted:#6B5D52}
 *{box-sizing:border-box}
 body{margin:0;font-family:'Noto Sans Devanagari',system-ui,sans-serif;color:var(--ink);background:var(--sand);line-height:1.55}
-header{background:linear-gradient(135deg,#7A2E2A,#A8462A);color:#FFF4E2;padding:20px 20px 22px}
+header{background:linear-gradient(135deg,#7A2E2A,#A8462A);color:#FFF4E2;padding:16px 20px 22px}
+body.modern header{background:linear-gradient(135deg,#2A2B2E,#5A4636)}
 header .in,main{max-width:1180px;margin:0 auto}
-.top{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:10px}
-.top a{color:#FFE2B0;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
-.top a:hover{text-decoration:underline}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:10px}
+.links{display:flex;flex-wrap:wrap;gap:4px 16px}
+.links a{color:#FFE2B0;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.links a:hover{text-decoration:underline}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl button{font:600 14px 'Noto Sans Devanagari',system-ui,sans-serif;color:#FFF4E2;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35);border-radius:10px;min-height:44px;padding:6px 12px;cursor:pointer}
+.ctrl button:focus-visible{outline:2px solid #FFD27A;outline-offset:2px}
+#styleSw{display:inline-flex;align-items:center;gap:8px}
+#styleSw .sw{position:relative;width:42px;height:24px;border-radius:12px;background:rgba(255,255,255,.3);flex:none;transition:background .2s}
+#styleSw .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+#styleSw[aria-checked="true"] .sw{background:#F5A524}
+#styleSw[aria-checked="true"] .sw::after{transform:translateX(18px)}
+#styleSw .sl{opacity:.65}
+#styleSw[aria-checked="false"] .sl-a,#styleSw[aria-checked="true"] .sl-m{opacity:1;color:#FFD27A}
 h1{font-family:'Rozha One',serif;font-weight:400;font-size:clamp(26px,4vw,40px);margin:0 0 4px;letter-spacing:.3px}
+html[lang="en"] h1{font-family:'Noto Sans Devanagari',system-ui,sans-serif;font-weight:700}
 header p{margin:0;opacity:.92}
 main{padding:18px 16px 60px}
 .note{background:#FFF;border:1px solid var(--line);border-left:4px solid var(--saffron);padding:12px 14px;border-radius:8px;font-size:14.5px;margin:14px 0}
-#enNote{display:none;background:#FFF8E6;border:1px solid #E8C77A;border-radius:8px;padding:10px 14px;font-size:14.5px;margin:14px 0}
 .picker{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
 .picker button{font:inherit;font-weight:600;min-width:44px;height:44px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
 .picker button[data-f="E"]{border-color:#C9DDB0}.picker button[data-f="W"]{border-color:#BFD3EA}
@@ -31,6 +43,7 @@ main{padding:18px 16px 60px}
 .card b{display:block;font-size:20px;color:var(--maroon)}
 .card span{font-size:13px;color:var(--muted)}
 h2{font-family:'Rozha One',serif;font-weight:400;color:var(--maroon);font-size:26px;margin:26px 0 8px}
+html[lang="en"] h2{font-family:'Noto Sans Devanagari',system-ui,sans-serif;font-weight:700;font-size:23px}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .fl{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px}
 .fl h3{margin:0 0 6px;font-size:16px}
@@ -52,6 +65,7 @@ th{background:#F6EDE0;font-weight:600}
 td.ok{color:#2E7D32;font-weight:700;white-space:nowrap}
 td.mid{color:#B26A00;font-weight:700;white-space:nowrap}
 .two{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:start}
+.two>div,.plans>div{min-width:0}
 footer{font-size:13px;color:var(--muted);margin-top:28px}
 a.btn3d{display:inline-flex;align-items:center;min-height:44px;padding:6px 14px;border-radius:10px;background:var(--maroon);color:#fff;font-weight:600;text-decoration:none;margin-top:6px}
 @media (max-width:900px){.plans{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
@@ -59,44 +73,46 @@ a.btn3d{display:inline-flex;align-items:center;min-height:44px;padding:6px 14px;
 </head>
 <body>
 <header><div class="in">
-  <nav class="top" aria-label="पेज लिंक"><a href="index.html#plots">← वेबसाइट पर लौटें</a><a href="3d.html">3D भ्रमण खोलें</a></nav>
-  <h1>सूर्य कुंज आवासीय योजना — घर के कॉन्सेप्ट नक्शे</h1>
-  <p>हर प्लॉट के लिए G+2 (भूतल + 2 मंज़िल), 4 शयन कक्ष, वास्तु के अनुसार · ग्राम सरेठी, अयोध्या</p>
+  <div class="top">
+    <nav class="links" id="links" aria-label="पेज लिंक"><a href="index.html#plots" data-t="back">← वेबसाइट पर लौटें</a><a href="3d.html" data-t="open3d">3D भ्रमण खोलें</a></nav>
+    <div class="ctrl">
+      <button id="styleSw" type="button" role="switch" aria-checked="false"><span class="sl sl-a" data-t="trad">पारंपरिक</span><span class="sw" aria-hidden="true"></span><span class="sl sl-m" data-t="mod">आधुनिक</span></button>
+      <button id="langBtn" type="button">English</button>
+    </div>
+  </div>
+  <h1 data-t="h1">सूर्य कुंज आवासीय योजना — घर के कॉन्सेप्ट नक्शे</h1>
+  <p data-t="sub">हर प्लॉट के लिए G+2 (भूतल + 2 मंज़िल), 4 शयन कक्ष, वास्तु के अनुसार · ग्राम सरेठी, अयोध्या</p>
 </div></header>
 <main>
-  <div id="enNote" lang="en">This page is available in Hindi only. Floor plans, front elevation and Vastu check for each plot are shown below.</div>
-  <div class="note"><b>प्लॉट चुनें</b> — उस प्लॉट का भूतल, प्रथम तल, द्वितीय तल का नक्शा, सामने का एलिवेशन और वास्तु जाँच नीचे दिखेगी। <span class="legend">रंग: सादा = उत्तर-मुखी · हरा किनारा = पूर्व-मुखी · नीला किनारा = पश्चिम-मुखी</span></div>
+  <div class="note"><b data-t="pick">प्लॉट चुनें</b> <span data-t="pickTxt">— उस प्लॉट का भूतल, प्रथम तल, द्वितीय तल का नक्शा, सामने का एलिवेशन और वास्तु जाँच नीचे दिखेगी।</span> <span class="legend" data-t="legend">रंग: सादा = उत्तर-मुखी · हरा किनारा = पूर्व-मुखी · नीला किनारा = पश्चिम-मुखी</span></div>
   <div class="picker" id="picker"></div>
 
   <div class="summary" id="summary"></div>
 
-  <h2>फ़्लोर प्लान</h2>
+  <h2 data-t="plansH">फ़्लोर प्लान</h2>
   <div class="plans" id="plans"></div>
 
   <div class="two">
     <div>
-      <h2>सामने का एलिवेशन (सड़क से)</h2>
+      <h2 data-t="elevH">सामने का एलिवेशन (सड़क से)</h2>
       <div class="elevbox" id="elev"></div>
-      <p class="legend">अयोध्या शैली: गुलाबी बलुआ-पत्थर जैसा रंग, कंगूरेदार मुँडेर, मेहराबदार खिड़कियाँ, प्रथम तल पर झरोखा, सीढ़ी-कक्ष पर गुंबद व कलश, द्वार पर केसरिया तोरण पट्टी।</p>
-      <a class="btn3d" href="3d.html">यह कॉलोनी 3D में देखें</a>
+      <p class="legend" id="elevNote"></p>
+      <a class="btn3d" id="btn3d" href="3d.html" data-t="see3d">यह कॉलोनी 3D में देखें</a>
     </div>
     <div>
-      <h2>वास्तु जाँच</h2>
+      <h2 data-t="vastuH">वास्तु जाँच</h2>
       <div class="tw"><table id="vastu"></table></div>
     </div>
   </div>
 
-  <h2>कमरों की सूची</h2>
+  <h2 data-t="roomsH">कमरों की सूची</h2>
   <div class="tw"><table id="rooms"></table></div>
 
   <footer>
-    <p><b>ध्यान दें:</b> ये केवल कॉन्सेप्ट नक्शे हैं — हम प्लॉट देते हैं, घर ख़रीदार अपनी पसंद से बनवाते हैं। प्लॉट का नाप ले-आउट ड्रॉइंग के आयामों व ADA स्वीकृत क्षेत्रफल के अनुसार है; अंतिम नाप स्वीकृत नक्शे व रजिस्ट्री के अनुसार मान्य। दिशाएँ ले-आउट नक्शे में ऊपर = उत्तर मानकर हैं; साइट पर कम्पास से पुष्टि करें। निर्माण से पहले पंजीकृत आर्किटेक्ट से अयोध्या विकास प्राधिकरण की भवन उपविधि (सेटबैक, FAR, ऊँचाई) के अनुसार नक्शा पास कराएँ और स्ट्रक्चरल इंजीनियर से डिज़ाइन कराएँ।</p>
-    <p>संकल्पना: आलोक रंजन मिश्र · SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED</p>
+    <p><b data-t="noteB">ध्यान दें:</b> <span data-t="noteTxt">ये केवल कॉन्सेप्ट नक्शे हैं — हम प्लॉट देते हैं, घर ख़रीदार अपनी पसंद से बनवाते हैं। प्लॉट का नाप ले-आउट ड्रॉइंग के आयामों व ADA स्वीकृत क्षेत्रफल के अनुसार है; अंतिम नाप स्वीकृत नक्शे व रजिस्ट्री के अनुसार मान्य। दिशाएँ ले-आउट नक्शे में ऊपर = उत्तर मानकर हैं; साइट पर कम्पास से पुष्टि करें। निर्माण से पहले पंजीकृत आर्किटेक्ट से अयोध्या विकास प्राधिकरण की भवन उपविधि (सेटबैक, FAR, ऊँचाई) के अनुसार नक्शा पास कराएँ और स्ट्रक्चरल इंजीनियर से डिज़ाइन कराएँ।</span></p>
+    <p data-t="credit">संकल्पना: आलोक रंजन मिश्र · SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED</p>
   </footer>
 </main>
-<script>
-(function () { try { if (localStorage.getItem('sk-lang') === 'en') document.getElementById('enNote').style.display = 'block'; } catch (e) {} })();
-</script>
 <script>// सूर्य कुंज — वास्तु आधारित G+2, 4BHK कॉन्सेप्ट प्लान जनरेटर (सभी 42 प्लॉट)
 // निर्देशांक मीटर में: x = पश्चिम→पूर्व, y = दक्षिण→उत्तर (ले-आउट में ऊपर = उत्तर मानकर)
 (function (root) {
@@ -239,96 +255,112 @@ a.btn3d{display:inline-flex;align-items:center;min-height:44px;padding:6px 14px;
   root.SK = { layout, plotInfo, zoneOf, NAMES, AREA };
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
-<script>// SVG ड्रॉइंग: फ़्लोर प्लान व सामने का एलिवेशन
+<script>
+// भाषा (sk-lang) व डिज़ाइन (sk-style) — वेबसाइट व 3D के साथ एक ही सेटिंग
+(function () {
+  const read = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const store = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  function browserLang() {
+    const ls = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    for (const l0 of ls) { const l = String(l0 || '').toLowerCase(); if (l.indexOf('hi') === 0) return 'hi'; if (l.indexOf('en') === 0) return 'en'; }
+    return 'en';
+  }
+  const q = new URLSearchParams(location.search);
+  let lang = read('sk-lang') || browserLang();
+  if (q.get('lang') === 'en' || q.get('lang') === 'hi') lang = q.get('lang');
+  let style = read('sk-style') === 'modern' ? 'modern' : 'ayodhya';
+  if (q.get('design') === 'modern') style = 'modern'; else if (q.get('design') === 'traditional') style = 'ayodhya';
+  window.SKS = {
+    get lang() { return lang; }, get style() { return style; },
+    setLang(l) { lang = l; store('sk-lang', l); },
+    setStyle(s) { style = s; store('sk-style', s); },
+  };
+})();
+</script>
+<script>// SVG ड्रॉइंग: फ़्लोर प्लान व सामने का एलिवेशन (पारंपरिक / आधुनिक, हिंदी / English)
 (function () {
   const COL = {
     living: '#FBE7C6', dining: '#FDF0D5', kitchen: '#F9D3B8', bed1: '#DCE9F5', bed2: '#DCE9F5', bed3: '#CFE0F2', bed4: '#DCE9F5',
     toilet: '#D7EFEA', stairs: '#E6E1DA', lobby: '#F3EFE8', lounge: '#EAF3DC', puja: '#FFD9A8', terrace: '#FFFFFF', store: '#ECE6DE', wash: '#E4F3EF', foyer: '#FBE7C6', passage: '#F3EFE8', study: '#E8E2F2',
   };
+  const NAMES_EN = {
+    living: 'Living room', dining: 'Dining', kitchen: 'Kitchen', bed1: 'Bedroom 1', bed2: 'Bedroom 2', bed3: 'Master bedroom', bed4: 'Bedroom 4',
+    toilet: 'Toilet', stairs: 'Stairs', lobby: 'Lobby', lounge: 'Family lounge', puja: 'Puja room', terrace: 'Open terrace', store: 'Store', study: 'Study', wash: 'Wash', foyer: 'Entry foyer', passage: 'Passage',
+  };
+  const en = () => SKS.lang === 'en';
+  const rname = (r) => en() ? NAMES_EN[r.k] : r.name;
   const ftin = (m) => { const t = Math.round(m / 0.0254); const ft = Math.floor(t / 12), inch = t % 12; return `${ft}'-${inch}"`; };
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  const FLN = ['भूतल (Ground)', 'प्रथम तल (First)', 'द्वितीय तल (Second)'];
+  const FLN = () => en() ? ['Ground floor', 'First floor', 'Second floor'] : ['भूतल (Ground)', 'प्रथम तल (First)', 'द्वितीय तल (Second)'];
 
   function plan(L, fl, K = 34) {
     const M = 1.6, PX = L.PX, PY = L.PY;
     const Wd = (PX + 2 * M) * K, Ht = (PY + 2 * M) * K;
     const sx = (x) => (x + M) * K, sy = (y) => (PY - y + M) * K;
     const rect = (x, y, w, h) => `x="${sx(x).toFixed(1)}" y="${sy(y + h).toFixed(1)}" width="${(w * K).toFixed(1)}" height="${(h * K).toFixed(1)}"`;
-    let o = `<svg viewBox="0 0 ${Wd.toFixed(0)} ${Ht.toFixed(0)}" class="plan" role="img" aria-label="${esc(FLN[fl])}">`;
+    let o = `<svg viewBox="0 0 ${Wd.toFixed(0)} ${Ht.toFixed(0)}" class="plan" role="img" aria-label="${esc(FLN()[fl])}">`;
     o += `<defs><pattern id="hatch${fl}" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#D8CFC2" stroke-width="2"/></pattern></defs>`;
-    // सड़क
     const face = L.p.face;
     const road = face === 'N' ? [0, PY, PX, M * 0.9] : face === 'E' ? [PX, 0, M * 0.9, PY] : [-M * 0.9, 0, M * 0.9, PY];
     o += `<rect ${rect(road[0], road[1], road[2], road[3])} fill="#CBD2DA"/>`;
     const rl = face === 'N' ? [PX / 2, PY + M * 0.45, 0] : face === 'E' ? [PX + M * 0.45, PY / 2, -90] : [-M * 0.45, PY / 2, -90];
-    o += `<text x="${sx(rl[0])}" y="${sy(rl[1])}" transform="rotate(${rl[2]} ${sx(rl[0])} ${sy(rl[1])})" class="road">सड़क</text>`;
-    // प्लॉट सीमा
+    o += `<text x="${sx(rl[0])}" y="${sy(rl[1])}" transform="rotate(${rl[2]} ${sx(rl[0])} ${sy(rl[1])})" class="road">${en() ? 'Road' : 'सड़क'}</text>`;
     o += `<rect ${rect(0, 0, PX, PY)} fill="#F4F7EE" stroke="#7A2E2A" stroke-width="1.6" stroke-dasharray="7 4"/>`;
     if (fl === 0) {
       const c = L.car;
       o += `<rect ${rect(c.x, c.y, c.w, c.h)} rx="6" fill="#fff" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="3 2"/>`;
-      o += `<text x="${sx(c.x + c.w / 2)}" y="${sy(c.y + c.h / 2) + 4}" class="sm">पार्किंग</text>`;
+      o += `<text x="${sx(c.x + c.w / 2)}" y="${sy(c.y + c.h / 2) + 4}" class="sm">${en() ? 'Parking' : 'पार्किंग'}</text>`;
     }
-    // कमरे
     const rs = L.floors[fl];
     for (const r of rs) {
       const fill = r.open ? `url(#hatch${fl})` : COL[r.k];
       o += `<rect ${rect(r.x, r.y, r.w, r.h)} fill="${fill}" stroke="${r.open ? '#B9AE9F' : '#3B2A22'}" stroke-width="${r.open ? 1 : 2.6}"/>`;
     }
-    // सीढ़ी के पायदान
     const s = L.stairs;
     if (s) {
       const n = 9;
       if (s.run === 'y') {
         const hw = s.w / 2, land = 1.0, run = s.h - land;
-        for (let i = 1; i < n; i++) {
-          const y = s.y + (run * i) / n;
-          o += `<line x1="${sx(s.x)}" y1="${sy(y)}" x2="${sx(s.x + s.w)}" y2="${sy(y)}" stroke="#9B8F80" stroke-width="1"/>`;
-        }
+        for (let i = 1; i < n; i++) { const y = s.y + (run * i) / n; o += `<line x1="${sx(s.x)}" y1="${sy(y)}" x2="${sx(s.x + s.w)}" y2="${sy(y)}" stroke="#9B8F80" stroke-width="1"/>`; }
         o += `<line x1="${sx(s.x + hw)}" y1="${sy(s.y)}" x2="${sx(s.x + hw)}" y2="${sy(s.y + run)}" stroke="#6F6255" stroke-width="1.4"/>`;
       } else {
         const hh = s.h / 2, land = 1.0, run = s.w - land;
-        for (let i = 1; i < n; i++) {
-          const x = s.x + land + (run * i) / n;
-          o += `<line x1="${sx(x)}" y1="${sy(s.y)}" x2="${sx(x)}" y2="${sy(s.y + s.h)}" stroke="#9B8F80" stroke-width="1"/>`;
-        }
+        for (let i = 1; i < n; i++) { const x = s.x + land + (run * i) / n; o += `<line x1="${sx(x)}" y1="${sy(s.y)}" x2="${sx(x)}" y2="${sy(s.y + s.h)}" stroke="#9B8F80" stroke-width="1"/>`; }
         o += `<line x1="${sx(s.x + land)}" y1="${sy(s.y + hh)}" x2="${sx(s.x + s.w)}" y2="${sy(s.y + hh)}" stroke="#6F6255" stroke-width="1.4"/>`;
       }
     }
-    // लेबल
     for (const r of rs) {
       const cx = sx(r.x + r.w / 2), cy = sy(r.y + r.h / 2);
       const small = r.w * K < 70 || r.h * K < 52;
       const rot = r.w < 1.9 && r.h > r.w ? -90 : 0;
       const tr = rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : '';
-      let nm = r.name;
-      if (r.k === 'toilet' && rot) nm = 'शौचालय';
+      let nm = rname(r);
+      if (r.k === 'toilet' && rot) nm = en() ? 'Toilet' : 'शौचालय';
       o += `<text x="${cx}" y="${cy - (small ? 0 : 6)}" class="${small ? 'rn sm' : 'rn'}"${tr}>${esc(nm)}</text>`;
       if (!small && !r.open) o += `<text x="${cx}" y="${cy + 12}" class="dim">${ftin(r.w)} × ${ftin(r.h)}</text>`;
     }
-    // मुख्य द्वार
     const d = L.door;
     if (fl === 0 && d) {
       const dw = 1.1;
       if (d.side === 'N') o += `<line x1="${sx(d.x - dw / 2)}" y1="${sy(d.y)}" x2="${sx(d.x + dw / 2)}" y2="${sy(d.y)}" stroke="#E8781E" stroke-width="7"/>`;
       else o += `<line x1="${sx(d.x)}" y1="${sy(d.y - dw / 2)}" x2="${sx(d.x)}" y2="${sy(d.y + dw / 2)}" stroke="#E8781E" stroke-width="7"/>`;
       const ax = d.side === 'N' ? [d.x, d.y + 1.1] : d.side === 'E' ? [d.x + 1.1, d.y] : [d.x - 1.1, d.y];
-      o += `<text x="${sx(ax[0])}" y="${sy(ax[1]) + 4}" class="door">▲ प्रवेश</text>`;
+      o += `<text x="${sx(ax[0])}" y="${sy(ax[1]) + 4}" class="door">${en() ? '▲ Entry' : '▲ प्रवेश'}</text>`;
     }
     if (fl === 2 && L.tank) {
       const t = L.tank;
       o += `<rect ${rect(t.x, t.y, t.w, t.h)} fill="none" stroke="#2E6DA4" stroke-width="1.4" stroke-dasharray="4 3"/>`;
-      o += `<text x="${sx(t.x + t.w / 2)}" y="${sy(t.y + t.h / 2) + 4}" class="sm tank">टंकी ऊपर</text>`;
+      o += `<text x="${sx(t.x + t.w / 2)}" y="${sy(t.y + t.h / 2) + 4}" class="sm tank">${en() ? 'Tank above' : 'टंकी ऊपर'}</text>`;
     }
-    // उत्तर तीर
     const nx = Wd - 26, ny = 30;
-    o += `<g class="north"><circle cx="${nx}" cy="${ny}" r="15" fill="#fff" stroke="#3B2A22"/><path d="M${nx} ${ny - 12} L${nx + 6} ${ny + 6} L${nx} ${ny + 2} L${nx - 6} ${ny + 6}Z" fill="#7A2E2A"/><text x="${nx}" y="${ny + 28}" class="sm">उत्तर</text></g>`;
+    o += `<g class="north"><circle cx="${nx}" cy="${ny}" r="15" fill="#fff" stroke="#3B2A22"/><path d="M${nx} ${ny - 12} L${nx + 6} ${ny + 6} L${nx} ${ny + 2} L${nx - 6} ${ny + 6}Z" fill="#7A2E2A"/><text x="${nx}" y="${ny + 28}" class="sm">${en() ? 'North' : 'उत्तर'}</text></g>`;
     o += '</svg>';
     return o;
   }
 
-  // सड़क की ओर से एलिवेशन
-  function elevation(L, K = 30) {
+  // सड़क की ओर से एलिवेशन — style: 'ayodhya' (पारंपरिक) या 'modern' (आधुनिक)
+  function elevation(L, style, K = 30) {
+    const MOD = style === 'modern';
     const face = L.p.face, PX = L.PX, PY = L.PY;
     const span = face === 'N' ? PX : PY;
     const iv = (r) => face === 'N' ? [PX - (r.x + r.w), PX - r.x] : face === 'E' ? [r.y, r.y + r.h] : [PY - (r.y + r.h), PY - r.y];
@@ -338,8 +370,14 @@ a.btn3d{display:inline-flex;align-items:center;min-height:44px;padding:6px 14px;
     const top = levels[3] + PAR + 3.6;
     const M = 1.2, Wd = (span + 2 * M) * K + 46, Ht = (top + M + 0.8) * K;
     const ex = (u) => (u + M) * K, ey = (h) => (top + M - h) * K;
-    let o = `<svg viewBox="0 0 ${Wd.toFixed(0)} ${Ht.toFixed(0)}" class="elev" role="img" aria-label="सामने का एलिवेशन">`;
-    o += `<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9F2FA"/><stop offset="1" stop-color="#FFF8EE"/></linearGradient></defs>`;
+    const C = MOD
+      ? { line: '#8E8C88', band: '#2A2B2E', wood: '#8A5432', glass: '#2E3A44', plinth: '#6F7275', wall: '#F3F2EF', coping: '#2A2B2E' }
+      : { line: '#9C6F57', band: '#B98468', wood: '#7B4A2A', glass: '#5D7E99', plinth: '#C9967A', wall: '#E2B79C', coping: '#B98468' };
+    let o = `<svg viewBox="0 0 ${Wd.toFixed(0)} ${Ht.toFixed(0)}" class="elev" role="img" aria-label="${en() ? 'Front elevation' : 'सामने का एलिवेशन'}">`;
+    o += `<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9F2FA"/><stop offset="1" stop-color="#FFF8EE"/></linearGradient>`;
+    o += `<pattern id="slats" width="7" height="10" patternUnits="userSpaceOnUse"><rect width="7" height="10" fill="#8A5432"/><rect width="2" height="10" fill="#5E3820"/></pattern>`;
+    o += `<pattern id="woodv" width="9" height="10" patternUnits="userSpaceOnUse"><rect width="9" height="10" fill="#9C6A43"/><rect width="1.4" height="10" fill="#6E4128"/></pattern>`;
+    o += `<pattern id="jaali" width="14" height="12" patternUnits="userSpaceOnUse"><rect width="14" height="12" fill="#F6F6F4"/><path d="M7 1 L12 4 L12 9 L7 11.5 L2 9 L2 4 Z" fill="#9FB0B9"/><path d="M7 6 L7 11.5 M7 6 L2 4 M7 6 L12 4" stroke="#F6F6F4" stroke-width="1"/></pattern></defs>`;
     o += `<rect x="0" y="0" width="${Wd}" height="${Ht}" fill="url(#sky)"/>`;
     o += `<rect x="0" y="${ey(0)}" width="${Wd}" height="${0.8 * K}" fill="#B9C2B0"/>`;
     const segsOf = (fl) => {
@@ -351,143 +389,251 @@ a.btn3d{display:inline-flex;align-items:center;min-height:44px;padding:6px 14px;
         const a = xs[i], b = xs[i + 1]; if (b - a < 0.05) continue;
         const m = (a + b) / 2; let best = null;
         for (const r of rs) { const [p, q] = iv(r); if (p <= m && m <= q && (!best || dep(r) < dep(best))) best = r; }
-        if (best) {
-          const last = out[out.length - 1];
-          if (last && last.r === best) last.b = b; else out.push({ a, b, r: best, d: dep(best) });
-        }
+        if (best) { const last = out[out.length - 1]; if (last && last.r === best) last.b = b; else out.push({ a, b, r: best, d: dep(best) }); }
       }
       return out;
     };
     const minD = Math.min(...[0, 1, 2].flatMap((fl) => segsOf(fl).map((s) => s.d)));
-    const shade = (d) => { const t = Math.min(1, (d - minD) / 6); const c = (a, b) => Math.round(a + (b - a) * t); return `rgb(${c(226, 238)},${c(183, 214)},${c(156, 196)})`; };
-    const win = (cx, y, w, h, glass = '#5D7E99') => {
-      const r = w / 2;
-      return `<path d="M${ex(cx - r)} ${ey(y)} L${ex(cx - r)} ${ey(y + h - r)} A${r * K} ${r * K} 0 0 1 ${ex(cx + r)} ${ey(y + h - r)} L${ex(cx + r)} ${ey(y)} Z" fill="${glass}" stroke="#B98468" stroke-width="4"/>`;
+    const shade = (d) => {
+      const t = Math.min(1, (d - minD) / 6); const c = (a, b) => Math.round(a + (b - a) * t);
+      return MOD ? `rgb(${c(243, 216)},${c(242, 214)},${c(239, 209)})` : `rgb(${c(226, 238)},${c(183, 214)},${c(156, 196)})`;
     };
+    const archWin = (cx, y, w, h, glass = C.glass) => { const r = w / 2; return `<path d="M${ex(cx - r)} ${ey(y)} L${ex(cx - r)} ${ey(y + h - r)} A${r * K} ${r * K} 0 0 1 ${ex(cx + r)} ${ey(y + h - r)} L${ex(cx + r)} ${ey(y)} Z" fill="${glass}" stroke="#B98468" stroke-width="4"/>`; };
+    const rectWin = (cx, y, w, h, glass = C.glass) => `<rect x="${ex(cx - w / 2)}" y="${ey(y + h)}" width="${w * K}" height="${h * K}" fill="${glass}" stroke="#2A2B2E" stroke-width="3"/><line x1="${ex(cx)}" y1="${ey(y + h)}" x2="${ex(cx)}" y2="${ey(y)}" stroke="#2A2B2E" stroke-width="2"/>`;
+    const win = MOD ? rectWin : archWin;
     const kang = (a, b, y) => { let s = ''; const st = 0.6; const n = Math.max(1, Math.floor((b - a) / st)); const off = (b - a - (n - 1) * st) / 2; for (let i = 0; i < n; i++) { const x = a + off + i * st; s += `<path d="M${ex(x - 0.16)} ${ey(y)} L${ex(x - 0.16)} ${ey(y + 0.26)} Q${ex(x)} ${ey(y + 0.46)} ${ex(x + 0.16)} ${ey(y + 0.26)} L${ex(x + 0.16)} ${ey(y)}Z" fill="#B98468"/>`; } return s; };
+    const rail = (a, b, y) => `<rect x="${ex(a)}" y="${ey(y + 1.0)}" width="${(b - a) * K}" height="${1.0 * K}" fill="rgba(160,205,228,.38)" stroke="#2A2B2E" stroke-width="1"/><rect x="${ex(a)}" y="${ey(y + 1.05)}" width="${(b - a) * K}" height="${0.07 * K}" fill="#2A2B2E"/>`;
     const doorU = face === 'N' ? PX - L.door.x : face === 'E' ? L.door.y : PY - L.door.y;
-    // पीछे से आगे: पहले गहरे हिस्से
     for (let fl = 2; fl >= 0; fl--) {
       const segs = segsOf(fl).sort((a, b) => b.d - a.d);
       const y0 = levels[fl], y1 = levels[fl + 1];
       for (const s of segs) {
-        o += `<rect x="${ex(s.a)}" y="${ey(y1)}" width="${(s.b - s.a) * K}" height="${(y1 - y0) * K}" fill="${shade(s.d)}" stroke="#9C6F57" stroke-width="1"/>`;
+        o += `<rect x="${ex(s.a)}" y="${ey(y1)}" width="${(s.b - s.a) * K}" height="${(y1 - y0) * K}" fill="${shade(s.d)}" stroke="${C.line}" stroke-width="1"/>`;
         const w = s.b - s.a, cx = (s.a + s.b) / 2, k = s.r.k;
         if (fl === 0 && (k === 'living' || k === 'foyer') && doorU >= s.a && doorU <= s.b) {
-          // मेहराबदार मुख्य द्वार + तोरण
-          o += win(doorU, y0, 1.3, 2.6, '#7B4A2A');
-          o += `<rect x="${ex(doorU - 0.8)}" y="${ey(y0 + 2.75)}" width="${1.6 * K}" height="${0.14 * K}" fill="#E8781E"/>`;
+          if (MOD) {
+            o += `<rect x="${ex(doorU - 0.95)}" y="${ey(y0 + FH)}" width="${1.9 * K}" height="${FH * K}" fill="url(#woodv)"/>`;
+            o += `<rect x="${ex(doorU - 0.55)}" y="${ey(y0 + 2.5)}" width="${1.1 * K}" height="${2.5 * K}" fill="#3B2A22" stroke="#2A2B2E" stroke-width="2"/>`;
+          } else {
+            o += archWin(doorU, y0, 1.3, 2.6, '#7B4A2A');
+            o += `<rect x="${ex(doorU - 0.8)}" y="${ey(y0 + 2.75)}" width="${1.6 * K}" height="${0.14 * K}" fill="#E8781E"/>`;
+          }
           const other = doorU - s.a > s.b - doorU ? (s.a + doorU) / 2 - 0.2 : (doorU + s.b) / 2 + 0.2;
-          if (Math.abs(other - doorU) > 1.5 && w > 3.4) o += win(other, y0 + 0.8, Math.min(1.4, w * 0.3), 1.9);
+          if (Math.abs(other - doorU) > 1.5 && w > 3.4) o += win(other, y0 + 0.8, MOD ? Math.min(2.0, w * 0.38) : Math.min(1.4, w * 0.3), MOD ? 2.0 : 1.9);
         } else if (k === 'toilet' || k === 'wash') {
-          o += `<rect x="${ex(cx - 0.3)}" y="${ey(y0 + 2.6)}" width="${0.6 * K}" height="${0.45 * K}" fill="#5D7E99" stroke="#B98468" stroke-width="3"/>`;
+          o += `<rect x="${ex(cx - 0.3)}" y="${ey(y0 + 2.6)}" width="${0.6 * K}" height="${0.45 * K}" fill="${C.glass}" stroke="${MOD ? '#2A2B2E' : '#B98468'}" stroke-width="3"/>`;
         } else if (k === 'passage') {
           // पैसेज — कोई खिड़की नहीं
         } else if (k === 'stairs') {
-          for (let i = 0; i < 4; i++) o += `<rect x="${ex(cx - 0.6 + i * 0.32)}" y="${ey(y0 + 2.5)}" width="${0.18 * K}" height="${1.6 * K}" fill="#9C6F57"/>`;
+          if (MOD) for (let i = 0; i < 3; i++) o += `<rect x="${ex(cx - 0.5 + i * 0.4)}" y="${ey(y0 + 2.7)}" width="${0.16 * K}" height="${2.1 * K}" fill="${C.glass}"/>`;
+          else for (let i = 0; i < 4; i++) o += `<rect x="${ex(cx - 0.6 + i * 0.32)}" y="${ey(y0 + 2.5)}" width="${0.18 * K}" height="${1.6 * K}" fill="#9C6F57"/>`;
         } else if (k === 'puja') {
-          o += win(cx, y0 + 0.9, Math.min(1.0, w * 0.4), 1.6, '#C98B3C');
+          o += MOD ? rectWin(cx, y0 + 0.7, Math.min(0.9, w * 0.4), 2.0, '#C98B3C') : archWin(cx, y0 + 0.9, Math.min(1.0, w * 0.4), 1.6, '#C98B3C');
         } else {
-          const ww = Math.min(1.5, w * 0.42);
-          o += win(cx, y0 + 0.75, ww, 1.9);
-          o += `<rect x="${ex(cx - ww / 2 - 0.25)}" y="${ey(y0 + 2.78)}" width="${(ww + 0.5) * K}" height="${0.12 * K}" fill="#B98468"/>`; // छज्जा
+          const ww = MOD ? Math.min(2.2, w * 0.55) : Math.min(1.5, w * 0.42);
+          o += win(cx, y0 + (MOD ? 0.5 : 0.75), ww, MOD ? 2.2 : 1.9);
+          if (!MOD) o += `<rect x="${ex(cx - ww / 2 - 0.25)}" y="${ey(y0 + 2.78)}" width="${(ww + 0.5) * K}" height="${0.12 * K}" fill="#B98468"/>`; // छज्जा
           if (fl === 1 && s.d - minD < 0.3 && w > 2.4 && (k.startsWith('bed') || k === 'lounge')) {
-            // झरोखा
-            const jw = Math.min(2.2, w - 0.6);
-            o += `<rect x="${ex(cx - jw / 2)}" y="${ey(y0 + 0.75)}" width="${jw * K}" height="${0.75 * K}" fill="#E2B79C" stroke="#9C6F57"/>`;
-            o += `<path d="M${ex(cx - jw / 2 - 0.15)} ${ey(y0 + 2.95)} Q${ex(cx)} ${ey(y0 + 3.45)} ${ex(cx + jw / 2 + 0.15)} ${ey(y0 + 2.95)} Z" fill="#7A2E2A"/>`;
-            o += `<circle cx="${ex(cx)}" cy="${ey(y0 + 3.4)}" r="${0.1 * K}" fill="#C9A045"/>`;
+            if (MOD) {
+              // काँच की रेलिंग वाली बालकनी + गमले
+              o += rail(s.a + 0.2, s.b - 0.2, y0);
+              for (const px of [s.a + 0.6, s.b - 0.6]) o += `<rect x="${ex(px - 0.22)}" y="${ey(y0 + 0.45)}" width="${0.44 * K}" height="${0.45 * K}" fill="#2A2B2E"/><circle cx="${ex(px)}" cy="${ey(y0 + 0.8)}" r="${0.32 * K}" fill="#3E7A35"/>`;
+            } else {
+              // झरोखा
+              const jw = Math.min(2.2, w - 0.6);
+              o += `<rect x="${ex(cx - jw / 2)}" y="${ey(y0 + 0.75)}" width="${jw * K}" height="${0.75 * K}" fill="#E2B79C" stroke="#9C6F57"/>`;
+              o += `<path d="M${ex(cx - jw / 2 - 0.15)} ${ey(y0 + 2.95)} Q${ex(cx)} ${ey(y0 + 3.45)} ${ex(cx + jw / 2 + 0.15)} ${ey(y0 + 2.95)} Z" fill="#7A2E2A"/>`;
+              o += `<circle cx="${ex(cx)}" cy="${ey(y0 + 3.4)}" r="${0.1 * K}" fill="#C9A045"/>`;
+            }
           }
         }
-        // पट्टी (स्ट्रिंग कोर्स)
-        o += `<rect x="${ex(s.a)}" y="${ey(y1 + 0.12)}" width="${(s.b - s.a) * K}" height="${0.24 * K}" fill="#B98468"/>`;
+        // पट्टी / स्लैब
+        if (MOD) {
+          o += `<rect x="${ex(s.a - 0.1)}" y="${ey(y1 + 0.2)}" width="${(s.b - s.a + 0.2) * K}" height="${0.34 * K}" fill="#FFFFFF" stroke="#C9C7C2" stroke-width="1"/>`;
+          o += `<rect x="${ex(s.a - 0.1)}" y="${ey(y1 - 0.14)}" width="${(s.b - s.a + 0.2) * K}" height="${0.06 * K}" fill="#2A2B2E"/>`;
+        } else {
+          o += `<rect x="${ex(s.a)}" y="${ey(y1 + 0.12)}" width="${(s.b - s.a) * K}" height="${0.24 * K}" fill="#B98468"/>`;
+        }
       }
-      // ऊपर खुली छत वाले हिस्सों पर कंगूरेदार मुँडेर
+      // ऊपर खुली छत वाले हिस्से: पारंपरिक में कंगूरेदार मुँडेर, आधुनिक में काँच की रेलिंग / सादी मुँडेर
       const above = fl < 2 ? segsOf(fl + 1) : [];
       for (const s of segs) {
         const covered = above.some((t) => t.a <= s.a + 0.01 && t.b >= s.b - 0.01 && t.d <= s.d + 0.01);
         if (!covered) {
-          o += `<rect x="${ex(s.a)}" y="${ey(y1 + PAR)}" width="${(s.b - s.a) * K}" height="${PAR * K}" fill="${shade(s.d)}" stroke="#9C6F57" stroke-width="1"/>`;
-          o += kang(s.a, s.b, y1 + PAR);
+          if (MOD) {
+            if (fl < 2) o += rail(s.a, s.b, y1 + 0.2);
+            else o += `<rect x="${ex(s.a)}" y="${ey(y1 + PAR)}" width="${(s.b - s.a) * K}" height="${(PAR - 0.2) * K}" fill="${shade(s.d)}" stroke="${C.line}" stroke-width="1"/><rect x="${ex(s.a)}" y="${ey(y1 + PAR + 0.06)}" width="${(s.b - s.a) * K}" height="${0.1 * K}" fill="#2A2B2E"/>`;
+          } else {
+            o += `<rect x="${ex(s.a)}" y="${ey(y1 + PAR)}" width="${(s.b - s.a) * K}" height="${PAR * K}" fill="${shade(s.d)}" stroke="#9C6F57" stroke-width="1"/>`;
+            o += kang(s.a, s.b, y1 + PAR);
+          }
         }
       }
     }
-    // ममटी (सीढ़ी कक्ष) व गुंबद
+    // सीढ़ी कक्ष (ममटी): पारंपरिक में गुंबद व कलश, आधुनिक में सादा डिब्बा व आगे निकला स्लैब
     const st = L.floors[2].find((r) => r.k === 'stairs');
     if (st) {
       const [a, b] = iv(st), y = levels[3];
-      o += `<rect x="${ex(a)}" y="${ey(y + 2.8)}" width="${(b - a) * K}" height="${2.8 * K}" fill="${shade(dep(st))}" stroke="#9C6F57"/>`;
-      o += `<rect x="${ex(a - 0.1)}" y="${ey(y + 2.95)}" width="${(b - a + 0.2) * K}" height="${0.18 * K}" fill="#B98468"/>`;
-      const cx = (a + b) / 2, r = Math.min(1.1, (b - a) * 0.36);
-      o += `<path d="M${ex(cx - r)} ${ey(y + 2.95)} A${r * K} ${r * 1.1 * K} 0 0 1 ${ex(cx + r)} ${ey(y + 2.95)} Z" fill="#F1E2CC" stroke="#B98468"/>`;
-      o += `<circle cx="${ex(cx)}" cy="${ey(y + 2.95 + r * 1.1 + 0.12)}" r="${0.12 * K}" fill="#C9A045"/>`;
-      o += `<path d="M${ex(cx)} ${ey(y + 2.95 + r * 1.1 + 0.6)} L${ex(cx - 0.07)} ${ey(y + 2.95 + r * 1.1 + 0.2)} L${ex(cx + 0.07)} ${ey(y + 2.95 + r * 1.1 + 0.2)}Z" fill="#C9A045"/>`;
+      o += `<rect x="${ex(a)}" y="${ey(y + 2.8)}" width="${(b - a) * K}" height="${2.8 * K}" fill="${shade(dep(st))}" stroke="${C.line}"/>`;
+      if (MOD) {
+        o += `<rect x="${ex(a - 0.3)}" y="${ey(y + 3.15)}" width="${(b - a + 0.6) * K}" height="${0.35 * K}" fill="#FFFFFF" stroke="#C9C7C2"/>`;
+        o += `<rect x="${ex(a - 0.3)}" y="${ey(y + 2.8)}" width="${(b - a + 0.6) * K}" height="${0.05 * K}" fill="url(#woodv)"/>`;
+      } else {
+        o += `<rect x="${ex(a - 0.1)}" y="${ey(y + 2.95)}" width="${(b - a + 0.2) * K}" height="${0.18 * K}" fill="#B98468"/>`;
+        const cx = (a + b) / 2, r = Math.min(1.1, (b - a) * 0.36);
+        o += `<path d="M${ex(cx - r)} ${ey(y + 2.95)} A${r * K} ${r * 1.1 * K} 0 0 1 ${ex(cx + r)} ${ey(y + 2.95)} Z" fill="#F1E2CC" stroke="#B98468"/>`;
+        o += `<circle cx="${ex(cx)}" cy="${ey(y + 2.95 + r * 1.1 + 0.12)}" r="${0.12 * K}" fill="#C9A045"/>`;
+        o += `<path d="M${ex(cx)} ${ey(y + 2.95 + r * 1.1 + 0.6)} L${ex(cx - 0.07)} ${ey(y + 2.95 + r * 1.1 + 0.2)} L${ex(cx + 0.07)} ${ey(y + 2.95 + r * 1.1 + 0.2)}Z" fill="#C9A045"/>`;
+      }
+    }
+    // आधुनिक: एक ओर ऊँचा जाली पैनल, दूसरी ओर लकड़ी की पट्टी
+    if (MOD && span > 5.5) {
+      const left = doorU > span / 2;
+      const ja = left ? 0.25 : span - 1.65, wa = left ? span - 1.2 : 0.25;
+      o += `<rect x="${ex(ja)}" y="${ey(levels[2] + 2.6)}" width="${1.4 * K}" height="${(levels[2] + 2.6 - levels[1]) * K}" fill="url(#jaali)" stroke="#C9C7C2"/>`;
+      if (Math.abs(wa + 0.47 - doorU) > 1.6) { // दरवाज़े से टकराए तो लकड़ी की पट्टी नहीं (दरवाज़े पर पहले से लकड़ी की क्लैडिंग)
+        o += `<rect x="${ex(wa)}" y="${ey(levels[3])}" width="${0.95 * K}" height="${(levels[3] - PL) * K}" fill="url(#woodv)"/>`;
+        o += `<rect x="${ex(wa + 0.28)}" y="${ey(levels[3] - 0.6)}" width="${0.4 * K}" height="${(levels[3] - PL - 1.2) * K}" fill="#1E2328"/>`;
+      }
     }
     // प्लिंथ
-    o += `<rect x="${ex(0)}" y="${ey(PL)}" width="${span * K}" height="${PL * K}" fill="#C9967A"/>`;
+    o += `<rect x="${ex(0)}" y="${ey(PL)}" width="${span * K}" height="${PL * K}" fill="${C.plinth}"/>`;
     // आगे की बाउंड्री दीवार व गेट
     const carU = face === 'N' ? PX - (L.car.x + L.car.w / 2) : face === 'E' ? L.car.y + L.car.h / 2 : PY - (L.car.y + L.car.h / 2);
     const gates = [[doorU - 0.6, doorU + 0.6], [carU - 1.5, carU + 1.5]].map(([a, b]) => [Math.max(0, a), Math.min(span, b)]).sort((p, q) => p[0] - q[0]);
     let cur = 0;
-    const wallSeg = (a, b) => b - a > 0.05 ? `<rect x="${ex(a)}" y="${ey(1.2)}" width="${(b - a) * K}" height="${1.2 * K}" fill="#E2B79C" stroke="#9C6F57"/><rect x="${ex(a)}" y="${ey(1.3)}" width="${(b - a) * K}" height="${0.1 * K}" fill="#B98468"/>` : '';
-    for (const [a, b] of gates) { if (a > cur) o += wallSeg(cur, a); o += `<rect x="${ex(a)}" y="${ey(1.1)}" width="${(b - a) * K}" height="${1.1 * K}" fill="none" stroke="#2E2A26" stroke-width="2" stroke-dasharray="2 5"/>`; cur = Math.max(cur, b); }
+    const wallSeg = (a, b) => b - a > 0.05
+      ? (MOD
+        ? `<rect x="${ex(a)}" y="${ey(1.3)}" width="${(b - a) * K}" height="${1.3 * K}" fill="#F3F2EF" stroke="#C9C7C2"/><rect x="${ex(a)}" y="${ey(1.36)}" width="${(b - a) * K}" height="${0.08 * K}" fill="#2A2B2E"/>`
+        : `<rect x="${ex(a)}" y="${ey(1.2)}" width="${(b - a) * K}" height="${1.2 * K}" fill="#E2B79C" stroke="#9C6F57"/><rect x="${ex(a)}" y="${ey(1.3)}" width="${(b - a) * K}" height="${0.1 * K}" fill="#B98468"/>`)
+      : '';
+    for (const [a, b] of gates) {
+      if (a > cur) o += wallSeg(cur, a);
+      o += MOD
+        ? `<rect x="${ex(a)}" y="${ey(1.6)}" width="${(b - a) * K}" height="${1.6 * K}" fill="url(#slats)" stroke="#2A2B2E" stroke-width="1.5"/>`
+        : `<rect x="${ex(a)}" y="${ey(1.1)}" width="${(b - a) * K}" height="${1.1 * K}" fill="none" stroke="#2E2A26" stroke-width="2" stroke-dasharray="2 5"/>`;
+      cur = Math.max(cur, b);
+    }
     if (cur < span) o += wallSeg(cur, span);
-    // ऊँचाई के निशान
     const lx = ex(span) + 6;
     [[0, '±0.00'], [PL, '+0.45'], [levels[1], '+3.65'], [levels[2], '+6.85'], [levels[3], '+10.05']].forEach(([h, t]) => { o += `<text x="${lx}" y="${ey(h) + 4}" class="lvl">${t}</text>`; });
-    o += `<text x="${ex(span / 2)}" y="${ey(0) + 0.6 * K}" class="sm">← ${ftin(span)} (${span.toFixed(2)} मी.) →</text>`;
+    o += `<text x="${ex(span / 2)}" y="${ey(0) + 0.6 * K}" class="sm">← ${ftin(span)} (${span.toFixed(2)} ${en() ? 'm' : 'मी.'}) →</text>`;
     o += '</svg>';
     return o;
   }
 
-  window.SKR = { plan, elevation, ftin, FLN };
+  window.SKR = { plan, elevation, ftin, FLN, rname, NAMES_EN };
 })();
 </script>
 <script>
 (function(){
-  const FACEH={N:'उत्तर-मुखी',E:'पूर्व-मुखी',W:'पश्चिम-मुखी'};
-  const $=(id)=>document.getElementById(id);
-  const sqft=(m2)=>Math.round(m2*10.7639).toLocaleString('hi-IN');
-  const pk=$('picker');
-  for(let n=1;n<=42;n++){const p=SK.plotInfo(n);const b=document.createElement('button');b.type='button';b.textContent=n;b.dataset.f=p.face;b.dataset.n=n;b.title=`प्लॉट ${n} · ${FACEH[p.face]} · ${p.area} वर्ग मी.`;b.onclick=()=>{location.hash='plot-'+n;};pk.appendChild(b);}
-  function show(n){
-    const L=SK.layout(n),p=L.p;
-    pk.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.n===n)));
-    document.title=`प्लॉट ${n} — सूर्य कुंज घर के कॉन्सेप्ट नक्शे`;
-    const tot=L.builtArea.reduce((a,b)=>a+b,0);
-    $('summary').innerHTML=[
-      [`प्लॉट ${n}`,FACEH[p.face]],
-      [`${p.area} वर्ग मी.`,`${sqft(p.area)} वर्ग फ़ुट`],
-      [`${SKR.ftin(p.f)} × ${SKR.ftin(p.d)}`,'सामने × गहराई'],
-      [`${Math.round(tot)} वर्ग मी.`,`कुल निर्मित · ${sqft(tot)} वर्ग फ़ुट`],
-      [`${(tot/p.area).toFixed(2)}`,'FAR (अनुमान)'],
-      [`${SKR.ftin(L.sf)} / ${SKR.ftin(L.sr)}`,'आगे / पीछे खुली जगह'],
-    ].map(([a,b])=>`<div class="card"><b>${a}</b><span>${b}</span></div>`).join('');
-    $('plans').innerHTML=[0,1,2].map(f=>`<div class="fl"><h3>${SKR.FLN[f]}</h3>${SKR.plan(L,f)}<div class="ar">निर्मित क्षेत्र: ${L.builtArea[f].toFixed(1)} वर्ग मी. (${sqft(L.builtArea[f])} वर्ग फ़ुट)</div></div>`).join('');
-    $('elev').innerHTML=SKR.elevation(L);
-    // वास्तु
-    const all=L.floors.flatMap((rs,f)=>rs.map(r=>Object.assign({f},r)));
-    const z=(k,f)=>{const r=all.find(r=>r.k===k&&(f===undefined||r.f===f));return r?SK.zoneOf(L,r):'—';};
-    const toilets=[...new Set(all.filter(r=>r.k==='toilet').map(r=>SK.zoneOf(L,r)))].join(', ');
-    const entr={N:'उत्तर दीवार, उत्तर-पूर्व की ओर',E:'पूर्व दीवार, उत्तर-पूर्व की ओर',W:'पश्चिम दीवार, मध्य से उत्तर की ओर'}[L.door.side==='W'?'W':L.door.side];
-    const okZ=(v,arr)=>arr.some(a=>v===a)?'ok':'mid';
-    const rows=[
-      ['मुख्य द्वार',entr,'ok','शुभ पद में; दक्षिण-पश्चिम से दूर'],
-      ['रसोई',z('kitchen'),okZ(z('kitchen'),['दक्षिण-पूर्व']),'अग्नि कोण; खाना पूर्व की ओर मुँह करके बनाएँ'],
-      ['मुख्य शयन कक्ष',z('bed3'),okZ(z('bed3'),['दक्षिण-पश्चिम','दक्षिण','पश्चिम']),'नैऋत्य — स्थिरता; सिर दक्षिण की ओर'],
-      ['पूजा कक्ष',z('puja'),okZ(z('puja'),['उत्तर-पूर्व','पूर्व','उत्तर']),'ईशान कोण; मूर्ति का मुख पूर्व/पश्चिम'],
-      ['सीढ़ी',z('stairs'),okZ(z('stairs'),['पश्चिम','दक्षिण','दक्षिण-पश्चिम','मध्य']),'दक्षिण/पश्चिम भाग में, घड़ी की दिशा में चढ़ाई'],
-      ['शौचालय',toilets,'mid','ईशान (उत्तर-पूर्व), नैऋत्य (दक्षिण-पश्चिम) कोने व ब्रह्मस्थान में कोई शौचालय नहीं; सीट उत्तर-दक्षिण दिशा में'],
-      ['पानी की टंकी (छत)','दक्षिण-पश्चिम','ok','भारी भार नैऋत्य में'],
-      ['खुली छत',L.tall?'उत्तर भाग':'उत्तर-पश्चिम व दक्षिण-पूर्व','ok',L.tall?'उत्तर/पूर्व हल्का व खुला':'ऊपरी तल पर ईशान का पूजा कक्ष, नैऋत्य ऊँचा'],
-      ['पार्किंग',{N:'उत्तर-पश्चिम',E:'दक्षिण-पूर्व',W:'उत्तर-पश्चिम'}[p.face],'ok','वायव्य/आग्नेय में वाहन'],
-      ['ब्रह्मस्थान (केंद्र)','डाइनिंग/लॉबी — बिना भारी दीवार के','ok','मध्य भाग खुला व हल्का'],
-    ];
-    $('vastu').innerHTML='<tr><th>तत्व</th><th>स्थान</th><th></th><th>टिप्पणी</th></tr>'+rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${r[2]}">${r[2]==='ok'?'✓ उत्तम':'✓ स्वीकार्य'}</td><td>${r[3]}</td></tr>`).join('');
-    $('rooms').innerHTML='<tr><th>तल</th><th>कमरा</th><th>नाप (फ़ुट)</th><th>नाप (मी.)</th><th>दिशा</th></tr>'+all.filter(r=>!r.open).map(r=>`<tr><td>${['भूतल','प्रथम','द्वितीय'][r.f]}</td><td>${r.name}</td><td>${SKR.ftin(r.w)} × ${SKR.ftin(r.h)}</td><td>${r.w.toFixed(2)} × ${r.h.toFixed(2)}</td><td>${SK.zoneOf(L,r)}</td></tr>`).join('');
+  const T = {
+    hi: {
+      title: 'सूर्य कुंज — वास्तु अनुसार G+2, 4BHK घर के कॉन्सेप्ट नक्शे', links: 'पेज लिंक',
+      back: '← वेबसाइट पर लौटें', open3d: '3D भ्रमण खोलें', trad: 'पारंपरिक', mod: 'आधुनिक', swTitle: 'घर का डिज़ाइन बदलें',
+      h1: 'सूर्य कुंज आवासीय योजना — घर के कॉन्सेप्ट नक्शे', sub: 'हर प्लॉट के लिए G+2 (भूतल + 2 मंज़िल), 4 शयन कक्ष, वास्तु के अनुसार · ग्राम सरेठी, अयोध्या',
+      pick: 'प्लॉट चुनें', pickTxt: '— उस प्लॉट का भूतल, प्रथम तल, द्वितीय तल का नक्शा, सामने का एलिवेशन और वास्तु जाँच नीचे दिखेगी।',
+      legend: 'रंग: सादा = उत्तर-मुखी · हरा किनारा = पूर्व-मुखी · नीला किनारा = पश्चिम-मुखी',
+      plansH: 'फ़्लोर प्लान', elevH: 'सामने का एलिवेशन (सड़क से)', see3d: 'यह कॉलोनी 3D में देखें', vastuH: 'वास्तु जाँच', roomsH: 'कमरों की सूची',
+      noteB: 'ध्यान दें:', noteTxt: 'ये केवल कॉन्सेप्ट नक्शे हैं — हम प्लॉट देते हैं, घर ख़रीदार अपनी पसंद से बनवाते हैं। प्लॉट का नाप ले-आउट ड्रॉइंग के आयामों व ADA स्वीकृत क्षेत्रफल के अनुसार है; अंतिम नाप स्वीकृत नक्शे व रजिस्ट्री के अनुसार मान्य। दिशाएँ ले-आउट नक्शे में ऊपर = उत्तर मानकर हैं; साइट पर कम्पास से पुष्टि करें। निर्माण से पहले पंजीकृत आर्किटेक्ट से अयोध्या विकास प्राधिकरण की भवन उपविधि (सेटबैक, FAR, ऊँचाई) के अनुसार नक्शा पास कराएँ और स्ट्रक्चरल इंजीनियर से डिज़ाइन कराएँ।',
+      credit: 'संकल्पना: आलोक रंजन मिश्र · SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED',
+      elevAy: 'पारंपरिक (अयोध्या शैली): गुलाबी बलुआ-पत्थर जैसा रंग, कंगूरेदार मुँडेर, मेहराबदार खिड़कियाँ, प्रथम तल पर झरोखा, सीढ़ी-कक्ष पर गुंबद व कलश, द्वार पर केसरिया तोरण पट्टी।',
+      elevMod: 'आधुनिक: सफ़ेद प्लास्टर, आगे निकले स्लैब व काली पट्टी, बड़ी आयताकार खिड़कियाँ, काँच की रेलिंग वाली बालकनी व छत, ऊँचा जाली पैनल, लकड़ी की क्लैडिंग, लकड़ी की पट्टियों वाला गेट।',
+      faceN: 'उत्तर-मुखी', faceE: 'पूर्व-मुखी', faceW: 'पश्चिम-मुखी', plot: 'प्लॉट', sqm: 'वर्ग मी.', sqft: 'वर्ग फ़ुट',
+      frontDepth: 'सामने × गहराई', built: 'कुल निर्मित', far: 'FAR (अनुमान)', setback: 'आगे / पीछे खुली जगह', builtFl: 'निर्मित क्षेत्र',
+      thEl: 'तत्व', thPlace: 'स्थान', thNote: 'टिप्पणी', ok: '✓ उत्तम', mid: '✓ स्वीकार्य',
+      thFloor: 'तल', thRoom: 'कमरा', thFt: 'नाप (फ़ुट)', thM: 'नाप (मी.)', thDir: 'दिशा', fl: ['भूतल', 'प्रथम', 'द्वितीय'],
+      plotTitle: (n, f, a) => `प्लॉट ${n} · ${f} · ${a} वर्ग मी.`, pageTitle: (n) => `प्लॉट ${n} — सूर्य कुंज घर के कॉन्सेप्ट नक्शे`, langBtn: 'English',
+    },
+    en: {
+      title: 'Surya Kunj — Vastu-compliant G+2, 4BHK concept house plans', links: 'Page links',
+      back: '← Back to website', open3d: 'Open 3D tour', trad: 'Traditional', mod: 'Modern', swTitle: 'Switch house design',
+      h1: 'Surya Kunj Awasiya Yojana — Concept House Plans', sub: 'For every plot: G+2 (ground + 2 floors), 4 bedrooms, as per Vastu · Village Sarethi, Ayodhya',
+      pick: 'Choose a plot', pickTxt: '— its ground, first and second floor plans, front elevation and Vastu check appear below.',
+      legend: 'Colour: plain = north-facing · green edge = east-facing · blue edge = west-facing',
+      plansH: 'Floor plans', elevH: 'Front elevation (from the road)', see3d: 'See this colony in 3D', vastuH: 'Vastu check', roomsH: 'Room list',
+      noteB: 'Note:', noteTxt: 'These are concept plans only — we sell plots; buyers build homes of their choice. Plot sizes follow the layout drawing dimensions and ADA-approved areas; final dimensions as per the approved plan and registry. Directions assume north is up on the layout plan; confirm with a compass on site. Before construction, get the plan passed by a registered architect as per the Ayodhya Development Authority building bye-laws (setbacks, FAR, height) and get the structure designed by a structural engineer.',
+      credit: 'Concept: Alok Ranjan Mishra · SHIKHALOK BUILDERS AND DEVELOPERS (OPC) PRIVATE LIMITED',
+      elevAy: 'Traditional (Ayodhya style): pink sandstone-like colour, crenellated (kangura) parapets, arched windows, a jharokha on the first floor, dome and kalash on the stair room, saffron toran band over the door.',
+      elevMod: 'Modern: white plaster, projecting slabs with a black fascia line, large rectangular windows, glass-railed balcony and terrace, tall jaali panel, wood cladding and a wooden slatted gate.',
+      faceN: 'North-facing', faceE: 'East-facing', faceW: 'West-facing', plot: 'Plot', sqm: 'sq m', sqft: 'sq ft',
+      frontDepth: 'Front × depth', built: 'Total built-up', far: 'FAR (estimate)', setback: 'Open space front / rear', builtFl: 'Built-up area',
+      thEl: 'Element', thPlace: 'Location', thNote: 'Remark', ok: '✓ Ideal', mid: '✓ Acceptable',
+      thFloor: 'Floor', thRoom: 'Room', thFt: 'Size (ft)', thM: 'Size (m)', thDir: 'Direction', fl: ['Ground', 'First', 'Second'],
+      plotTitle: (n, f, a) => `Plot ${n} · ${f} · ${a} sq m`, pageTitle: (n) => `Plot ${n} — Surya Kunj concept house plans`, langBtn: 'हिंदी',
+    },
+  };
+  const DIR = { 'उत्तर': 'North', 'दक्षिण': 'South', 'पूर्व': 'East', 'पश्चिम': 'West', 'मध्य': 'Centre' };
+  const $ = (id) => document.getElementById(id);
+  const t = () => T[SKS.lang];
+  const dirT = (s) => SKS.lang === 'en' ? String(s).split(', ').map((p) => p.split('-').map((w) => DIR[w] || w).join('-')).join(', ') : s;
+  const faceT = (f) => t()['face' + f];
+  const sqft = (m2) => Math.round(m2 * 10.7639).toLocaleString(SKS.lang === 'en' ? 'en-IN' : 'hi-IN');
+  const pk = $('picker');
+  for (let n = 1; n <= 42; n++) { const p = SK.plotInfo(n); const b = document.createElement('button'); b.type = 'button'; b.textContent = n; b.dataset.f = p.face; b.dataset.n = n; b.onclick = () => { location.hash = 'plot-' + n; }; pk.appendChild(b); }
+  let cur = 9;
+
+  function applyStatic() {
+    const L = t();
+    document.documentElement.lang = SKS.lang;
+    document.querySelectorAll('[data-t]').forEach((e) => { e.textContent = L[e.dataset.t]; });
+    $('links').setAttribute('aria-label', L.links);
+    $('langBtn').textContent = L.langBtn; $('langBtn').setAttribute('lang', SKS.lang === 'en' ? 'hi' : 'en');
+    const sw = $('styleSw'); sw.setAttribute('aria-checked', String(SKS.style === 'modern')); sw.title = L.swTitle;
+    document.body.classList.toggle('modern', SKS.style === 'modern');
+    const q = '?design=' + (SKS.style === 'modern' ? 'modern' : 'traditional');
+    document.querySelectorAll('a[href^="3d.html"]').forEach((a) => { a.setAttribute('href', '3d.html' + q); });
+    pk.querySelectorAll('button').forEach((b) => { const p = SK.plotInfo(+b.dataset.n); b.title = L.plotTitle(p.n, faceT(p.face), p.area); });
   }
-  function route(){const m=/^#plot-(\d+)$/.exec(location.hash);const n=m?Math.min(42,Math.max(1,+m[1])):9;show(n);}
-  window.addEventListener('hashchange',route);route();
+
+  function show(n) {
+    cur = n;
+    const L = SK.layout(n), p = L.p, X = t();
+    pk.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.n === n)));
+    document.title = X.pageTitle(n);
+    const tot = L.builtArea.reduce((a, b) => a + b, 0);
+    $('summary').innerHTML = [
+      [`${X.plot} ${n}`, faceT(p.face)],
+      [`${p.area} ${X.sqm}`, `${sqft(p.area)} ${X.sqft}`],
+      [`${SKR.ftin(p.f)} × ${SKR.ftin(p.d)}`, X.frontDepth],
+      [`${Math.round(tot)} ${X.sqm}`, `${X.built} · ${sqft(tot)} ${X.sqft}`],
+      [`${(tot / p.area).toFixed(2)}`, X.far],
+      [`${SKR.ftin(L.sf)} / ${SKR.ftin(L.sr)}`, X.setback],
+    ].map(([a, b]) => `<div class="card"><b>${a}</b><span>${b}</span></div>`).join('');
+    $('plans').innerHTML = [0, 1, 2].map((f) => `<div class="fl"><h3>${SKR.FLN()[f]}</h3>${SKR.plan(L, f)}<div class="ar">${X.builtFl}: ${L.builtArea[f].toFixed(1)} ${X.sqm} (${sqft(L.builtArea[f])} ${X.sqft})</div></div>`).join('');
+    $('elev').innerHTML = SKR.elevation(L, SKS.style);
+    $('elevNote').textContent = SKS.style === 'modern' ? X.elevMod : X.elevAy;
+    // वास्तु
+    const all = L.floors.flatMap((rs, f) => rs.map((r) => Object.assign({ f }, r)));
+    const z = (k, f) => { const r = all.find((r) => r.k === k && (f === undefined || r.f === f)); return r ? SK.zoneOf(L, r) : '—'; };
+    const toilets = [...new Set(all.filter((r) => r.k === 'toilet').map((r) => SK.zoneOf(L, r)))].join(', ');
+    const okZ = (v, arr) => arr.some((a) => v === a) ? 'ok' : 'mid';
+    const EN = SKS.lang === 'en', side = L.door.side === 'W' ? 'W' : L.door.side;
+    const entr = EN ? { N: 'North wall, towards north-east', E: 'East wall, towards north-east', W: 'West wall, centre towards north' }[side]
+                    : { N: 'उत्तर दीवार, उत्तर-पूर्व की ओर', E: 'पूर्व दीवार, उत्तर-पूर्व की ओर', W: 'पश्चिम दीवार, मध्य से उत्तर की ओर' }[side];
+    const park = { N: 'उत्तर-पश्चिम', E: 'दक्षिण-पूर्व', W: 'उत्तर-पश्चिम' }[p.face];
+    const rows = [
+      [EN ? 'Main entrance' : 'मुख्य द्वार', entr, 'ok', EN ? 'In an auspicious pada; away from south-west' : 'शुभ पद में; दक्षिण-पश्चिम से दूर'],
+      [EN ? 'Kitchen' : 'रसोई', dirT(z('kitchen')), okZ(z('kitchen'), ['दक्षिण-पूर्व']), EN ? 'Agni (fire) corner; cook facing east' : 'अग्नि कोण; खाना पूर्व की ओर मुँह करके बनाएँ'],
+      [EN ? 'Master bedroom' : 'मुख्य शयन कक्ष', dirT(z('bed3')), okZ(z('bed3'), ['दक्षिण-पश्चिम', 'दक्षिण', 'पश्चिम']), EN ? 'Nairitya — stability; sleep with head to the south' : 'नैऋत्य — स्थिरता; सिर दक्षिण की ओर'],
+      [EN ? 'Puja room' : 'पूजा कक्ष', dirT(z('puja')), okZ(z('puja'), ['उत्तर-पूर्व', 'पूर्व', 'उत्तर']), EN ? 'Ishan corner; idols facing east/west' : 'ईशान कोण; मूर्ति का मुख पूर्व/पश्चिम'],
+      [EN ? 'Stairs' : 'सीढ़ी', dirT(z('stairs')), okZ(z('stairs'), ['पश्चिम', 'दक्षिण', 'दक्षिण-पश्चिम', 'मध्य']), EN ? 'In the south/west part, climbing clockwise' : 'दक्षिण/पश्चिम भाग में, घड़ी की दिशा में चढ़ाई'],
+      [EN ? 'Toilets' : 'शौचालय', dirT(toilets), 'mid', EN ? 'No toilet in the north-east (Ishan) or south-west (Nairitya) corner or the Brahmasthan; seat along north-south' : 'ईशान (उत्तर-पूर्व), नैऋत्य (दक्षिण-पश्चिम) कोने व ब्रह्मस्थान में कोई शौचालय नहीं; सीट उत्तर-दक्षिण दिशा में'],
+      [EN ? 'Water tank (roof)' : 'पानी की टंकी (छत)', dirT('दक्षिण-पश्चिम'), 'ok', EN ? 'Heavy load in the south-west' : 'भारी भार नैऋत्य में'],
+      [EN ? 'Open terrace' : 'खुली छत', L.tall ? (EN ? 'North part' : 'उत्तर भाग') : (EN ? 'North-west & south-east' : 'उत्तर-पश्चिम व दक्षिण-पूर्व'), 'ok', L.tall ? (EN ? 'North/east kept light and open' : 'उत्तर/पूर्व हल्का व खुला') : (EN ? 'Puja room in the north-east on the top floor, south-west kept high' : 'ऊपरी तल पर ईशान का पूजा कक्ष, नैऋत्य ऊँचा')],
+      [EN ? 'Parking' : 'पार्किंग', dirT(park), 'ok', EN ? 'Vehicles in the north-west/south-east' : 'वायव्य/आग्नेय में वाहन'],
+      [EN ? 'Brahmasthan (centre)' : 'ब्रह्मस्थान (केंद्र)', EN ? 'Dining/lobby — no heavy walls' : 'डाइनिंग/लॉबी — बिना भारी दीवार के', 'ok', EN ? 'Centre kept open and light' : 'मध्य भाग खुला व हल्का'],
+    ];
+    $('vastu').innerHTML = `<tr><th>${X.thEl}</th><th>${X.thPlace}</th><th></th><th>${X.thNote}</th></tr>` + rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="${r[2]}">${r[2] === 'ok' ? X.ok : X.mid}</td><td>${r[3]}</td></tr>`).join('');
+    $('rooms').innerHTML = `<tr><th>${X.thFloor}</th><th>${X.thRoom}</th><th>${X.thFt}</th><th>${X.thM}</th><th>${X.thDir}</th></tr>` + all.filter((r) => !r.open).map((r) => `<tr><td>${X.fl[r.f]}</td><td>${SKR.rname(r)}</td><td>${SKR.ftin(r.w)} × ${SKR.ftin(r.h)}</td><td>${r.w.toFixed(2)} × ${r.h.toFixed(2)}</td><td>${dirT(SK.zoneOf(L, r))}</td></tr>`).join('');
+  }
+  function route() { const m = /^#plot-(\d+)$/.exec(location.hash); const n = m ? Math.min(42, Math.max(1, +m[1])) : 9; show(n); }
+  $('langBtn').addEventListener('click', () => { SKS.setLang(SKS.lang === 'en' ? 'hi' : 'en'); applyStatic(); show(cur); });
+  $('styleSw').addEventListener('click', () => { SKS.setStyle(SKS.style === 'modern' ? 'ayodhya' : 'modern'); applyStatic(); show(cur); });
+  // दूसरे टैब (वेबसाइट/3D) में भाषा या डिज़ाइन बदले तो यहाँ भी
+  window.addEventListener('storage', (e) => { if (e.key === 'sk-lang' && (e.newValue === 'en' || e.newValue === 'hi') && e.newValue !== SKS.lang) { SKS.setLang(e.newValue); applyStatic(); show(cur); } if (e.key === 'sk-style' && e.newValue && e.newValue !== SKS.style) { SKS.setStyle(e.newValue === 'modern' ? 'modern' : 'ayodhya'); applyStatic(); show(cur); } });
+  window.addEventListener('hashchange', route);
+  applyStatic(); route();
 })();
 </script>
 </body>

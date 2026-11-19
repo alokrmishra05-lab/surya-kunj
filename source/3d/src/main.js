@@ -912,7 +912,8 @@ function setDrainage(on) {
     else if (o.userData.orig) { o.material = o.userData.orig; delete o.userData.orig; o.castShadow = true; }
   });
   scene.traverse((o) => { if (o.isSprite && !isUtil(o)) { if (on) { o.userData.wasVis = o.visible; o.visible = false; } else if ('wasVis' in o.userData) o.visible = o.userData.wasVis; } });
-  if (on) { nightTarget = 0; labels.visible = false; const ip = document.getElementById('panel'); if (ip) { ip.setAttribute('hidden', ''); const ib = document.getElementById('info'); ib.setAttribute('aria-expanded', 'false'); ib.setAttribute('aria-pressed', 'false'); } const dp = document.getElementById('drainPanel'); if (dp) { dp.classList.remove('min'); const mb = document.getElementById('drainMin'); mb.textContent = '–'; mb.setAttribute('aria-expanded', 'true'); } }
+  // दिन/रात ड्रेनेज खोलने-बंद करने पर नहीं बदलता (ऊपर का दिन/रात बटन सही रहे)
+  if (on) { labels.visible = false; const nb = document.getElementById('nums'); if (nb) nb.setAttribute('aria-pressed', 'false'); const ip = document.getElementById('panel'); if (ip) { ip.setAttribute('hidden', ''); const ib = document.getElementById('info'); ib.setAttribute('aria-expanded', 'false'); ib.setAttribute('aria-pressed', 'false'); } const dp = document.getElementById('drainPanel'); if (dp) { dp.classList.remove('min'); const mb = document.getElementById('drainMin'); mb.textContent = '–'; mb.setAttribute('aria-expanded', 'true'); } }
   const p = document.getElementById('drainPanel'); if (p) p.hidden = !on;
   const b = document.getElementById('drainBtn'); if (b) b.setAttribute('aria-pressed', String(on));
 }
@@ -1276,6 +1277,7 @@ function setActive(group, btn) { document.querySelectorAll(`[data-group="${group
 document.querySelectorAll('[data-view]').forEach((b) => b.addEventListener('click', () => { goTo(b.dataset.view); setActive('view', b); controls.autoRotate = false; $('rot').setAttribute('aria-pressed', 'false'); }));
 $('day').addEventListener('click', (e) => { nightTarget = 0; setActive('time', e.currentTarget); });
 $('night').addEventListener('click', (e) => { nightTarget = 1; setActive('time', e.currentTarget); });
+window.__dayNight = () => [+nightT.toFixed(2), nightTarget]; // test hook
 $('rot').addEventListener('click', (e) => { controls.autoRotate = !controls.autoRotate; e.currentTarget.setAttribute('aria-pressed', String(controls.autoRotate)); });
 $('nums').addEventListener('click', (e) => { labels.visible = !labels.visible; e.currentTarget.setAttribute('aria-pressed', String(labels.visible)); });
 function setInfo(open) { const p = $('panel'); if (open) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); $('info').setAttribute('aria-expanded', String(open)); $('info').setAttribute('aria-pressed', String(open)); }
