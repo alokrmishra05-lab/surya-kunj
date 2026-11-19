@@ -167,7 +167,12 @@ const STONE = {
 };
 // instanced small repeated pieces (kangura merlons etc.)
 const INST = new Map();
+// design styles: 'ayodhya' (traditional, default) and 'modern' — objects listed here are shown/hidden by the switch
+const STYLE = { ayodhya: [], modern: [] };
+const MOD_NIGHT = []; // night-time hooks for the modern design materials
+let INST_LAYER = '';
 function instMarker(parent, key, material, w, h, d, x, y, z, geo = boxGeo) {
+  key = INST_LAYER + key;
   const o = new THREE.Object3D();
   o.position.set(x, y + h / 2, z); o.scale.set(w, h, d);
   o.userData.inst = key;
@@ -182,11 +187,14 @@ function harvestMarkers(root) {
   rm.forEach((o) => o.parent.remove(o));
 }
 function buildInstances() {
-  for (const { material, geo, mats } of INST.values()) {
-    const im = new THREE.InstancedMesh(geo, material, mats.length);
-    mats.forEach((m, i) => im.setMatrixAt(i, m));
+  for (const [key, e] of INST.entries()) {
+    if (e.built || !e.mats.length) continue;
+    const im = new THREE.InstancedMesh(e.geo, e.material, e.mats.length);
+    e.mats.forEach((m, i) => im.setMatrixAt(i, m));
     im.castShadow = true; im.receiveShadow = true;
-    scene.add(im);
+    scene.add(im); e.built = true;
+    if (key.startsWith('A:')) STYLE.ayodhya.push(im);
+    else if (key.startsWith('M:')) STYLE.modern.push(im);
   }
 }
 // kangura (merlon) row along local x from x0..x1 at height y, depth z
@@ -410,13 +418,29 @@ function house(p, idx) {
   box(hb, 0.18, 0.7, bd, -bw / 2 + 0.09, top + 0.15, z0 + bd / 2, wallM);
   box(hb, 0.18, 0.7, bd, bw / 2 - 0.09, top + 0.15, z0 + bd / 2, wallM);
   kangura(hb, -bw / 2 + 0.2, bw / 2 - 0.2, top + 0.85, zf - 0.09);
-  // stair room (mumty) with small dome
+  // second floor (G+2): rear part only, front part stays an open terrace (as in the Vastu concept plans)
+  const d2 = Math.min(bd - 2.6, Math.max(4.2, bd * 0.6)), zf2 = z0 + d2, top3 = top + 0.15 + fl;
+  box(hb, bw, fl, d2, 0, top + 0.15, z0 + d2 / 2, wallM);
+  box(hb, bw + 0.24, 0.3, d2 + 0.24, 0, top3 - 0.15, z0 + d2 / 2, STONE.band); // cornice
+  box(hb, bw - 0.2, 0.06, d2 - 0.2, 0, top3 + 0.15, z0 + d2 / 2, mat('#D9CBB6'), false);
+  box(hb, bw + 0.1, 0.12, d2 + 0.1, 0, top + 0.9, z0 + d2 / 2, STONE.band, false); // sill band
+  box(hb, bw, 0.7, 0.18, 0, top3 + 0.15, zf2 - 0.09, wallM);
+  box(hb, 0.18, 0.7, d2, -bw / 2 + 0.09, top3 + 0.15, z0 + d2 / 2, wallM);
+  box(hb, 0.18, 0.7, d2, bw / 2 - 0.09, top3 + 0.15, z0 + d2 / 2, wallM);
+  kangura(hb, -bw / 2 + 0.2, bw / 2 - 0.2, top3 + 0.85, zf2 - 0.09);
+  const nw3 = bw > 7.5 ? 2 : 1;
+  for (let i = 0; i < nw3; i++) {
+    const x = nw3 === 1 ? 0.4 : (i ? bw / 4 : -bw / 4);
+    windowMeshes.push(archedOpening(hb, 1.0, 1.8, x, top + 0.95, zf2 + 0.02, M.glass));
+    box(hb, 1.3, 0.1, 0.25, x, top + 0.9, zf2 + 0.1, STONE.band, false);
+  }
+  // stair room (mumty) with small dome — on the second-floor roof
   const mw = Math.min(3.2, bw * 0.45), mx = -bw / 2 + mw / 2 + 0.2;
-  box(hb, mw, 2.7, 3.4, mx, top + 0.15, z0 + 1.9, wallM);
-  box(hb, mw + 0.2, 0.18, 3.6, mx, top + 2.85, z0 + 1.9, STONE.band);
-  const md = new THREE.Mesh(domeGeo, STONE.cream); md.scale.set(mw * 0.36, mw * 0.4, mw * 0.36); md.position.set(mx, top + 3.03, z0 + 1.9); md.castShadow = true; hb.add(md);
-  kalash(hb, mx, top + 3.03 + mw * 0.4, z0 + 1.9, 0.9);
-  if (idx % 4 === 0) flag(hb, mx + mw / 2 - 0.3, top + 3.03, z0 + 0.6, 0.9);
+  box(hb, mw, 2.7, 3.4, mx, top3 + 0.15, z0 + 1.9, wallM);
+  box(hb, mw + 0.2, 0.18, 3.6, mx, top3 + 2.85, z0 + 1.9, STONE.band);
+  const md = new THREE.Mesh(domeGeo, STONE.cream); md.scale.set(mw * 0.36, mw * 0.4, mw * 0.36); md.position.set(mx, top3 + 3.03, z0 + 1.9); md.castShadow = true; hb.add(md);
+  kalash(hb, mx, top3 + 3.03 + mw * 0.4, z0 + 1.9, 0.9);
+  if (idx % 4 === 0) flag(hb, mx + mw / 2 - 0.3, top3 + 3.03, z0 + 0.6, 0.9);
   // roof-corner chhatri on bigger houses / alternate houses
   if (big || idx % 3 === 2) chhatri(hb, bw / 2 - 1.2, top + 0.15, zf - 1.3, 0.85);
 
@@ -485,12 +509,14 @@ function house(p, idx) {
   const cx = X(p.x + p.w / 2), cz = Z(p.y + p.h / 2);
   g.position.set(cx, 0.06, cz);
   g.rotation.y = p.face === 'S' ? 0 : p.face === 'N' ? Math.PI : p.face === 'E' ? Math.PI / 2 : -Math.PI / 2;
-  scene.add(g);
+  scene.add(g); STYLE.ayodhya.push(g);
   harvestMarkers(g);
   p.center = new THREE.Vector3(cx, 0, cz);
-  p.top = top + 3.5;
+  p.top = top3 + 3.5;
 }
+INST_LAYER = 'A:';
 plots.forEach((p, i) => house(p, i));
+INST_LAYER = '';
 
 
 // ---------------- park, OHT, STP ----------------
@@ -552,6 +578,7 @@ for (const r of CROSS) {
 
 // spur verges: a few trees at the dead ends
 
+let GATE = null; // gate position, reused by the modern gate
 // ---------------- boundary wall + Ayodhya-style entry gate ----------------
 {
   const x0 = X(SITE.x), x1 = X(SITE.x + SITE.w), z0 = Z(SITE.y), z1 = Z(SITE.y + SITE.h);
@@ -581,7 +608,8 @@ for (const r of CROSS) {
 
   // gate group: local x across the road, local +z faces outward (world -x)
   const G = new THREE.Group();
-  G.position.set(x0 - 4, 0, gz); G.rotation.y = -Math.PI / 2; scene.add(G);
+  G.position.set(x0 - 4, 0, gz); G.rotation.y = -Math.PI / 2; scene.add(G); STYLE.ayodhya.push(G);
+  INST_LAYER = 'A:';
   const pierH = 13;
   for (const s of [-1, 1]) {
     const px = s * (hr + pierW / 2);
@@ -658,17 +686,20 @@ for (const r of CROSS) {
     kalash(G, cx, 6.15, 0, 1);
   }
   harvestMarkers(G);
+  INST_LAYER = '';
   // pier lantern glows for night
   for (const s of [-1, 1]) for (const fz of [1, -1]) {
     const v = new THREE.Vector3(s * (hr + pierW / 2), 7.45, fz * (pierW / 2 + 0.25)); G.localToWorld(v);
-    const halo = new THREE.Sprite(haloMat); halo.scale.set(3, 3, 1); halo.position.copy(v); scene.add(halo); lightGlows.push(halo);
+    const halo = new THREE.Sprite(haloMat); halo.scale.set(3, 3, 1); halo.position.copy(v); scene.add(halo); lightGlows.push(halo); STYLE.ayodhya.push(halo);
   }
   // guard room (inside, beside the gate) with dome
   const grx = x0 - 9, grz = gz - hr - 7;
-  box(scene, 3.2, 3.0, 3.2, grx, 0, grz, STONE.cream);
-  box(scene, 3.6, 0.25, 3.6, grx, 3.0, grz, STONE.band);
-  const gd = new THREE.Mesh(domeGeo, STONE.pink); gd.scale.set(1.3, 1.4, 1.3); gd.position.set(grx, 3.25, grz); gd.castShadow = true; scene.add(gd);
-  kalash(scene, grx, 4.65, grz, 1);
+  const GR = new THREE.Group(); scene.add(GR); STYLE.ayodhya.push(GR);
+  box(GR, 3.2, 3.0, 3.2, grx, 0, grz, STONE.cream);
+  box(GR, 3.6, 0.25, 3.6, grx, 3.0, grz, STONE.band);
+  const gd = new THREE.Mesh(domeGeo, STONE.pink); gd.scale.set(1.3, 1.4, 1.3); gd.position.set(grx, 3.25, grz); gd.castShadow = true; GR.add(gd);
+  kalash(GR, grx, 4.65, grz, 1);
+  GATE = { x0, gz, hr }; window.__GATE = GATE;
   // approach road outside the gate
   box(scene, 60, 0.08, MAIN.h * S, x0 - 30, 0, gz, M.asphalt, false);
   box(scene, 14, 0.08, 400, x0 - 66, 0, 0, M.asphalt, false);
@@ -715,6 +746,7 @@ function applyNight(t) {
   M.glass.emissiveIntensity = t * NIGHT.win;
   M.lamp.emissiveIntensity = THREE.MathUtils.lerp(DAY.lamp, NIGHT.lamp, t);
   renderer.toneMappingExposure = THREE.MathUtils.lerp(DAY.exp, NIGHT.exp, t);
+  MOD_NIGHT.forEach((f) => f(t));
 }
 
 
@@ -897,6 +929,322 @@ function animateDrainage(dt) {
   }
 }
 
+// ---------------- MODERN design (optional, built on first switch) ----------------
+// contemporary villas: white planes, wood cladding, cantilevered slabs, glass balcony, jaali panel;
+// modern entry gate: louvered pylon, sloping cantilever beam with pergola fins, tall name pylon with wood arc
+let modernBuilt = false;
+function plankTex(base, line, vertical) {
+  const t = canvasTex(256, 256, (g, w, h) => {
+    g.fillStyle = base; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 16; i++) {
+      g.fillStyle = i % 2 ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.05)';
+      if (vertical) g.fillRect(i * 16, 0, 16, h); else g.fillRect(0, i * 16, w, 16);
+      g.fillStyle = line;
+      if (vertical) g.fillRect(i * 16, 0, 2, h); else g.fillRect(0, i * 16, w, 2);
+    }
+  });
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+function jaaliTex() {
+  // white panel with a cascade of hexagonal "cube" cut-outs (like a CNC jaali)
+  const draw = (lit) => (g, w, h) => {
+    g.fillStyle = lit ? '#000' : '#F6F6F4'; g.fillRect(0, 0, w, h);
+    const r = 15, dx = r * 1.732, dy = r * 1.5;
+    for (let row = 0; row < h / dy + 1; row++) for (let col = 0; col < w / dx + 1; col++) {
+      const cx = col * dx + (row % 2 ? dx / 2 : 0) + 6, cy = row * dy + 10;
+      const band = 0.15 + 0.55 * (1 - cy / h); // wider at the top, tapering down
+      const centre = w * (0.3 + 0.15 * Math.sin(cy / 90));
+      if (Math.abs(cx - centre) > w * band) continue;
+      if (((row * 7 + col * 13) % 10) < 2) continue;
+      const pts = []; for (let k = 0; k < 6; k++) { const a = Math.PI / 6 + k * Math.PI / 3; pts.push([cx + r * 0.82 * Math.cos(a), cy + r * 0.82 * Math.sin(a)]); }
+      g.beginPath(); pts.forEach(([x, y], k) => (k ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath();
+      g.fillStyle = lit ? '#FFD9A0' : '#8E9FA9'; g.fill();
+      g.strokeStyle = lit ? '#000' : '#E4E9EC'; g.lineWidth = 1.8;
+      g.beginPath(); g.moveTo(cx, cy); g.lineTo(pts[1][0], pts[1][1]); g.moveTo(cx, cy); g.lineTo(pts[3][0], pts[3][1]); g.moveTo(cx, cy); g.lineTo(pts[5][0], pts[5][1]); g.stroke();
+    }
+  };
+  return { map: canvasTex(256, 768, draw(false)), glow: canvasTex(256, 768, draw(true)) };
+}
+let MOD = null;
+function modMaterials() {
+  const jt = jaaliTex();
+  const woodTex = [plankTex('#8A5432', 'rgba(40,20,10,0.35)', true), plankTex('#6E4128', 'rgba(30,15,8,0.4)', true), plankTex('#9C6A43', 'rgba(50,25,10,0.3)', true)];
+  const gateTex = plankTex('#7C7268', 'rgba(30,30,30,0.45)', false);
+  MOD = {
+    white: mat('#F3F2EF', { roughness: 0.6 }), white2: mat('#E9E7E2', { roughness: 0.7 }),
+    char: mat('#2A2B2E', { roughness: 0.5, metalness: 0.3 }), grey: mat('#8E9093', { roughness: 0.7 }),
+    pylon: mat('#9A9C9E', { roughness: 0.75 }), plinth: mat('#6F7275'), stone: mat('#B9B1A6', { roughness: 0.9 }),
+    woods: woodTex.map((t) => new THREE.MeshStandardMaterial({ map: t, roughness: 0.7 })),
+    slat: mat('#7A4A2C', { roughness: 0.7 }),
+    gate: new THREE.MeshStandardMaterial({ map: gateTex, roughness: 0.8 }),
+    darkGlass: new THREE.MeshStandardMaterial({ color: '#1E2328', roughness: 0.1, metalness: 0.7, emissive: '#FFC97A', emissiveIntensity: 0 }),
+    jaali: new THREE.MeshStandardMaterial({ map: jt.map, emissive: '#FFFFFF', emissiveMap: jt.glow, emissiveIntensity: 0, roughness: 0.6 }),
+    flower: mat('#E8783A'), flower2: mat('#D9478A'), shrub: mat('#3E7A35'),
+  };
+  MOD_NIGHT.push((t) => { MOD.jaali.emissiveIntensity = t * 1.1; MOD.darkGlass.emissiveIntensity = t * 0.9; });
+}
+// box with a special material on its +z face only
+function faceBox(parent, w, h, d, x, y, z, side, front) {
+  const m = box(parent, w, h, d, x, y, z, side);
+  m.material = [side, side, side, side, front, side];
+  return m;
+}
+
+function modernHouse(p, idx) {
+  const faceS = p.face === 'S' || p.face === 'N';
+  const W = (faceS ? p.w : p.h) * S, D = (faceS ? p.h : p.w) * S;
+  const g = new THREE.Group();
+  const front = Math.min(3.4, D * 0.24), rear = Math.min(1.4, D * 0.1);
+  const bw = Math.max(5.8, Math.min(W - 0.25, (AREA[p.n - 1] * 1.15) / (D - 1)));
+  const hx = -W / 2 + 0.12 + bw / 2;
+  const bd = D - front - rear, z0 = -D / 2 + rear, zf = z0 + bd;
+  const mir = idx % 2 ? -1 : 1;              // jaali on the right (1) or left (-1)
+  const wood = MOD.woods[idx % 3];
+  const stoneGF = idx % 3 === 2;
+
+  // grounds: lawn, driveway, rear
+  box(g, W - 0.05, 0.12, front, 0, 0, D / 2 - front / 2, M.grass, false);
+  const gateW = Math.min(3.2, bw * 0.46);
+  const gateX = hx - mir * (bw / 2 - gateW / 2 - 0.15);
+  box(g, gateW, 0.14, front, gateX, 0, D / 2 - front / 2, M.paver, false);
+  box(g, W - 0.05, 0.12, rear, 0, 0, -D / 2 + rear / 2, M.grassDark, false);
+  // front boundary: white rendered wall, charcoal coping, LED strips, wood panel, slatted wood gate
+  const wz = D / 2 - 0.12, wh = 1.45;
+  const segs = [[-W / 2, gateX - gateW / 2], [gateX + gateW / 2, W / 2]];
+  segs.forEach(([a, b2], si) => {
+    const len = b2 - a; if (len < 0.2) return;
+    box(g, len, wh, 0.25, (a + b2) / 2, 0, wz, MOD.white);
+    box(g, len + 0.02, 0.06, 0.3, (a + b2) / 2, wh, wz, MOD.char, false);
+    if (len > 2.2) {
+      // wood-clad pedestrian door next to the gate + LED strips
+      const nearGate = si === 0 ? b2 - 0.75 : a + 0.75;
+      box(g, 1.1, wh + 0.35, 0.12, nearGate, 0, wz + 0.1, wood);
+      const far = si === 0 ? a + 0.6 : b2 - 0.6, dir = si === 0 ? 1 : -1;
+      for (let k = 0; k < 3; k++) box(g, 0.06, wh - 0.4, 0.04, far + dir * k * 0.45, 0.2, wz + 0.14, M.lamp, false);
+      box(g, len - 1.6, 0.4, 0.5, (a + b2) / 2 + (si === 0 ? -0.6 : 0.6), 0.12, wz - 0.4, MOD.shrub, false);
+    }
+  });
+  box(g, gateW, 0.12, 0.2, gateX, 1.75, wz, MOD.char, false);
+  for (let x = gateX - gateW / 2 + 0.08; x < gateX + gateW / 2 - 0.05; x += 0.15) instMarker(g, 'slat', MOD.slat, 0.1, 1.6, 0.06, x, 0.12, wz);
+  box(g, 0.15, 1.0, front, W / 2 - 0.08, 0, D / 2 - front / 2, MOD.white);
+
+  const hb = new THREE.Group(); hb.position.x = hx; g.add(hb);
+  const pl = 0.45, fl = 3.3, sl = 0.35;
+  const y1 = pl + fl, y2 = y1 + sl + fl, top = y2 + sl;
+  // plinth
+  box(hb, bw, pl, bd, 0, 0, z0 + bd / 2, MOD.plinth);
+  // ground floor (recessed under the first-floor slab)
+  const gfz = zf - 0.9;
+  box(hb, bw, fl, gfz - z0, 0, pl, z0 + (gfz - z0) / 2, MOD.white);
+  if (stoneGF) box(hb, bw * 0.45, fl, 0.1, -mir * bw * 0.22, pl, gfz + 0.05, MOD.stone);
+  windowMeshes.push(box(hb, bw * 0.34, 2.1, 0.08, mir * bw * 0.12, pl + 0.55, gfz + 0.05, M.glass, false));
+  box(hb, bw * 0.34 + 0.12, 0.08, 0.1, mir * bw * 0.12, pl + 2.65, gfz + 0.06, MOD.char, false);
+  // door with wood cladding panel
+  const dx = -mir * (bw / 2 - 1.0);
+  box(hb, 1.6, fl, 0.1, dx, pl, gfz + 0.06, wood);
+  box(hb, 1.0, 2.4, 0.06, dx, pl, gfz + 0.13, MOD.char);
+  box(hb, 2.0, 0.18, 0.9, dx, 0.27, gfz + 0.45, MOD.grey, false);
+  // first-floor slab (projecting), charcoal fascia line
+  box(hb, bw + 0.2, sl, bd + 0.3, 0, y1, z0 + bd / 2 + 0.15, MOD.white);
+  box(hb, bw + 0.22, 0.07, 0.05, 0, y1 + 0.1, zf + 0.31, MOD.char, false);
+  for (let k = 0; k < 3; k++) instMarker(hb, 'dl', M.lamp, 0.2, 0.03, 0.2, -bw / 3 + k * bw / 3, y1 - 0.03, gfz + 0.45);
+  // first floor: set back for a glass-railed balcony
+  const ffz = zf - 1.5;
+  box(hb, bw, fl, ffz - z0, 0, y1 + sl, z0 + (ffz - z0) / 2, MOD.white2);
+  windowMeshes.push(box(hb, bw * 0.46, 2.45, 0.08, -mir * bw * 0.05, y1 + sl + 0.1, ffz + 0.05, M.glass, false));
+  box(hb, bw * 0.46 + 0.12, 0.1, 0.1, -mir * bw * 0.05, y1 + sl + 2.55, ffz + 0.06, MOD.char, false);
+  const railW = bw - 2.0, railX = -mir * 0.6;
+  box(hb, railW, 1.0, 0.04, railX, y1 + sl, zf + 0.12, M.rail, false);
+  box(hb, railW, 0.05, 0.08, railX, y1 + sl + 1.0, zf + 0.12, MOD.char, false);
+  for (let k = 0; k < 3; k++) {
+    const px = railX - railW / 2 + 0.6 + k * (railW - 1.2) / 2;
+    box(hb, 0.5, 0.45, 0.5, px, y1 + sl, zf - 0.3, MOD.char);
+    const sp = new THREE.Mesh(new THREE.SphereGeometry(0.42, 8, 6), MOD.shrub); sp.position.set(px, y1 + sl + 0.85, zf - 0.3); sp.scale.y = 1.3; sp.castShadow = true; hb.add(sp);
+  }
+  // second slab with warm wood soffit + down-lights
+  box(hb, bw + 0.2, sl, bd + 0.3, 0, y2, z0 + bd / 2 + 0.15, MOD.white);
+  box(hb, bw - 0.4, 0.04, 1.7, 0, y2 - 0.04, zf - 0.6, wood, false);
+  for (let k = 0; k < 4; k++) instMarker(hb, 'dl', M.lamp, 0.2, 0.03, 0.2, -bw * 0.36 + k * bw * 0.24, y2 - 0.07, zf - 0.6);
+  // tall jaali panel standing proud of the facade
+  const jx = mir * (bw / 2 - 0.85);
+  faceBox(hb, 1.5, fl + sl + 2.6, 0.35, jx, y1 + sl * 0.5, zf + 0.35, MOD.white, MOD.jaali);
+  // second floor (G+2): rear part, front part is an open terrace with a glass railing
+  const d2 = Math.min(bd - 2.6, Math.max(4.2, bd * 0.6)), zf2 = z0 + d2, top3 = top + fl;
+  box(hb, bw, fl, d2, 0, top, z0 + d2 / 2, MOD.white2);
+  windowMeshes.push(box(hb, bw * 0.42, 2.3, 0.08, mir * bw * 0.1, top + 0.3, zf2 + 0.05, M.glass, false));
+  box(hb, bw * 0.42 + 0.12, 0.1, 0.1, mir * bw * 0.1, top + 2.6, zf2 + 0.06, MOD.char, false);
+  // cantilevered white frame over the second floor with a wood soffit + down-lights
+  const rw = bw * 0.66, rx = -mir * (bw / 2 - rw / 2);
+  box(hb, rw + 0.4, 0.45, d2 + 1.4, rx, top3, z0 + d2 / 2 + 0.7, MOD.white);
+  box(hb, rw, 0.04, 1.3, rx, top3 - 0.04, zf2 + 0.65, wood, false);
+  for (let k = 0; k < 3; k++) instMarker(hb, 'dl', M.lamp, 0.18, 0.03, 0.18, rx - rw / 3 + k * rw / 3, top3 - 0.07, zf2 + 0.65);
+  box(hb, bw, 0.45, d2, 0, top3, z0 + d2 / 2, MOD.white);
+  // terrace railing on the first-floor roof
+  box(hb, bw - 0.3, 1.0, 0.04, 0, top, zf + 0.05, M.rail, false);
+  box(hb, bw - 0.3, 0.05, 0.08, 0, top + 1.0, zf + 0.05, MOD.char, false);
+  box(hb, bw - 0.3, 0.05, bd - d2 - 0.2, 0, top + 0.02, (zf2 + zf) / 2, MOD.grey, false);
+  // stair room (mumty) + roof parapet
+  const mw = Math.min(3.0, bw * 0.4), mx = mir * (bw / 2 - mw / 2 - 0.15);
+  box(hb, mw, 2.6, 3.0, mx, top3 + 0.45, z0 + 1.7, MOD.white2);
+  box(hb, mw + 0.3, 0.25, 3.3, mx, top3 + 3.05, z0 + 1.7, MOD.char, false);
+  box(hb, bw, 0.8, 0.16, 0, top3 + 0.45, zf2 - 0.08, MOD.white);
+  box(hb, bw + 0.02, 0.06, 0.22, 0, top3 + 1.25, zf2 - 0.08, MOD.char, false);
+  // tall wood-clad strip with dark glazing on the other side, held by a white frame (full height)
+  const sx = -mir * (bw / 2 - 0.55);
+  box(hb, 1.1, top3 - pl, 0.3, sx, pl, zf + 0.05, wood);
+  windowMeshes.push(box(hb, 0.5, top - pl - 1.0, 0.06, sx, pl + 0.5, zf + 0.22, MOD.darkGlass, false));
+  box(hb, 0.25, top3 + 0.45, 0.5, -mir * (bw / 2 - 0.02), 0, zf + 0.1, MOD.white);
+
+  // garden + car
+  if (W - bw > 4) tree(g, hx + bw / 2 + (W - bw) / 2, z0 + bd / 2, 0.9, idx + 1);
+  tree(g, gateX + mir * (gateW / 2 + 1.2), D / 2 - 1.4, 0.55, idx);
+  if (idx % 2 === 1) car(g, gateX, D / 2 - front / 2 + 0.1, 0, ['#E6E6E6', '#2E4A6B', '#3A3A3A', '#B23A3A', '#C9B79C'][idx % 5]);
+
+  g.position.set(X(p.x + p.w / 2), 0.06, Z(p.y + p.h / 2));
+  g.rotation.y = p.face === 'S' ? 0 : p.face === 'N' ? Math.PI : p.face === 'E' ? Math.PI / 2 : -Math.PI / 2;
+  scene.add(g); STYLE.modern.push(g);
+  harvestMarkers(g);
+  p.top = Math.max(p.top || 0, top3 + 3.6);
+}
+
+function modernGate() {
+  const { x0, gz, hr } = GATE;
+  const G = new THREE.Group();
+  G.position.set(x0 - 4, 0, gz); G.rotation.y = -Math.PI / 2; scene.add(G); STYLE.modern.push(G);
+  // sliding gate leaves (horizontal weathered planks in a charcoal frame)
+  // two leaves slid open along the inside of the pylons, so the road stays clear
+  const gh = 2.4;
+  MOD.gate.map.repeat.set(hr / 2.5, 1.2);
+  for (const s of [-1, 1]) {
+    const cx = s * (hr + hr / 2 + 0.1), lz = s < 0 ? -1.0 : -1.35;
+    box(G, hr, gh, 0.14, cx, 0.12, lz, MOD.gate);
+    box(G, hr, 0.1, 0.2, cx, gh + 0.12, lz, MOD.char, false);
+    for (const xx of [cx - hr / 2, cx + hr / 2]) box(G, 0.12, gh, 0.2, xx, 0.12, lz, MOD.char, false);
+  }
+  box(G, 2 * hr, 0.03, 0.2, 0, 0, -1.2, MOD.char, false);
+  // left: open louvered pylon frame
+  const lx0 = -hr - 0.2, lx1 = -hr - 3.0, lh = 6.4, ld = 1.6, lc = (lx0 + lx1) / 2, lw = lx0 - lx1;
+  box(G, 0.4, lh, ld, lx0 - 0.2, 0, 0, MOD.white2);
+  box(G, 0.4, lh, ld, lx1 + 0.2, 0, 0, MOD.white2);
+  box(G, lw, 0.4, ld, lc, 0, 0, MOD.white2);
+  for (let y = 0.8; y < lh - 0.3; y += 0.42) instMarker(G, 'louv', MOD.char, lw - 0.8, 0.1, ld - 0.4, lc, y, 0);
+  // sloping cantilever beam (white band) from the left pylon over the road to the name pylon
+  const bt = 0.95, y0 = lh, yHi = 8.3, xa = lx1, xb = -hr * 0.15, xc = hr * 0.6, xd = hr + 1.6;
+  const sh = new THREE.Shape();
+  sh.moveTo(xa, y0); sh.lineTo(xb, y0); sh.lineTo(xc, yHi); sh.lineTo(xd, yHi);
+  sh.lineTo(xd, yHi + bt); sh.lineTo(xc - 0.25, yHi + bt); sh.lineTo(xb - 0.25, y0 + bt); sh.lineTo(xa, y0 + bt); sh.lineTo(xa, y0);
+  const beam = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: 2.2, bevelEnabled: false }), MOD.white);
+  beam.position.z = -1.1; beam.castShadow = true; beam.receiveShadow = true; G.add(beam);
+  // pergola fins hanging under the level part of the beam
+  for (let x = xa + 0.4; x < xb - 0.2; x += 0.38) instMarker(G, 'perg', MOD.char, 0.1, 0.75, 2.0, x, y0 - 0.75, 0);
+  box(G, xb - xa - 0.4, 0.08, 2.0, (xa + xb) / 2 + 0.2, y0 - 0.83, 0, MOD.char, false);
+  // down-lights + night glows under the beam
+  for (const [lx, ly] of [[xa + 1.2, y0 - 0.88], [(xa + xb) / 2, y0 - 0.88], [xb - 0.6, y0 - 0.88], [xc + 0.7, yHi - 0.04]]) {
+    box(G, 0.25, 0.04, 0.25, lx, ly, 0, M.lamp, false);
+    const v = new THREE.Vector3(lx, ly - 0.2, 0); G.localToWorld(v);
+    const halo = new THREE.Sprite(haloMat); halo.scale.set(3, 3, 1); halo.position.copy(v); scene.add(halo); lightGlows.push(halo); STYLE.modern.push(halo);
+  }
+  // right: tall grey name pylon with a wooden half-round and guard cabin window
+  const px = hr + 1.9, pw = 3.4, ph = 10.2, pd = 2.3;
+  box(G, pw, ph, pd, px, 0, 0, MOD.pylon);
+  box(G, pw + 0.1, 0.12, pd + 0.1, px, ph, 0, MOD.char, false);
+  const arcS = new THREE.Shape(); const ar = 2.05;
+  arcS.moveTo(0, -ar); arcS.absarc(0, 0, ar, -Math.PI / 2, Math.PI / 2, false); arcS.lineTo(0, -ar);
+  const arc = new THREE.Mesh(new THREE.ExtrudeGeometry(arcS, { depth: pd + 0.12, bevelEnabled: false, curveSegments: 32 }), MOD.woods[0]);
+  arc.position.set(hr + 0.2, 3.6, -(pd + 0.12) / 2); arc.castShadow = true; G.add(arc);
+  box(G, 1.3, 1.5, pd + 0.2, px + 0.7, 2.9, 0, MOD.white);
+  windowMeshes.push(box(G, 0.9, 0.9, pd + 0.26, px + 0.7, 3.2, 0, M.glass, false));
+  // name: metal letters on both faces
+  // name: raised golden 3D letters (layered cut-outs), lit white at night with a soft back-glow
+  const NAME = 'सूर्य कुंज', TW = 1024, TH = 320;
+  const drawName = (fill, stroke, blur) => (g, w, h) => {
+    g.clearRect(0, 0, w, h);
+    if (blur) g.filter = `blur(${blur}px)`;
+    g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '800 236px Mukta, Rajdhani, sans-serif';
+    g.fillStyle = typeof fill === 'function' ? fill(g, h) : fill; g.fillText(NAME, w / 2, h * 0.56);
+    if (stroke) { g.lineWidth = 3; g.strokeStyle = stroke; g.strokeText(NAME, w / 2, h * 0.56); }
+  };
+  const goldGrad = (g, h) => { const gr = g.createLinearGradient(0, h * 0.15, 0, h * 0.95); gr.addColorStop(0, '#FFF1B8'); gr.addColorStop(0.45, '#E7B847'); gr.addColorStop(0.75, '#B98322'); gr.addColorStop(1, '#F5D27A'); return gr; };
+  const faceTex = canvasTex(TW, TH, drawName(goldGrad, '#7A5212'));
+  const sideTex = canvasTex(TW, TH, drawName('#A8781F'));
+  const maskTex = canvasTex(TW, TH, drawName('#FFFFFF'));
+  const glowTex2 = canvasTex(TW, TH, drawName('#FFFFFF', null, 14));
+  const faceMat = new THREE.MeshStandardMaterial({ map: faceTex, alphaTest: 0.5, transparent: false, roughness: 0.35, metalness: 0.2, emissive: '#FFFFFF', emissiveMap: maskTex, emissiveIntensity: 0 });
+  const sideMat = new THREE.MeshStandardMaterial({ map: sideTex, alphaTest: 0.5, roughness: 0.5, metalness: 0.2 });
+  const haloM = new THREE.MeshBasicMaterial({ map: glowTex2, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, color: '#FFF6E0' });
+  MOD_NIGHT.push((t) => { faceMat.emissiveIntensity = t * 1.4; haloM.opacity = t * 0.85; });
+  const nameGeo = new THREE.PlaneGeometry(3.15, 3.15 * TH / TW);
+  // sun emblem (सूर्य) above the name: gold disc + alternating rays
+  const sunM = new THREE.MeshStandardMaterial({ color: '#E3B44A', roughness: 0.35, metalness: 0.25, emissive: '#FFB43A', emissiveIntensity: 0 });
+  MOD_NIGHT.push((t) => { sunM.emissiveIntensity = t * 0.9; });
+  const sun = new THREE.Group();
+  const sd = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32), sunM); sd.rotation.x = Math.PI / 2; sun.add(sd);
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2, long = i % 2 === 0;
+    const ray = new THREE.Mesh(new THREE.ConeGeometry(0.09, long ? 0.5 : 0.32, 4), sunM);
+    const rr = long ? 0.8 : 0.7; ray.position.set(Math.cos(a) * rr, Math.sin(a) * rr, 0); ray.rotation.z = a - Math.PI / 2; sun.add(ray);
+  }
+  for (const fz of [1, -1]) {
+    const nm = new THREE.Group(); nm.position.set(px + 0.05, 7.2, fz * (pd / 2)); if (fz < 0) nm.rotation.y = Math.PI; G.add(nm);
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 3.6 * TH / TW), haloM); halo.position.z = 0.01; nm.add(halo);
+    for (let k = 0; k < 9; k++) { const l = new THREE.Mesh(nameGeo, sideMat); l.position.z = 0.02 + k * 0.014; nm.add(l); }
+    const front = new THREE.Mesh(nameGeo, faceMat); front.position.z = 0.15; nm.add(front);
+    const sg = sun.clone(); sg.position.set(px + 0.05, 8.85, fz * (pd / 2 + 0.06)); G.add(sg);
+  }
+  // curved planter with flowers at the pylon base (outside)
+  const pr = 1.9;
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(pr, pr, 0.6, 28, 1, false, 0, Math.PI), MOD.white);
+  pot.position.set(px - 0.4, 0.3, pd / 2); pot.castShadow = true; G.add(pot);
+  const soil = new THREE.Mesh(new THREE.CylinderGeometry(pr - 0.15, pr - 0.15, 0.62, 28, 1, false, 0, Math.PI), MOD.shrub);
+  soil.position.set(px - 0.4, 0.33, pd / 2); G.add(soil);
+  for (let i = 0; i < 26; i++) {
+    const a = (i / 26) * Math.PI, rr = 0.4 + ((i * 37) % 10) / 10 * (pr - 0.7);
+    instMarker(G, i % 3 ? 'flw' : 'flw2', i % 3 ? MOD.flower : MOD.flower2, 0.32, 0.25, 0.32, px - 0.4 + Math.sin(a) * rr * 0.98, 0.62, pd / 2 + Math.cos(a) * rr * 0.98, domeGeo);
+  }
+  harvestMarkers(G);
+}
+
+function buildModern() {
+  if (modernBuilt) return;
+  modernBuilt = true;
+  modMaterials();
+  INST_LAYER = 'M:';
+  plots.forEach((p, i) => modernHouse(p, i));
+  modernGate();
+  INST_LAYER = '';
+  buildInstances();
+  labels.children.forEach((sp, i) => { sp.position.y = plots[i].top + 1.2; });
+  applyNight(nightT);
+}
+let STYLE_NOW = 'ayodhya';
+function setStyle(name) {
+  name = name === 'modern' ? 'modern' : 'ayodhya';
+  const sw0 = document.getElementById('styleSw');
+  if (name === 'modern' && !modernBuilt && sw0 && !sw0.dataset.busy) {
+    // first switch builds the modern houses: show a busy state, then build on the next frame
+    sw0.dataset.busy = '1'; sw0.setAttribute('aria-busy', 'true'); sw0.setAttribute('aria-checked', 'true');
+    document.body.classList.add('building');
+    setTimeout(() => { setStyle(name); delete sw0.dataset.busy; sw0.removeAttribute('aria-busy'); document.body.classList.remove('building'); }, 60);
+    return;
+  }
+  const drainWas = DR.on;
+  if (drainWas) setDrainage(false);
+  if (name === 'modern') buildModern();
+  STYLE.ayodhya.forEach((o) => { o.visible = name === 'ayodhya'; });
+  STYLE.modern.forEach((o) => { o.visible = name === 'modern'; });
+  if (drainWas) setDrainage(true);
+  STYLE_NOW = name;
+  try { localStorage.setItem('sk-style', name); } catch (e) {}
+  const sw = document.getElementById('styleSw');
+  if (sw) sw.setAttribute('aria-checked', String(name === 'modern'));
+  lastActive = performance.now();
+}
+window.__setStyle = setStyle;
+
+window.__look = (px, py, pz, tx, ty, tz) => { camera.position.set(px, py, pz); controls.target.set(tx, ty, tz); controls.update(); lastActive = performance.now(); };
+window.__plots = plots;
+
 // ---------------- camera presets ----------------
 const presets = {
   aerial: { pos: [-125, 85, -85], target: [0, 0, 0] },
@@ -1009,6 +1357,59 @@ function setGfx(low) {
 }
 gfxBtn.setAttribute('aria-pressed', String(LOW));
 gfxBtn.addEventListener('click', () => setGfx(!LOW));
+// design switch: traditional (Ayodhya) ⇄ modern
+{
+  const sw = $('styleSw');
+  let want = 'ayodhya';
+  try { want = localStorage.getItem('sk-style') || 'ayodhya'; } catch (e) {}
+  const q = new URLSearchParams(location.search).get('design');
+  if (q === 'modern' || q === 'traditional') want = q === 'modern' ? 'modern' : 'ayodhya';
+  if (location.hash === '#video') want = 'ayodhya';
+  if (sw) sw.addEventListener('click', () => setStyle(STYLE_NOW === 'modern' ? 'ayodhya' : 'modern'));
+  if (want === 'modern') setStyle('modern');
+}
+// ---------------- plot info card: tap a plot → size + link to its concept house plan ----------------
+{
+  const SQFT = [1000,1500,1500,1500,1500,1500,1500,1500,1250,1250,1250,1250,1250,1250,1250,1250,1250,1339.73,1000,1000,1000,1000,1500,1000,1023.25,1500,1000,1023.25,1124.96,1124.96,921.16,1126.87,1126.79,1250,1250,1023.25,1250,1250,1023.25,1250,1250,1023.25];
+  // [length, width] in feet as written on the layout drawing (plots 1, 7, 8 from the sanctioned table)
+  const DIM = ["50′ × 20′"].concat(Array(7).fill("50′ × 30′"), Array(9).fill("50′ × 25′"), ["50′ × 26′10″"], Array(4).fill("50′ × 20′"),
+    ["50′ × 30′", "50′ × 20′", "50′ × 20′6″", "50′ × 30′", "50′ × 20′", "50′ × 20′6″", "45′ × 25′", "45′ × 25′", "45′ × 20′6″", "35′3″ × 32′", "35′3″ × 32′",
+     "50′ × 25′", "50′ × 25′", "50′ × 20′6″", "50′ × 25′", "50′ × 25′", "50′ × 20′6″", "50′ × 25′", "50′ × 25′", "50′ × 20′6″"]);
+  const hits = plots.map((p) => {
+    const m = new THREE.Mesh(boxGeo, new THREE.MeshBasicMaterial());
+    m.scale.set(p.w * S, 16, p.h * S); m.position.set(X(p.x + p.w / 2), 8, Z(p.y + p.h / 2)); m.updateMatrixWorld(true);
+    m.userData.n = p.n; return m;
+  });
+  const outline = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)), new THREE.LineBasicMaterial({ color: '#F5A524', depthTest: false }));
+  outline.renderOrder = 11; outline.visible = false; outline.userData.util = true; scene.add(outline);
+  const card = $('plotCard'), body = $('plotCardBody');
+  function closeCard() { card.hidden = true; outline.visible = false; lastActive = performance.now(); }
+  function openCard(n) {
+    const p = plots[n - 1], en = document.documentElement.lang === 'en';
+    body.innerHTML = en
+      ? `<h2>Plot ${n}</h2><p>Size: <b>${DIM[n - 1]}</b> (length × width)</p><p>${AREA[n - 1].toFixed(2)} sq m · ${SQFT[n - 1]} sq ft</p><a href="naksha.html#plot-${n}">Concept house plan (Vastu) →</a>`
+      : `<h2>प्लॉट ${n}</h2><p>नाप: <b>${DIM[n - 1]}</b> (लंबाई × चौड़ाई)</p><p>${AREA[n - 1].toFixed(2)} वर्ग मी. · ${SQFT[n - 1]} वर्ग फ़ुट</p><a href="naksha.html#plot-${n}">घर का कॉन्सेप्ट नक्शा (वास्तु अनुसार) →</a>`;
+    card.hidden = false;
+    outline.scale.set(p.w * S, 0.6, p.h * S); outline.position.set(X(p.x + p.w / 2), 0.4, Z(p.y + p.h / 2)); outline.visible = true;
+    lastActive = performance.now();
+  }
+  window.__openPlot = openCard;
+  $('plotCardX').addEventListener('click', closeCard);
+  const ray = new THREE.Raycaster(), v2 = new THREE.Vector2();
+  let down = null;
+  canvas.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; });
+  canvas.addEventListener('pointerup', (e) => {
+    if (!down || glDead() || location.hash === '#video') return;
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t; down = null;
+    if (moved > 6 || dt > 600) return;
+    const r = canvas.getBoundingClientRect();
+    v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(v2, camera);
+    const h = ray.intersectObjects(hits, false)[0];
+    if (h) openCard(h.object.userData.n); else closeCard();
+  });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !card.hidden) closeCard(); });
+}
 renderer.domElement.addEventListener('webglcontextlost', () => { stopHold(); if (window.__fallback) window.__fallback('lost'); });
 // toolbar: show a fade when more buttons are hidden to the right
 const barEl = document.querySelector('.bar');

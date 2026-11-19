@@ -5,7 +5,7 @@
   "python": "3.13.18",
   "os": "Linux-6.18.44-fc-v653-x86_64-with-glibc2.39",
   "webgl": "SwiftShader (software)",
-  "date": "2026-11-19 07:39:12 +0000"
+  "date": "2026-11-19 09:06:54 +0000"
  },
  "results": {
   "R01 सभी viewport (320–1440, हिंदी/English) पर क्षैतिज overflow नहीं": {
@@ -193,7 +193,7 @@
    "kind": "SIM",
    "evidence": {
     "preload": "none",
-    "t": 1.50762,
+    "t": 1.504821,
     "w": 1280
    }
   },
@@ -682,6 +682,76 @@
    "kind": "SIM",
    "evidence": []
   },
+  "R31 डिज़ाइन स्विच: पारंपरिक ⇄ आधुनिक (ड्रेनेज/रात के साथ भी), पसंद याद रहती, कोई JS त्रुटि नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "start": "false",
+    "modern": {
+     "ls": "modern"
+    },
+    "back": {
+     "sw": "false",
+     "ls": "ayodhya"
+    },
+    "again": "true",
+    "urlTraditional": "false",
+    "errs": []
+   }
+  },
+  "R32 3D में प्लॉट कार्ड: सही नाप व उस प्लॉट के नक्शे का लिंक; बंद होता है": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "cards": {
+     "1": [
+      true,
+      "50′ × 20′",
+      "naksha.html#plot-1"
+     ],
+     "8": [
+      true,
+      "50′ × 30′",
+      "naksha.html#plot-8"
+     ],
+     "18": [
+      true,
+      "50′ × 26′10″",
+      "naksha.html#plot-18"
+     ],
+     "31": [
+      true,
+      "45′ × 20′6″",
+      "naksha.html#plot-31"
+     ],
+     "33": [
+      true,
+      "35′3″ × 32′",
+      "naksha.html#plot-33"
+     ]
+    },
+    "closed": true,
+    "errs": []
+   }
+  },
+  "R33 घर के नक्शे पेज: 42 प्लॉट × 3 तल, नाप सही, मोबाइल पर overflow नहीं; वेबसाइट से लिंक": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "bad": [],
+    "dims": {
+     "1": "20'-0\" × 50'-0\"",
+     "23": "30'-0\" × 50'-0\"",
+     "32": "35'-3\" × 32'-0\""
+    },
+    "scrollWidth": 390,
+    "links": [
+     "naksha.html",
+     42
+    ],
+    "errs": []
+   }
+  },
   "R20 3D मोबाइल (emulated) 390x844: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
    "status": "PASS",
    "kind": "SIM",
@@ -857,12 +927,12 @@
    "kind": "LOCAL",
    "evidence": {
     "index.html": {
-     "raw_kb": 85.8,
-     "gzip_kb_approx": 21.0
+     "raw_kb": 88.0,
+     "gzip_kb_approx": 21.7
     },
     "3d.html": {
-     "raw_kb": 611.2,
-     "gzip_kb_approx": 163.7
+     "raw_kb": 635.8,
+     "gzip_kb_approx": 171.2
     },
     "hero-gate.jpg": {
      "raw_kb": 83.1,
@@ -880,7 +950,7 @@
   }
  },
  "summary": {
-  "pass": 38,
+  "pass": 41,
   "fail": 0
  }
 }

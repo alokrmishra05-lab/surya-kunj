@@ -231,6 +231,7 @@ async def main():
             ctx = await (browser or b).new_context(viewport=vp, locale='hi-IN', is_mobile=mob, has_touch=mob, device_scale_factor=dpr)
             if init: await ctx.add_init_script(init)
             pg = await ctx.new_page(); errs = watch(pg)
+            pg.set_default_timeout(150000)  # SwiftShader at DPR 2 can take ~30 s per click on a slow CPU
             await pg.goto(BASE + '3d.html')
             return ctx, pg, errs
         cam = "[+window.__cam.position.x.toFixed(2), +window.__cam.position.y.toFixed(2), +window.__cam.position.z.toFixed(2)]"
@@ -282,6 +283,55 @@ async def main():
         res('R18 Home: ड्रेनेज से बाहर निकलकर Aerial दृश्य', h['drain'] == 'false' and h['panel'] and h['view'] == 'true' and abs(hc[0] - vv['aerial'][0]) < 1.5, {**h, 'cam': hc, 'aerial': vv['aerial']})
         res('R19 3D (डेस्कटॉप) पर JS त्रुटि नहीं', not e3, e3)
         await ctx.close()
+
+        # ---------------- 4b. design switch: traditional ⇄ modern ----------------
+        ctx, pg, e = await open3d({'width': 1366, 'height': 768}, False)
+        await pg.wait_for_function('window.__ready===true', timeout=120000); await pg.wait_for_timeout(600)
+        st0 = await pg.evaluate("document.getElementById('styleSw').getAttribute('aria-checked')")
+        await pg.click('#styleSw')
+        await pg.wait_for_function("document.getElementById('styleSw').getAttribute('aria-busy')===null && document.getElementById('styleSw').getAttribute('aria-checked')==='true'", timeout=120000)
+        await pg.wait_for_timeout(500)
+        on = await pg.evaluate("({ls: localStorage.getItem('sk-style')})")
+        await pg.click('#drainBtn'); await pg.wait_for_timeout(1200); await pg.click('#drainBtn'); await pg.wait_for_timeout(300)
+        await pg.click('#night'); await pg.wait_for_timeout(1200); await pg.click('#day'); await pg.wait_for_timeout(300)
+        await pg.click('#styleSw'); await pg.wait_for_timeout(500)
+        off = await pg.evaluate("({sw: document.getElementById('styleSw').getAttribute('aria-checked'), ls: localStorage.getItem('sk-style')})")
+        await pg.click('#styleSw'); await pg.wait_for_timeout(500)
+        again = await pg.evaluate("document.getElementById('styleSw').getAttribute('aria-checked')")
+        await pg.goto(BASE + '3d.html?design=traditional'); await pg.wait_for_function('window.__ready===true', timeout=120000); await pg.wait_for_timeout(400)
+        q = await pg.evaluate("document.getElementById('styleSw').getAttribute('aria-checked')")
+        await ctx.close()
+        res('R31 डिज़ाइन स्विच: पारंपरिक ⇄ आधुनिक (ड्रेनेज/रात के साथ भी), पसंद याद रहती, कोई JS त्रुटि नहीं',
+            st0 == 'false' and on['ls'] == 'modern' and off['sw'] == 'false' and off['ls'] == 'ayodhya' and again == 'true' and q == 'false' and not e,
+            {'start': st0, 'modern': on, 'back': off, 'again': again, 'urlTraditional': q, 'errs': e})
+
+        # ---------------- 4c. plot card in 3D + concept house plans page ----------------
+        ctx, pg, e = await open3d({'width': 1366, 'height': 768}, False)
+        await pg.wait_for_function('window.__ready===true', timeout=150000); await pg.wait_for_timeout(500)
+        cards = {}
+        for n in [1, 8, 18, 31, 33]:
+            await pg.evaluate(f"window.__openPlot({n})"); await pg.wait_for_timeout(150)
+            cards[n] = await pg.evaluate("[!document.getElementById('plotCard').hidden, document.querySelector('#plotCardBody b').textContent, document.querySelector('#plotCardBody a').getAttribute('href')]")
+        await pg.evaluate("document.getElementById('plotCardX').click()"); closed = await pg.evaluate("document.getElementById('plotCard').hidden")
+        await ctx.close()
+        exp = {1: '50′ × 20′', 8: '50′ × 30′', 18: '50′ × 26′10″', 31: '45′ × 20′6″', 33: '35′3″ × 32′'}
+        ok = all(cards[n][0] and cards[n][1] == exp[n] and cards[n][2] == f'naksha.html#plot-{n}' for n in exp) and closed and not e
+        res('R32 3D में प्लॉट कार्ड: सही नाप व उस प्लॉट के नक्शे का लिंक; बंद होता है', ok, {'cards': cards, 'closed': closed, 'errs': e})
+        ctx = await b.new_context(viewport={'width': 390, 'height': 844}, locale='hi-IN', is_mobile=True, has_touch=True)
+        pg = await ctx.new_page(); errs = watch(pg)
+        await pg.goto(BASE + 'naksha.html#plot-1'); await pg.wait_for_timeout(800)
+        bad = []
+        for n in range(1, 43):
+            await pg.evaluate(f"location.hash='plot-{n}'"); await pg.wait_for_timeout(40)
+            r = await pg.evaluate("[document.querySelectorAll('#plans svg').length, document.querySelector('#summary .card:nth-child(3) b').textContent]")
+            if r[0] != 3: bad.append((n, r))
+        dims = {n: (await pg.evaluate(f"(location.hash='plot-{n}', new Promise(r=>setTimeout(()=>r(document.querySelector('#summary .card:nth-child(3) b').textContent),60)))")) for n in [1, 23, 32]}
+        ov = await pg.evaluate("document.documentElement.scrollWidth")
+        await pg.goto(BASE + 'index.html'); await pg.wait_for_timeout(500)
+        links = await pg.evaluate("[document.querySelector('.naksha a').getAttribute('href'), document.querySelectorAll('#plotTables a[href^=\"naksha.html#plot-\"]').length]")
+        await ctx.close()
+        res('R33 घर के नक्शे पेज: 42 प्लॉट × 3 तल, नाप सही, मोबाइल पर overflow नहीं; वेबसाइट से लिंक', not bad and dims[1] == '20\'-0" × 50\'-0"' and dims[23] == '30\'-0" × 50\'-0"' and dims[32] == '35\'-3" × 32\'-0"' and ov <= 390 and links == ['naksha.html', 42] and not errs,
+            {'bad': bad, 'dims': dims, 'scrollWidth': ov, 'links': links, 'errs': errs})
 
         # ---------------- 5. 3D mobile (emulated) ----------------
         for vp in [{'width': 390, 'height': 844}, {'width': 844, 'height': 390}, {'width': 320, 'height': 640}]:

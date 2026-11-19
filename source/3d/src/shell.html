@@ -20,6 +20,16 @@
   button:hover{background:rgba(255,255,255,.08)}
   button[aria-pressed="true"]{background:#F5A524;color:#0F1B2D;border-color:#F5A524}
   button:focus-visible{outline:2px solid #38E1FF;outline-offset:2px}
+  #styleSw{display:inline-flex;align-items:center;gap:8px;border-color:#F5A524}
+  #styleSw .sw{position:relative;width:42px;height:24px;border-radius:12px;background:#3A4A60;flex:none;transition:background .2s}
+  #styleSw .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+  #styleSw[aria-checked="true"] .sw{background:#F5A524}
+  #styleSw[aria-checked="true"] .sw::after{transform:translateX(18px)}
+  #styleSw .sl{opacity:.6}
+  #styleSw[aria-busy="true"]{cursor:progress}
+  body.building::after{content:"आधुनिक डिज़ाइन तैयार हो रहा है…";position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(15,27,45,.9);color:#F5A524;font:700 16px Mukta,system-ui,sans-serif;padding:12px 18px;border-radius:12px;z-index:20}
+  html[lang="en"] body.building::after{content:"Preparing the modern design…"}
+  #styleSw[aria-checked="false"] .sl-a,#styleSw[aria-checked="true"] .sl-m{opacity:1;color:#F5A524}
   #panel{position:fixed;left:16px;bottom:16px;max-width:380px;background:rgba(255,255,255,.94);color:#0F1B2D;border-radius:14px;padding:14px 18px;font-size:14px;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.18)}
   #drainPanel{position:fixed;right:16px;bottom:16px;max-width:400px;background:rgba(255,255,255,.96);color:#0F1B2D;border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.45;box-shadow:0 6px 24px rgba(0,0,0,.18);z-index:5}
   #drainPanel h2{margin:0 0 4px;font-family:Rajdhani,Mukta,sans-serif;font-size:21px}
@@ -76,6 +86,12 @@
   .nb:active{background:#F5A524;color:#0F1B2D}
   body:has(#panel:not([hidden])) .nav{display:none}
   #panel{z-index:6}
+  #plotCard{position:fixed;right:16px;top:132px;z-index:7;width:300px;background:rgba(255,255,255,.97);color:#0F1B2D;border-radius:14px;padding:14px 46px 14px 16px;font-size:14.5px;line-height:1.45;box-shadow:0 6px 24px rgba(0,0,0,.22);border-top:4px solid #F5A524}
+  #plotCard h2{margin:0 0 4px;font-family:Rajdhani,Mukta,sans-serif;font-size:22px;color:#7A2E2A}
+  #plotCard p{margin:2px 0}
+  #plotCard a{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;padding:6px 14px;border-radius:10px;background:#7A2E2A;color:#fff;font-weight:700;text-decoration:none}
+  #plotCard .x{position:absolute;top:6px;right:6px;width:40px;height:40px;min-height:40px;padding:0;font-size:22px;color:#0F1B2D;border-color:#DDE3EA}
+  @media (max-width:820px), (max-height:500px){#plotCard{left:8px;right:8px;width:auto;top:auto;bottom:8px;z-index:8}}
   .hint{max-width:300px}
   body.video .nav{display:none}
   .nav .tog{align-self:flex-end}
@@ -148,6 +164,9 @@
   <div class="title"><h1>सूर्य कुंज आवासीय योजना</h1><p>बसने के बाद कैसा दिखेगा — 3D कॉन्सेप्ट · ग्राम सरेठी, अयोध्या</p></div>
   <div class="bar" role="toolbar" aria-label="दृश्य नियंत्रण">
     <div class="grp">
+      <button id="styleSw" type="button" role="switch" aria-checked="false" title="घर व गेट का डिज़ाइन बदलें"><span class="sl sl-a">पारंपरिक</span><span class="sw" aria-hidden="true"></span><span class="sl sl-m">आधुनिक</span></button>
+    </div>
+    <div class="grp">
       <button data-view="aerial" data-group="view" aria-pressed="true">ऊपर से तिरछा</button>
       <button data-view="top" data-group="view" aria-pressed="false">नक्शा दृश्य</button>
       <button data-view="street" data-group="view" aria-pressed="false">सड़क से</button>
@@ -182,6 +201,9 @@
   <h2>इस मॉडल में</h2>
   <ul>
     <li>घर केवल कॉन्सेप्ट हैं — हम प्लॉट देते हैं; पसंद आए तो ऐसा घर बनवा सकते हैं</li>
+    <li>ऊपर के स्विच से दो डिज़ाइन देखें: पारंपरिक (अयोध्या शैली) या आधुनिक घर व गेट</li>
+    <li>घर G+2 (भूतल + 2 मंज़िल), आगे खुली छत — वास्तु अनुसार कॉन्सेप्ट नक्शों जैसे</li>
+    <li>किसी प्लॉट पर क्लिक/टैप करें — नाप और उस प्लॉट के घर का कॉन्सेप्ट नक्शा</li>
     <li>गेटेड कॉलोनी — मुख्य द्वार, पैदल द्वार व गार्ड रूम</li>
     <li>कंगूरेदार बाउंड्री वॉल, लालटेन शैली की स्ट्रीट लाइट (रात दृश्य में जलती हैं)</li>
     <li>डामर सड़कें, ढकी नालियाँ व कर्ब; सेंट्रल पार्क में छतरी मंडप, फव्वारा, वॉकिंग ट्रैक</li>
@@ -212,7 +234,8 @@
     <button class="nb" data-act="tilt-down" aria-label="नीचे से देखें"><svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
   </div>
 </div>
-<div class="hint">एक उँगली/बायाँ क्लिक: घुमाएँ · दो उँगली/दायाँ क्लिक: खिसकाएँ · पिंच/स्क्रॉल: ज़ूम</div>
+<div class="hint">एक उँगली/बायाँ क्लिक: घुमाएँ · दो उँगली/दायाँ क्लिक: खिसकाएँ · पिंच/स्क्रॉल: ज़ूम · प्लॉट पर टैप: नाप व घर का नक्शा</div>
+<div id="plotCard" role="dialog" aria-live="polite" hidden><button class="x" id="plotCardX" type="button" aria-label="बंद करें">×</button><div id="plotCardBody"></div></div>
 <div id="cap" aria-hidden="true"><div id="capT"></div><div id="capS"></div></div>
 <div id="end" aria-hidden="true"><div class="et">स्थान के लाभ</div><div class="eg">
 <div><b>2 किमी</b><span>एयरपोर्ट</span></div><div><b>5 किमी</b><span>श्री राम जन्मभूमि</span></div><div><b>1 किमी</b><span>मेडिकल कॉलेज</span></div>
