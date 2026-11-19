@@ -5,7 +5,7 @@
   "python": "3.13.18",
   "os": "Linux-6.18.44-fc-v653-x86_64-with-glibc2.39",
   "webgl": "SwiftShader (software)",
-  "date": "2026-11-19 07:39:12 +0000"
+  "date": "2026-11-19 08:22:33 +0000"
  },
  "results": {
   "R01 सभी viewport (320–1440, हिंदी/English) पर क्षैतिज overflow नहीं": {
@@ -193,7 +193,7 @@
    "kind": "SIM",
    "evidence": {
     "preload": "none",
-    "t": 1.50762,
+    "t": 1.506642,
     "w": 1280
    }
   },
@@ -682,6 +682,23 @@
    "kind": "SIM",
    "evidence": []
   },
+  "R31 डिज़ाइन स्विच: पारंपरिक ⇄ आधुनिक (ड्रेनेज/रात के साथ भी), पसंद याद रहती, कोई JS त्रुटि नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "start": "false",
+    "modern": {
+     "ls": "modern"
+    },
+    "back": {
+     "sw": "false",
+     "ls": "ayodhya"
+    },
+    "again": "true",
+    "urlTraditional": "false",
+    "errs": []
+   }
+  },
   "R20 3D मोबाइल (emulated) 390x844: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
    "status": "PASS",
    "kind": "SIM",
@@ -861,8 +878,8 @@
      "gzip_kb_approx": 21.0
     },
     "3d.html": {
-     "raw_kb": 611.2,
-     "gzip_kb_approx": 163.7
+     "raw_kb": 622.8,
+     "gzip_kb_approx": 167.7
     },
     "hero-gate.jpg": {
      "raw_kb": 83.1,
@@ -880,7 +897,7 @@
   }
  },
  "summary": {
-  "pass": 38,
+  "pass": 39,
   "fail": 0
  }
 }
