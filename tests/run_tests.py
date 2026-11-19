@@ -333,6 +333,40 @@ async def main():
         res('R33 घर के नक्शे पेज: 42 प्लॉट × 3 तल, नाप सही, मोबाइल पर overflow नहीं; वेबसाइट से लिंक', not bad and dims[1] == '20\'-0" × 50\'-0"' and dims[23] == '30\'-0" × 50\'-0"' and dims[32] == '35\'-3" × 32\'-0"' and ov <= 390 and links == ['naksha.html', 42] and not errs,
             {'bad': bad, 'dims': dims, 'scrollWidth': ov, 'links': links, 'errs': errs})
 
+        # ---------------- 4d. drainage keeps day/night; concept plans page bilingual + design switch ----------------
+        ctx, pg, e = await open3d({'width': 1366, 'height': 768}, False)
+        await pg.wait_for_function('window.__ready===true', timeout=150000); await pg.wait_for_timeout(400)
+        await pg.click('#night'); await pg.wait_for_timeout(1500)
+        await pg.click('#drainBtn'); await pg.wait_for_timeout(1500); dn_on = await pg.evaluate("window.__dayNight()")
+        await pg.click('#drainBtn'); await pg.wait_for_timeout(1500); dn_off = await pg.evaluate("window.__dayNight()")
+        btn = await pg.evaluate("[document.getElementById('night').getAttribute('aria-pressed'), document.getElementById('day').getAttribute('aria-pressed')]")
+        await pg.click('#day'); await pg.wait_for_timeout(1500); await pg.click('#drainBtn'); await pg.wait_for_timeout(800); await pg.click('#drainBtn'); await pg.wait_for_timeout(800)
+        dd = await pg.evaluate("window.__dayNight()")
+        await ctx.close()
+        res('R34 ड्रेनेज खोलने/बंद करने पर दिन/रात नहीं बदलता; ऊपर का बटन सही', dn_on == [1, 1] and dn_off == [1, 1] and btn == ['true', 'false'] and dd == [0, 0] and not e,
+            {'nightDrainOn': dn_on, 'nightDrainOff': dn_off, 'buttons': btn, 'dayAfter': dd, 'errs': e})
+        nk = {}
+        for lang, style in [('hi', 'ayodhya'), ('en', 'modern'), ('en', 'ayodhya')]:
+            ctx = await b.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True)
+            await ctx.add_init_script(f"localStorage.setItem('sk-lang','{lang}');localStorage.setItem('sk-style','{style}')")
+            pg = await ctx.new_page(); errs = watch(pg)
+            await pg.goto(BASE + 'naksha.html#plot-12'); await pg.wait_for_timeout(700)
+            r = await pg.evaluate("""(()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let hi=0;let n;while(n=w.nextNode()){const e=n.parentElement;if(e.closest('script,style,#langBtn'))continue;if(/[\u0900-\u097F]/.test(n.nodeValue))hi++}
+              return {lang:document.documentElement.lang, sw:document.getElementById('styleSw').getAttribute('aria-checked'), hindiNodes:hi, sw3d:document.getElementById('btn3d').getAttribute('href'),
+               modernElev: !!document.querySelector('#elev pattern#jaali') && document.querySelector('#elev').innerHTML.includes('url(#jaali)'), kangura: document.querySelector('#elev').innerHTML.includes('Q'), scrollW: document.documentElement.scrollWidth}})()""")
+            await pg.click('#langBtn'); await pg.wait_for_timeout(200)
+            r['afterToggle'] = await pg.evaluate("[document.documentElement.lang, localStorage.getItem('sk-lang')]")
+            await pg.click('#styleSw'); await pg.wait_for_timeout(200)
+            r['afterSwitch'] = await pg.evaluate("[document.getElementById('styleSw').getAttribute('aria-checked'), localStorage.getItem('sk-style')]")
+            r['errs'] = errs
+            nk[f'{lang}-{style}'] = r
+            await ctx.close()
+        ok = (nk['hi-ayodhya']['lang'] == 'hi' and nk['hi-ayodhya']['sw'] == 'false' and nk['hi-ayodhya']['kangura'] and nk['hi-ayodhya']['afterToggle'] == ['en', 'en'] and nk['hi-ayodhya']['afterSwitch'] == ['true', 'modern']
+              and nk['en-modern']['lang'] == 'en' and nk['en-modern']['hindiNodes'] == 0 and nk['en-modern']['sw'] == 'true' and nk['en-modern']['modernElev'] and nk['en-modern']['sw3d'] == '3d.html?design=modern'
+              and nk['en-ayodhya']['hindiNodes'] == 0 and nk['en-ayodhya']['afterSwitch'] == ['true', 'modern']
+              and all(v['scrollW'] <= 390 and not v['errs'] for v in nk.values()))
+        res('R35 घर के नक्शे: वेबसाइट की भाषा व 3D के डिज़ाइन से मेल, English में कोई हिंदी नहीं, स्विच काम करते, मोबाइल पर overflow नहीं', ok, nk)
+
         # ---------------- 5. 3D mobile (emulated) ----------------
         for vp in [{'width': 390, 'height': 844}, {'width': 844, 'height': 390}, {'width': 320, 'height': 640}]:
             ctx, pg, e = await open3d(vp, True)

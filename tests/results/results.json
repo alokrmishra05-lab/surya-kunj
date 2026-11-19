@@ -5,7 +5,7 @@
   "python": "3.13.18",
   "os": "Linux-6.18.44-fc-v653-x86_64-with-glibc2.39",
   "webgl": "SwiftShader (software)",
-  "date": "2026-11-19 09:06:54 +0000"
+  "date": "2026-11-19 09:39:12 +0000"
  },
  "results": {
   "R01 सभी viewport (320–1440, हिंदी/English) पर क्षैतिज overflow नहीं": {
@@ -193,7 +193,7 @@
    "kind": "SIM",
    "evidence": {
     "preload": "none",
-    "t": 1.504821,
+    "t": 1.501778,
     "w": 1280
    }
   },
@@ -752,6 +752,89 @@
     "errs": []
    }
   },
+  "R34 ड्रेनेज खोलने/बंद करने पर दिन/रात नहीं बदलता; ऊपर का बटन सही": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "nightDrainOn": [
+     1,
+     1
+    ],
+    "nightDrainOff": [
+     1,
+     1
+    ],
+    "buttons": [
+     "true",
+     "false"
+    ],
+    "dayAfter": [
+     0,
+     0
+    ],
+    "errs": []
+   }
+  },
+  "R35 घर के नक्शे: वेबसाइट की भाषा व 3D के डिज़ाइन से मेल, English में कोई हिंदी नहीं, स्विच काम करते, मोबाइल पर overflow नहीं": {
+   "status": "PASS",
+   "kind": "SIM",
+   "evidence": {
+    "hi-ayodhya": {
+     "lang": "hi",
+     "sw": "false",
+     "hindiNodes": 165,
+     "sw3d": "3d.html?design=traditional",
+     "modernElev": false,
+     "kangura": true,
+     "scrollW": 390,
+     "afterToggle": [
+      "en",
+      "en"
+     ],
+     "afterSwitch": [
+      "true",
+      "modern"
+     ],
+     "errs": []
+    },
+    "en-modern": {
+     "lang": "en",
+     "sw": "true",
+     "hindiNodes": 0,
+     "sw3d": "3d.html?design=modern",
+     "modernElev": true,
+     "kangura": false,
+     "scrollW": 390,
+     "afterToggle": [
+      "hi",
+      "hi"
+     ],
+     "afterSwitch": [
+      "false",
+      "ayodhya"
+     ],
+     "errs": []
+    },
+    "en-ayodhya": {
+     "lang": "en",
+     "sw": "false",
+     "hindiNodes": 0,
+     "sw3d": "3d.html?design=traditional",
+     "modernElev": false,
+     "kangura": true,
+     "scrollW": 390,
+     "afterToggle": [
+      "hi",
+      "hi"
+     ],
+     "afterSwitch": [
+      "true",
+      "modern"
+     ],
+     "errs": []
+    }
+   }
+  },
   "R20 3D मोबाइल (emulated) 390x844: बटन ≥44px, overflow नहीं, toolbar न ढके, छोटा करने का विकल्प": {
    "status": "PASS",
    "kind": "SIM",
@@ -931,7 +1014,7 @@
      "gzip_kb_approx": 21.7
     },
     "3d.html": {
-     "raw_kb": 635.8,
+     "raw_kb": 635.9,
      "gzip_kb_approx": 171.2
     },
     "hero-gate.jpg": {
@@ -950,7 +1033,7 @@
   }
  },
  "summary": {
-  "pass": 41,
+  "pass": 43,
   "fail": 0
  }
 }
