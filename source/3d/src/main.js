@@ -683,7 +683,7 @@ let GATE = null; // gate position, reused by the modern gate
   box(GR, 3.6, 0.25, 3.6, grx, 3.0, grz, STONE.band);
   const gd = new THREE.Mesh(domeGeo, STONE.pink); gd.scale.set(1.3, 1.4, 1.3); gd.position.set(grx, 3.25, grz); gd.castShadow = true; GR.add(gd);
   kalash(GR, grx, 4.65, grz, 1);
-  GATE = { x0, gz, hr };
+  GATE = { x0, gz, hr }; window.__GATE = GATE;
   // approach road outside the gate
   box(scene, 60, 0.08, MAIN.h * S, x0 - 30, 0, gz, M.asphalt, false);
   box(scene, 14, 0.08, 400, x0 - 66, 0, 0, M.asphalt, false);
@@ -1130,17 +1130,41 @@ function modernGate() {
   box(G, 1.3, 1.5, pd + 0.2, px + 0.7, 2.9, 0, MOD.white);
   windowMeshes.push(box(G, 0.9, 0.9, pd + 0.26, px + 0.7, 3.2, 0, M.glass, false));
   // name: metal letters on both faces
-  const nameTex = canvasTex(512, 384, (g, w, h) => {
+  // name: raised golden 3D letters (layered cut-outs), lit white at night with a soft back-glow
+  const NAME = 'सूर्य कुंज', TW = 1024, TH = 320;
+  const drawName = (fill, stroke, blur) => (g, w, h) => {
     g.clearRect(0, 0, w, h);
-    g.fillStyle = '#FFFFFF'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = '700 118px Mukta, Rajdhani, sans-serif'; g.fillText('सूर्य कुंज', w / 2, h * 0.36);
-    g.font = '600 56px Mukta, Rajdhani, sans-serif'; g.fillText('आवासीय योजना', w / 2, h * 0.76);
-  });
-  const nameMat = new THREE.MeshStandardMaterial({ map: nameTex, transparent: true, emissive: '#FFFFFF', emissiveMap: nameTex, emissiveIntensity: 0.15, depthWrite: false });
-  MOD_NIGHT.push((t) => { nameMat.emissiveIntensity = 0.15 + t * 0.9; });
+    if (blur) g.filter = `blur(${blur}px)`;
+    g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '800 236px Mukta, Rajdhani, sans-serif';
+    g.fillStyle = typeof fill === 'function' ? fill(g, h) : fill; g.fillText(NAME, w / 2, h * 0.56);
+    if (stroke) { g.lineWidth = 3; g.strokeStyle = stroke; g.strokeText(NAME, w / 2, h * 0.56); }
+  };
+  const goldGrad = (g, h) => { const gr = g.createLinearGradient(0, h * 0.15, 0, h * 0.95); gr.addColorStop(0, '#FFF1B8'); gr.addColorStop(0.45, '#E7B847'); gr.addColorStop(0.75, '#B98322'); gr.addColorStop(1, '#F5D27A'); return gr; };
+  const faceTex = canvasTex(TW, TH, drawName(goldGrad, '#7A5212'));
+  const sideTex = canvasTex(TW, TH, drawName('#A8781F'));
+  const maskTex = canvasTex(TW, TH, drawName('#FFFFFF'));
+  const glowTex2 = canvasTex(TW, TH, drawName('#FFFFFF', null, 14));
+  const faceMat = new THREE.MeshStandardMaterial({ map: faceTex, alphaTest: 0.5, transparent: false, roughness: 0.35, metalness: 0.2, emissive: '#FFFFFF', emissiveMap: maskTex, emissiveIntensity: 0 });
+  const sideMat = new THREE.MeshStandardMaterial({ map: sideTex, alphaTest: 0.5, roughness: 0.5, metalness: 0.2 });
+  const haloM = new THREE.MeshBasicMaterial({ map: glowTex2, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, color: '#FFF6E0' });
+  MOD_NIGHT.push((t) => { faceMat.emissiveIntensity = t * 1.4; haloM.opacity = t * 0.85; });
+  const nameGeo = new THREE.PlaneGeometry(3.15, 3.15 * TH / TW);
+  // sun emblem (सूर्य) above the name: gold disc + alternating rays
+  const sunM = new THREE.MeshStandardMaterial({ color: '#E3B44A', roughness: 0.35, metalness: 0.25, emissive: '#FFB43A', emissiveIntensity: 0 });
+  MOD_NIGHT.push((t) => { sunM.emissiveIntensity = t * 0.9; });
+  const sun = new THREE.Group();
+  const sd = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32), sunM); sd.rotation.x = Math.PI / 2; sun.add(sd);
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2, long = i % 2 === 0;
+    const ray = new THREE.Mesh(new THREE.ConeGeometry(0.09, long ? 0.5 : 0.32, 4), sunM);
+    const rr = long ? 0.8 : 0.7; ray.position.set(Math.cos(a) * rr, Math.sin(a) * rr, 0); ray.rotation.z = a - Math.PI / 2; sun.add(ray);
+  }
   for (const fz of [1, -1]) {
-    const np = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 2.3), nameMat);
-    np.position.set(px + 0.05, 8.0, fz * (pd / 2 + 0.03)); if (fz < 0) np.rotation.y = Math.PI; G.add(np);
+    const nm = new THREE.Group(); nm.position.set(px + 0.05, 7.2, fz * (pd / 2)); if (fz < 0) nm.rotation.y = Math.PI; G.add(nm);
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 3.6 * TH / TW), haloM); halo.position.z = 0.01; nm.add(halo);
+    for (let k = 0; k < 9; k++) { const l = new THREE.Mesh(nameGeo, sideMat); l.position.z = 0.02 + k * 0.014; nm.add(l); }
+    const front = new THREE.Mesh(nameGeo, faceMat); front.position.z = 0.15; nm.add(front);
+    const sg = sun.clone(); sg.position.set(px + 0.05, 8.85, fz * (pd / 2 + 0.06)); G.add(sg);
   }
   // curved planter with flowers at the pylon base (outside)
   const pr = 1.9;
