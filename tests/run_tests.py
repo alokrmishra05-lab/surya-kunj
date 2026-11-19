@@ -141,6 +141,13 @@ async def main():
         sqft = {r[0]: r[2] for r in rows}
         res('R06 प्लॉट तालिका: 42 पंक्तियाँ, कुल 4750.44 वर्ग मी., प्लॉट 31 = 921.16, 32/33 = 1126.87/1126.79', len(rows) == 42 and tot == 4750.44 and sqft.get('31') == '921.16' and sqft.get('32') == '1126.87' and sqft.get('33') == '1126.79',
             {'rows': len(rows), 'total_sqm': tot, '31': sqft.get('31'), '32': sqft.get('32'), '33': sqft.get('33')})
+        dm = await pg.evaluate("""[...document.querySelectorAll('#plotTables tbody tr')].map(r => { const c = r.querySelector('td.dim'); const [l, w] = c.dataset.m.split('x').map(Number);
+            return {n: r.children[0].textContent, a: +r.children[1].textContent, l, w, ft: c.childNodes[0].textContent.trim()}; })""")
+        bad = [d for d in dm if abs(d['l'] * d['w'] - d['a']) > 0.15]
+        ftc = {d['n']: d['ft'] for d in dm}
+        exp = {'1': '50′ × 20′', '2': '50′ × 30′', '8': '50′ × 30′', '9': '50′ × 25′', '18': '50′ × 26′10″', '22': '50′ × 20′', '25': '50′ × 20′6″', '29': '45′ × 25′', '31': '45′ × 20′6″', '32': '35′3″ × 32′', '33': '35′3″ × 32′', '42': '50′ × 20′6″'}
+        res('R30 सभी 42 प्लॉट का नाप; लंबाई × चौड़ाई ≈ स्वीकृत क्षेत्रफल (±0.15 वर्ग मी.)', len(dm) == 42 and not bad and all(ftc.get(k) == v for k, v in exp.items()),
+            {'rows': len(dm), 'mismatch': bad, 'checked': {k: ftc.get(k) for k in exp}, 'max_diff': max(round(abs(d['l'] * d['w'] - d['a']), 3) for d in dm)})
         vd = await pg.evaluate('''async () => { const v = document.querySelector('#video video'); const pre = v.getAttribute('preload'); v.muted = true; v.preload='auto'; try { await v.play(); } catch (e) { return 'play-error:' + e.message; }
           await new Promise(r => setTimeout(r, 1500)); const t = v.currentTime; v.pause(); return {preload: pre, t, w: v.videoWidth}; }''')
         res('R07 वीडियो (preload=none) दबाने पर चलता है', isinstance(vd, dict) and vd['preload'] == 'none' and vd['t'] > 0.3, vd)
