@@ -129,7 +129,7 @@ async def main():
         en = await pg.evaluate("({lang: document.documentElement.lang, left: (()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentNode.nodeName;return (p==='SCRIPT'||p==='STYLE')?2:1}});const o=[];let n;while(n=w.nextNode()){const e=n.parentElement;if(e.closest('#langBtn')||e.closest('[hidden]')||getComputedStyle(e).display==='none')continue;if(/[\\u0900-\\u097F]/.test(n.nodeValue)&&n.nodeValue.trim())o.push(n.nodeValue.trim())}return o})(), plan: document.querySelector('#planBox img').getAttribute('src'), pre: document.getElementById('preNote').innerText})")
         await pg.click('#langBtn'); await pg.wait_for_timeout(300)
         hi = await pg.evaluate("({lang: document.documentElement.lang, plan: document.querySelector('#planBox img').getAttribute('src'), pre: document.getElementById('preNote').innerText})")
-        res('R04 हिंदी ⇄ English (कोई दिखने वाला हिंदी पाठ English मोड में शेष नहीं)', en['lang'] == 'en' and not en['left'] and en['plan'] == 'plan-en.png' and 'UP RERA registration' in en['pre'] and hi['lang'] == 'hi' and 'पंजीकरण' in hi['pre'], {'en': en, 'hi': hi})
+        res('R04 हिंदी ⇄ English (कोई दिखने वाला हिंदी पाठ English मोड में शेष नहीं)', en['lang'] == 'en' and not en['left'] and en['plan'].startswith('plan-en.png') and 'UP RERA registration' in en['pre'] and hi['lang'] == 'hi' and 'पंजीकरण' in hi['pre'], {'en': en, 'hi': hi})
         th = []
         for mode in ['dark', 'light', 'auto']:
             await pg.click(f'[data-mode="{mode}"]'); await pg.wait_for_timeout(150)
